@@ -12,13 +12,16 @@ export function LoginPage() {
         password: '',
     };
     const onSubmit = (values) => {
-        auth.signInWithEmailAndPassword(values.email, values.password);
+        auth.signInWithEmailAndPassword(values.email, values.password).then(val =>
+            val.user.uid);
     };
     const formik = useFormik({ initialValues, onSubmit })
 
     return <div>
         <form onSubmit={formik.handleSubmit} >
             <Typography>Sign in</Typography>
+            <TextField id="name" name="name" type="text" label="Ваше имя" onChange={formik.handleChange}
+                value={formik.values.email} variant="outlined" />
             <TextField id="email" name="email" type="email" label="email" onChange={formik.handleChange}
                 value={formik.values.email} variant="outlined" />
             <TextField id="password" name="password" type="password" label="password" onChange={formik.handleChange}

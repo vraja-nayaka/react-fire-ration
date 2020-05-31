@@ -1,0 +1,28 @@
+[debug] [2020-05-30T10:57:07.406Z] ----------------------------------------------------------------------
+[debug] [2020-05-30T10:57:07.415Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Полина\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2020-05-30T10:57:07.416Z] CLI Version:   8.4.1
+[debug] [2020-05-30T10:57:07.417Z] Platform:      win32
+[debug] [2020-05-30T10:57:07.417Z] Node Version:  v10.16.3
+[debug] [2020-05-30T10:57:07.420Z] Time:          Sat May 30 2020 20:57:07 GMT+1000 (GMT+10:00)
+[debug] [2020-05-30T10:57:07.420Z] ----------------------------------------------------------------------
+[debug] [2020-05-30T10:57:07.421Z] 
+[debug] [2020-05-30T10:57:07.457Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-05-30T10:57:07.459Z] > authorizing via signed-in user
+[debug] [2020-05-30T10:57:07.460Z] [iam] checking project ration-base for permissions ["firebase.projects.get"]
+[debug] [2020-05-30T10:57:07.473Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/ration-base:testIamPermissions  
+ {"permissions":["firebase.projects.get"]}
+[debug] [2020-05-30T10:57:08.855Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 30 May 2020 10:57:07 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","server-timing":"gfet4t7; dur=784","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2020-05-30T10:57:08.860Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/ration-base  
+ 
+[debug] [2020-05-30T10:57:09.472Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 30 May 2020 10:57:08 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] 
+[info] === Serving from 'C:\Users\Полина\Git_projects\react-fire-ration'...
+[info] 
+[debug] [2020-05-30T10:57:09.588Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/ration-base/webApps/-/config  
+ 
+[debug] [2020-05-30T10:57:10.641Z] <<< HTTP RESPONSE 200 {"content-type":"application/json; charset=UTF-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","date":"Sat, 30 May 2020 10:57:09 GMT","server":"ESF","cache-control":"private","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3-27=\":443\"; ma=2592000,h3-25=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q049=\":443\"; ma=2592000,h3-Q048=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[info] i  hosting: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] +  hosting: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: 127.0.0.1 - - [30/May/2020:10:57:14 +0000] "GET / HTTP/1.1" 200 1721 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [30/May/2020:10:57:14 +0000] \"GET / HTTP/1.1\" 200 1721 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0\""}}
+[info] i  hosting: 127.0.0.1 - - [30/May/2020:10:57:27 +0000] "GET /%PUBLIC_URL%/logo192.png HTTP/1.1" - - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [30/May/2020:10:57:27 +0000] \"GET /%PUBLIC_URL%/logo192.png HTTP/1.1\" - - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0\""}}
+[info] i  hosting: 127.0.0.1 - - [30/May/2020:10:57:27 +0000] "GET /%PUBLIC_URL%/favicon.ico HTTP/1.1" - - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [30/May/2020:10:57:27 +0000] \"GET /%PUBLIC_URL%/favicon.ico HTTP/1.1\" - - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:76.0) Gecko/20100101 Firefox/76.0\""}}

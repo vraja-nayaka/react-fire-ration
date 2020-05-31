@@ -2,64 +2,82 @@ import {
   useFirestoreDocData,
   useUser,
   useFirestore,
+  SuspenseWithPerf,
 } from 'reactfire';
 import React from 'react';
 import { Box, Grid, Typography } from '@material-ui/core';
 import StatsValues from './components/StatsValues';
-import AddHabbit from './components/AddHabbit';
+import AddHabit from './components/AddHabit';
 import ProfileCard from './components/ProfileCard';
 import FixingProbability from './components/FixingProbability';
+import Habits from './Habits';
+import EditProfileDialog from './components/EditProfile';
+import { IProfile } from './components/typings';
+import { useSnackbar } from 'notistack';
 
 const DEFAULT_IMAGE_PATH = 'userPhotos/default.jpg';
 
-export function ProfilePage() {
-  // get the current user.
-  // this is safe because we've wrapped this component in an `AuthCheck` component.
+const ProfilePage = () => {
+  const [isOpenEdit, setIsOpenEdit] = React.useState<boolean>(false);
+  const { enqueueSnackbar } = useSnackbar();
+
   const user: any = useUser();
   const userDetailsRef = useFirestore()
     .collection('users')
     .doc(user.uid);
-  let { name, avatar, habbits, experience } = useFirestoreDocData(
-    userDetailsRef
-  );
+  const { name = '', avatar = DEFAULT_IMAGE_PATH, experience = 0 } = useFirestoreDocData(userDetailsRef );
 
-  // defend against null field(s)
-  avatar = avatar || DEFAULT_IMAGE_PATH;
-  experience = experience || 0;
-  
-  if (!name || !avatar) {
-    throw new Error('MissingProfileInfoError');
+  // const HabitsRef = useFirestore()
+  //   .collection('habits')
+  //   .doc(user.uid);
+  // const { habits = [] } = useFirestoreDocData(HabitsRef);
+
+
+  const editProfile = (data: Partial<IProfile>) => userDetailsRef.set(data, { merge: true })
+    .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))
+    .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
+
+  if (!name) {
+    setIsOpenEdit(true);
   }
-  const [summ, average, inSuccession] = [22, 2, 1];
-  
-  return (
-    <Grid container>
-      <Grid item xs={3}>
-        <ProfileCard  name={name} avatar={avatar} experience={experience}/>
-      </Grid>
-      <Grid item xs={3}>
 
+  const [summ, average, inSuccession] = [22, 2, 1];
+
+  console.log({ name, avatar, experience});
+
+  return (
+    <>
+      <Grid container>
+        <Grid item xs={3}>
+          <ProfileCard name={name} avatar={avatar} experience={experience} setIsOpenEdit={setIsOpenEdit}/>
+        </Grid>
+        <Grid item xs={3}>
+
+        </Grid>
+        <Grid item xs={3}>
+          menu
       </Grid>
-      <Grid item xs={3}>
-        menu
+        <Grid item xs={8}>
+          {/* <Habits habits={habits} /> */}
+        </Grid>
+        <Grid item xs={4}>
+          <StatsValues summ={summ} average={average} inSuccession={inSuccession} />
+        </Grid>
+        <Grid item xs={4}>
+          Сферы
       </Grid>
-      <Grid item xs={8}>
-        Graph
+        <Grid item xs={4}>
+          <AddHabit />
+        </Grid>
+        <Grid item xs={4}>
+          <FixingProbability probability={20} />
+        </Grid>
       </Grid>
-      <Grid item xs={4}>
-        <StatsValues summ={summ} average={average} inSuccession={inSuccession}/>
-      </Grid>
-      <Grid item xs={4}>
-        Сферы
-      </Grid>
-      <Grid item xs={4}>
-        <AddHabbit />
-      </Grid>
-      <Grid item xs={4}>
-        <FixingProbability probability={20}/>
-      </Grid>
-    </Grid>
+      <EditProfileDialog isOpen={isOpenEdit} setIsOpen={setIsOpenEdit} name={name} avatar={avatar} editProfile={editProfile} />
+    </>
   );
 }
 
+const ProfilePageContainer = () => <SuspenseWithPerf fallback={'loading profile...'} traceId={'load-profile'}><ProfilePage /></SuspenseWithPerf>
 
+export default ProfilePageContainer;

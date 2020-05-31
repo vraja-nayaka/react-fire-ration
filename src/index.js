@@ -5,17 +5,20 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { FirebaseAppProvider, SuspenseWithPerf } from 'reactfire';
 import { firebaseConfig } from './config';
+import { SnackbarProvider } from 'notistack';
 
 ReactDOM.render(
   <React.StrictMode>
-    <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-      <SuspenseWithPerf
-        fallback={'trying to connect to firebase...'}
-        traceId={'connecting-to-firebase'}
-      >
-        <App />
-      </SuspenseWithPerf>
-    </FirebaseAppProvider>
+    <SnackbarProvider maxSnack={3}>
+      <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+        <SuspenseWithPerf
+          fallback={'trying to connect to firebase...'}
+          traceId={'connecting-to-firebase'}
+        >
+          <App />
+        </SuspenseWithPerf>
+      </FirebaseAppProvider>
+    </SnackbarProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

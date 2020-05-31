@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { ProfilePage } from './features/profile';
+import ProfilePage from './features/profile';
 import { Collections } from './features/collections';
 import { HomePage } from './features/home';
 import { LoginPage, CreateUserPage } from './features/login';
@@ -26,7 +26,7 @@ function App() {
             <Route exact path="/profile" component={ProfilePage} />
             <Route exact path="/collections" component={Collections} />
           </AuthCheck>
-          <Route component={<NotFoundPage />} />
+          <Route component={NotFoundPage} />
         </Switch>
         <MyPageViewLogger location={history.location} />
       </Router>

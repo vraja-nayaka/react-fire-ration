@@ -1,8 +1,11 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { Button, Box } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
+import { useAuth } from 'reactfire';
+
 
 export function Navbar(props) {
+    const auth = useAuth();
 
     return (<Box>
         <Button onClick={() => auth.signOut()}>Logout</Button>

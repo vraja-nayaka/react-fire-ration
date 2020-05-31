@@ -1,5 +1,6 @@
 import React from 'react';
-import { Badge, Box, Grid, Typography, Avatar, LinearProgress, Paper } from '@material-ui/core';
+import { Badge, Box, Grid, Typography, Avatar, LinearProgress, Paper, IconButton } from '@material-ui/core';
+// import EditIcon from '@material-ui/icons/Edit';
 import { withStyles, lighten } from '@material-ui/core/styles';
 
 interface ProfileCardProps {
@@ -7,6 +8,7 @@ interface ProfileCardProps {
     avatar: string;
     profileImagePath?: string;
     experience: number;
+    setIsOpenEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const StyledBadge = withStyles((theme) => ({
@@ -50,7 +52,7 @@ const BorderLinearProgress = withStyles({
 })(LinearProgress);
 
 const ProfileCard = (props: ProfileCardProps) => {
-    const { name, avatar, profileImagePath, experience } = props;
+    const { name, avatar, profileImagePath, experience, setIsOpenEdit } = props;
 
     return (
         <Paper>
@@ -68,11 +70,14 @@ const ProfileCard = (props: ProfileCardProps) => {
                     </StyledBadge>
                 </Box>
                 <Box flexDirection="colum">
+                    <IconButton onClick={() => setIsOpenEdit(true)}>
+                        Редактировать
+                    </IconButton>
                     <Box>
                         <Typography variant="h5">{name}</Typography>
                     </Box>
                     <Box>
-                        <Typography variant="h5">Опыт: {experience} / 80</Typography>
+                        <Typography variant="inherit">Опыт: {experience} / 80</Typography>
                     </Box>
                     <Box>
                         <BorderLinearProgress
