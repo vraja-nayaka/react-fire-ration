@@ -8,7 +8,7 @@ export function MyPageViewLogger({ location }) {
     // we only log on first render and when the `pathname` changes
     React.useEffect(() => {
       analytics.logEvent('page-view', { path_name: location.pathname });
-    }, [location.pathname]);
+    }, [location.pathname, analytics]);
   
     return null;
   }

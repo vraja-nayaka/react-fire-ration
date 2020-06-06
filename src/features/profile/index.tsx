@@ -5,12 +5,12 @@ import {
   SuspenseWithPerf,
 } from 'reactfire';
 import React from 'react';
-import { Box, Grid, Typography } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import StatsValues from './components/StatsValues';
 import AddHabit from './components/AddHabit';
 import ProfileCard from './components/ProfileCard';
 import FixingProbability from './components/FixingProbability';
-import Habits from './Habits';
+// import Habits from './Habits';
 import EditProfileDialog from './components/EditProfile';
 import { IProfile } from './components/typings';
 import { useSnackbar } from 'notistack';
@@ -54,9 +54,6 @@ const ProfilePage = () => {
         <Grid item xs={3}>
 
         </Grid>
-        <Grid item xs={3}>
-          menu
-      </Grid>
         <Grid item xs={8}>
           {/* <Habits habits={habits} /> */}
         </Grid>

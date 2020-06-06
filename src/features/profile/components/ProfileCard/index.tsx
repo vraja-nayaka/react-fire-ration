@@ -1,12 +1,11 @@
 import React from 'react';
-import { Badge, Box, Grid, Typography, Avatar, LinearProgress, Paper, IconButton } from '@material-ui/core';
+import { Badge, Box, Typography, Avatar, LinearProgress, Paper, IconButton } from '@material-ui/core';
 // import EditIcon from '@material-ui/icons/Edit';
 import { withStyles, lighten } from '@material-ui/core/styles';
 
 interface ProfileCardProps {
     name: string;
     avatar: string;
-    profileImagePath?: string;
     experience: number;
     setIsOpenEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -52,7 +51,7 @@ const BorderLinearProgress = withStyles({
 })(LinearProgress);
 
 const ProfileCard = (props: ProfileCardProps) => {
-    const { name, avatar, profileImagePath, experience, setIsOpenEdit } = props;
+    const { name, avatar, experience, setIsOpenEdit } = props;
 
     return (
         <Paper>

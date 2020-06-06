@@ -1,15 +1,11 @@
 import React from 'react';
-import { useFirestoreDocData, useFirestore, useUser } from 'reactfire';
+import { useFirestoreDocData, useFirestore } from 'reactfire';
 
 export function Collections() {
     // lazy load the Firestore SDK and create a document reference
     const burritoRef = useFirestore()
       .collection('tryreactfire')
       .doc('burrito');
-  
-    const documentReference = useFirestore()
-      .collection('burritos')
-      .doc('vegetarian');
   
     // subscribe to the doc. just one line!
     const burrito = useFirestoreDocData(burritoRef);

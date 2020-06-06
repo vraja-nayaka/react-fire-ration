@@ -6,19 +6,23 @@ import * as serviceWorker from './serviceWorker';
 import { FirebaseAppProvider, SuspenseWithPerf } from 'reactfire';
 import { firebaseConfig } from './config';
 import { SnackbarProvider } from 'notistack';
+import { ThemeProvider } from '@material-ui/core';
+import { theme } from './theme';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SnackbarProvider maxSnack={3}>
-      <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-        <SuspenseWithPerf
-          fallback={'trying to connect to firebase...'}
-          traceId={'connecting-to-firebase'}
-        >
-          <App />
-        </SuspenseWithPerf>
-      </FirebaseAppProvider>
-    </SnackbarProvider>
+    <ThemeProvider theme={theme}>
+      <SnackbarProvider maxSnack={3}>
+        <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+          <SuspenseWithPerf
+            fallback={'trying to connect to firebase...'}
+            traceId={'connecting-to-firebase'}
+          >
+            <App />
+          </SuspenseWithPerf>
+        </FirebaseAppProvider>
+      </SnackbarProvider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
