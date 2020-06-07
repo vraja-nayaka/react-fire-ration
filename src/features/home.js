@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function HomePage(props) {
+export function HomePage() {
   // no need to use useFirebaseApp - useUser calls it under the hood
 
 

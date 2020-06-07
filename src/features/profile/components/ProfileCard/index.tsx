@@ -1,7 +1,8 @@
 import React from 'react';
 import { Badge, Box, Typography, Avatar, LinearProgress, Paper, IconButton } from '@material-ui/core';
-// import EditIcon from '@material-ui/icons/Edit';
 import { withStyles, lighten } from '@material-ui/core/styles';
+import { theme } from '../../../../theme';
+import EditIcon from '@material-ui/icons/Edit';
 
 interface ProfileCardProps {
     name: string;
@@ -42,11 +43,11 @@ const StyledBadge = withStyles((theme) => ({
 const BorderLinearProgress = withStyles({
     root: {
         height: 10,
-        backgroundColor: lighten('#ff6c5c', 0.5),
+        backgroundColor: lighten(theme.palette.primary.main, 0.5),
     },
     bar: {
         borderRadius: 20,
-        backgroundColor: '#ff6c5c',
+        backgroundColor: theme.palette.primary.main,
     },
 })(LinearProgress);
 
@@ -55,7 +56,7 @@ const ProfileCard = (props: ProfileCardProps) => {
 
     return (
         <Paper>
-            <Box alignItems="center" justifyItems="center">
+            <Box display="flex" flexDirection="column" alignItems="center" justifyItems="center" padding={2}>
                 <Box>
                     <StyledBadge
                         overlap="circle"
@@ -67,25 +68,19 @@ const ProfileCard = (props: ProfileCardProps) => {
                     >
                         <Avatar alt="avatar" src={avatar} />
                     </StyledBadge>
-                </Box>
-                <Box flexDirection="colum">
-                    <IconButton onClick={() => setIsOpenEdit(true)}>
-                        Редактировать
-                    </IconButton>
                     <Box>
                         <Typography variant="h5">{name}</Typography>
                     </Box>
-                    <Box>
-                        <Typography variant="inherit">Опыт: {experience} / 80</Typography>
-                    </Box>
-                    <Box>
-                        <BorderLinearProgress
-                            variant="determinate"
-                            color="secondary"
-                            value={experience / 80}
-                        />
-                    </Box>
+                    <IconButton onClick={() => setIsOpenEdit(true)}>
+                        <EditIcon />
+                    </IconButton>
                 </Box>
+                <Typography variant="inherit">Опыт: {experience} / 80</Typography>
+                <BorderLinearProgress
+                    variant="determinate"
+                    color="secondary"
+                    value={experience / 80}
+                />
             </Box>
         </Paper>
     );

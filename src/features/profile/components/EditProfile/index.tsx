@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, Box, Button, Dialog, TextField, Paper } from '@material-ui/core';
+import { Typography, Box, Button, Dialog, TextField } from '@material-ui/core';
 import { useFormik } from 'formik';
 import { IProfile } from '../typings';
 
@@ -23,36 +23,31 @@ const EditProfileDialog = (props: EditProfileDialogProps) => {
 
     const onSubmit = (values: Values) => {
         editProfile({ name: values.name });
+        handleBlur();
     };
 
     const handleBlur = (name === '') ? () => false : () => setIsOpen(false);
     const formik = useFormik({ initialValues, onSubmit })
-
+    console.log(formik.isValid, formik.dirty)
     return (
-        <Dialog open={isOpen} onClick={handleBlur}>
-            <Box padding={5}>
-                <Grid container>
-                    <Grid item xs={12}>
-                        <Typography>Изменение информации профиля</Typography>
-                        {
-                            name === '' &&
-                            <>
-                                <Typography variant="h6">Давайте знакомится!</Typography>
-                                <Typography variant="inherit">Для продолжения укажите имя, под которым вас будут знать друзья</Typography>
-                            </>
-                        }
-                    </Grid>
-                </Grid>
-                <Paper>
-                    <form onSubmit={formik.handleSubmit}>
-                        <TextField id="name" name="name" type="text" label="Ваше имя" onChange={formik.handleChange}
-                            value={formik.values.name} variant="outlined" />
-                        <Button type="submit" color="primary" variant="contained" disabled={formik.isValid && formik.dirty}>
-                            Сохранить
-                        </Button>
-                    </form>
-                </Paper>
-            </Box>
+        <Dialog open={isOpen} onClose={handleBlur}>
+            <form onSubmit={formik.handleSubmit}>
+                <Box display="flex" padding={3} flexDirection="column" justifyContent="space-between" alignItems="center" minHeight="200px">
+                    <Typography>Изменение информации профиля</Typography>
+                    {
+                        name === '' &&
+                        <>
+                            <Typography variant="h6">Давайте знакомится!</Typography>
+                            <Typography variant="inherit">Для продолжения укажите имя, под которым вас будут знать друзья</Typography>
+                        </>
+                    }
+                    <TextField id="name" name="name" type="text" label="Ваше имя" onChange={formik.handleChange}
+                        value={formik.values.name} variant="outlined" />
+                    <Button type="submit" color="primary" variant="contained" disabled={!(formik.isValid && formik.dirty)}>
+                        Сохранить
+                    </Button>
+                </Box>
+            </form>
         </Dialog>
     )
 };

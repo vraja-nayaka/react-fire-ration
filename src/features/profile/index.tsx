@@ -25,13 +25,12 @@ const ProfilePage = () => {
   const userDetailsRef = useFirestore()
     .collection('users')
     .doc(user.uid);
-  const { name = '', avatar = DEFAULT_IMAGE_PATH, experience = 0 } = useFirestoreDocData(userDetailsRef );
+  const { name = '', avatar = DEFAULT_IMAGE_PATH, experience = 0 } = useFirestoreDocData(userDetailsRef);
 
   // const HabitsRef = useFirestore()
   //   .collection('habits')
   //   .doc(user.uid);
   // const { habits = [] } = useFirestoreDocData(HabitsRef);
-
 
   const editProfile = (data: Partial<IProfile>) => userDetailsRef.set(data, { merge: true })
     .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))

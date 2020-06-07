@@ -33,17 +33,15 @@ const AddHabit = (props: AddHabitProps) => {
                 </Grid>
             </Grid>
             <Dialog open={isOpen} onBlur={() => setIsOpen(false)}>
-                <Box padding={5}>
-                    <Paper>
-                        <form onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit}>
+                    <Box padding={5}>
                             <TextField id="name" name="name" type="text" label="Название" onChange={formik.handleChange}
                                 value={formik.values.name} variant="outlined" />
                             <Button type="submit" color="primary" variant="contained" disabled={formik.isValid && formik.dirty}>
                                 Добавить
                             </Button>
-                        </form>
-                    </Paper>
-                </Box>
+                    </Box>
+                </form>
             </Dialog>
         </>
     )

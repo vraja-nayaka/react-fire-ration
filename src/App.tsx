@@ -3,15 +3,16 @@ import './App.css';
 import ProfilePage from './features/profile';
 import { Collections } from './features/collections';
 import { HomePage } from './features/home';
-import { LoginPage, CreateUserPage } from './features/login';
+import { LoginPage } from './features/loginization/login';
 import { AuthCheck } from 'reactfire';
 import { NotFoundPage } from './features/notFound';
 import { MyPageViewLogger } from './features/viewLogger';
 import { Router, Route, Switch } from 'react-router';
 import { createBrowserHistory } from 'history'
 import { Navbar } from './features/navbar';
-import { Grid, Container, CssBaseline, Typography, Box } from '@material-ui/core';
+import { Grid, Container, CssBaseline, Box } from '@material-ui/core';
 import Header from './features/header';
+import { CreateUserPage } from './features/loginization/signup';
 
 function App() {
   const history = createBrowserHistory();
@@ -25,20 +26,22 @@ function App() {
             <Grid item xs={12}>
               <Header />
             </Grid>
-            <Grid item>
+            <Grid item xs={12} md={2}>
               <Navbar />
             </Grid>
-            <Grid item>
-              <Switch>
-                <Route exact path="/" component={HomePage} />
-                <Route exact path="/signup" component={CreateUserPage} />
-                <Route exact path="/login" component={LoginPage} />
-                <AuthCheck fallback={<LoginPage />}>
-                  <Route exact path="/profile" component={ProfilePage} />
-                  <Route exact path="/collections" component={Collections} />
-                </AuthCheck>
-                <Route component={NotFoundPage} />
-              </Switch>
+            <Grid item xs={12} md={10}>
+              <Box minHeight="85vh">
+                <Switch>
+                  <Route exact path="/" component={HomePage} />
+                  <Route exact path="/signup" component={CreateUserPage} />
+                  <Route exact path="/login" component={LoginPage} />
+                  <AuthCheck fallback={<LoginPage />}>
+                    <Route exact path="/profile" component={ProfilePage} />
+                    <Route exact path="/collections" component={Collections} />
+                  </AuthCheck>
+                  <Route component={NotFoundPage} />
+                </Switch>
+              </Box>
             </Grid>
             <MyPageViewLogger location={history.location} />
           </Grid>
