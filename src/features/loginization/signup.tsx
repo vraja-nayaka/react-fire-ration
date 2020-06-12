@@ -1,9 +1,10 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import { Button, Typography, Grid, Paper, Box, Dialog } from '@material-ui/core';
+import { Button, Typography, Paper, Box } from '@material-ui/core';
 import { useAuth } from 'reactfire';
 import { useFormik } from 'formik';
 import { NavLink } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 interface ISignupForm {
     email: string;
@@ -17,20 +18,17 @@ const initialValues = {
 
 export function CreateUserPage() {
     const auth = useAuth();
-
-    const [isSuccess, setIsSuccess] = React.useState(false);
-    const [isError, setIsError] = React.useState(false);
+    const { enqueueSnackbar } = useSnackbar();
 
     const onSubmit = (values: ISignupForm) => {
-        auth.createUserWithEmailAndPassword(values.email, values.password).then(values =>
-            values.user ? setIsSuccess(true) : setIsError(true)
-        );
+        auth.createUserWithEmailAndPassword(values.email, values.password)    
+        .then(() => enqueueSnackbar('Регистрация прошла успешно', { variant: 'success' }))
+        .catch((error) => enqueueSnackbar('Произошла ошибка при регистрации: ' + error, { variant: 'error' }));
     };
 
     const formik = useFormik({ initialValues, onSubmit });
 
     return (
-        <>
             <Box marginTop={5} width="350px">
                 <Paper>
                     <form onSubmit={formik.handleSubmit} >
@@ -46,9 +44,5 @@ export function CreateUserPage() {
                     </form>
                 </Paper>
             </Box>
-            <Dialog open={isSuccess}>
-                <Typography variant="body1">Регистрация прошла успешно</Typography>
-            </Dialog>
-        </>
     );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Box, makeStyles, Theme, createStyles, Divider, IconButton, Avatar, Typography, Paper } from '@material-ui/core';
+import { Grid, Box, makeStyles, Theme, createStyles, IconButton, Avatar, Typography, Paper } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';

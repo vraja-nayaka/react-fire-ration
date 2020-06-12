@@ -28,7 +28,7 @@ const EditProfileDialog = (props: EditProfileDialogProps) => {
 
     const handleBlur = (name === '') ? () => false : () => setIsOpen(false);
     const formik = useFormik({ initialValues, onSubmit })
-    console.log(formik.isValid, formik.dirty)
+
     return (
         <Dialog open={isOpen} onClose={handleBlur}>
             <form onSubmit={formik.handleSubmit}>

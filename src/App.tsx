@@ -30,7 +30,7 @@ function App() {
               <Navbar />
             </Grid>
             <Grid item xs={12} md={10}>
-              <Box minHeight="85vh">
+              <Box minHeight="85vh" bgcolor="#CCC" display="flex" alignItems="center" justifyContent="center">
                 <Switch>
                   <Route exact path="/" component={HomePage} />
                   <Route exact path="/signup" component={CreateUserPage} />

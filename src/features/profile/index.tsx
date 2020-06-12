@@ -12,7 +12,7 @@ import ProfileCard from './components/ProfileCard';
 import FixingProbability from './components/FixingProbability';
 // import Habits from './Habits';
 import EditProfileDialog from './components/EditProfile';
-import { IProfile } from './components/typings';
+import { IProfile, IHabit } from './components/typings';
 import { useSnackbar } from 'notistack';
 
 const DEFAULT_IMAGE_PATH = 'userPhotos/default.jpg';
@@ -25,14 +25,18 @@ const ProfilePage = () => {
   const userDetailsRef = useFirestore()
     .collection('users')
     .doc(user.uid);
+  const habitsRef = useFirestore()
+    .collection('habits');
+
   const { name = '', avatar = DEFAULT_IMAGE_PATH, experience = 0 } = useFirestoreDocData(userDetailsRef);
 
-  // const HabitsRef = useFirestore()
-  //   .collection('habits')
-  //   .doc(user.uid);
   // const { habits = [] } = useFirestoreDocData(HabitsRef);
 
   const editProfile = (data: Partial<IProfile>) => userDetailsRef.set(data, { merge: true })
+    .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))
+    .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
+
+  const addHabit = (data: IHabit) => habitsRef.add({...data, userId: user.uid})
     .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))
     .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
 
@@ -63,7 +67,7 @@ const ProfilePage = () => {
           Сферы
       </Grid>
         <Grid item xs={4}>
-          <AddHabit />
+          <AddHabit addHabit={addHabit}/>
         </Grid>
         <Grid item xs={4}>
           <FixingProbability probability={20} />
