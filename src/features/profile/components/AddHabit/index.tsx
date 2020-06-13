@@ -1,17 +1,17 @@
 import React from 'react';
 import { Grid, Typography, Box, Button, Dialog, TextField } from '@material-ui/core';
 import { useFormik } from 'formik';
-import { IHabit } from '../typings';
+import { IHabit } from '../../typings';
 
 interface AddHabitProps {
-    addHabit: (data: IHabit) => Promise<React.ReactText>;
+    addHabit: (data: IHabit<Date>) => Promise<React.ReactText>;
 }
 
 const AddHabit = (props: AddHabitProps) => {
     const { addHabit } = props;
     const [isOpen, setIsOpen] = React.useState(false);
 
-    const initialValues: IHabit = {
+    const initialValues: IHabit<Date> = {
         name: '',
         startAt: new Date(),
         success: [{
@@ -19,7 +19,7 @@ const AddHabit = (props: AddHabitProps) => {
         }],
     };
 
-    const onSubmit = (values: IHabit) => {
+    const onSubmit = (values: IHabit<Date>) => {
         addHabit({ ...values });
         setIsOpen(false);
     };
