@@ -9,12 +9,24 @@ interface SuccessCardProps {
 
 const SuccessCard = (props: SuccessCardProps) => {
     const { habit } = props;
-    console.log({ habit })
+    const success = habit.success;
+    const lastDate = new Date(success[success.length - 1].day.seconds * 1000);
+    const difference = moment().diff(moment(lastDate), 'days');
+    for (let i = 1; i <= difference; i++) {
+        success.push({
+            day: {
+                seconds: moment(lastDate).add(i, 'day').unix(),
+                nanoseconds: 0
+            },
+            count: 0,
+        });
+    }
+
     return (
         <Paper>
             <Typography>Прогресс</Typography>
-            <Box display="flex">
-                <Box>
+            <Box display="flex" >
+                <Box padding={1}>
                     <Box>
                         <Typography variant="body1">Дата</Typography>
                     </Box>
@@ -23,20 +35,20 @@ const SuccessCard = (props: SuccessCardProps) => {
                     </Box>
                 </Box>
                 {
-                    habit.success.map(data => (
-                        <Box>
+                    success.map(data => (
+                        <Box padding={1}>
                             <Box>
-                                <Typography variant="body2">{data ? moment(data.day.seconds*1000).format('DD.MM') : 'Дата'}</Typography>
+                                <Typography variant="body2">{data ? moment(data.day.seconds * 1000).format('DD.MM') : 'Дата'}</Typography>
                             </Box>
                             <Box>
-                                <Typography variant="body2">{data.count ? data.count : '+'}</Typography>
+                                <Typography variant="body2">{data.count ? data.count : '+ add'}</Typography>
                             </Box>
                         </Box>
                     ))
                 }
             </Box>
         </Paper>
-    )
+    );
 };
 
 export default SuccessCard;
