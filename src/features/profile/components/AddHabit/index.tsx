@@ -17,6 +17,7 @@ const AddHabit = (props: AddHabitProps) => {
         success: [{
             day: new Date(),
         }],
+        status: 'active',
     };
 
     const onSubmit = (values: IHabit<Date>) => {

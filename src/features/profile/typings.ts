@@ -10,6 +10,7 @@ export interface IHabit<P> {
     startAt: P;
     expiredAt?: P;
     success: Array<{ day: P, count?: number }>;
+    status: 'active' | 'archive';
 }
 
 export interface ITime {

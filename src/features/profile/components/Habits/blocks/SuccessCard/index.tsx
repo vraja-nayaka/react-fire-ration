@@ -1,14 +1,16 @@
 import React from 'react';
 import moment from 'moment';
-import { Typography, Paper, Box } from '@material-ui/core';
+import { Typography, Paper, Box, TextField } from '@material-ui/core';
 import { IHabit, ITime } from '../../../../typings';
+import { useFormik } from 'formik';
 
 interface SuccessCardProps {
     habit: IHabit<ITime>;
+    editHabit: (data: IHabit<Date>) => void;
 }
 
 const SuccessCard = (props: SuccessCardProps) => {
-    const { habit } = props;
+    const { habit, editHabit } = props;
     const success = habit.success;
     const lastDate = new Date(success[success.length - 1].day.seconds * 1000);
     const difference = moment().diff(moment(lastDate), 'days');
@@ -21,6 +23,14 @@ const SuccessCard = (props: SuccessCardProps) => {
             count: 0,
         });
     }
+
+    const initialValues = habit;
+    
+    const onSubmit = (values: IHabit<Date>) => {
+        editHabit({ ...values });
+    };
+    
+    // const formik = useFormik({ initialValues, onSubmit })
 
     return (
         <Paper>
@@ -35,13 +45,15 @@ const SuccessCard = (props: SuccessCardProps) => {
                     </Box>
                 </Box>
                 {
-                    success.map(data => (
-                        <Box padding={1}>
+                    success.map((data, index) => (
+                        <Box padding={1} width="60px">
                             <Box>
                                 <Typography variant="body2">{data ? moment(data.day.seconds * 1000).format('DD.MM') : 'Дата'}</Typography>
                             </Box>
                             <Box>
-                                <Typography variant="body2">{data.count ? data.count : '+ add'}</Typography>
+                                <TextField
+                                    id={String(index)}
+                                />
                             </Box>
                         </Box>
                     ))

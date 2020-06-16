@@ -3,12 +3,14 @@ import { Grid, Typography, Paper } from '@material-ui/core';
 import { IHabit, ITime } from '../../typings';
 import SuccessCard from './blocks/SuccessCard';
 
+
 interface HabitsProps {
     habits: IHabit<ITime>[];
+    editHabit: (data: IHabit<Date>) => void;
 }
 
 const Habits = (props: HabitsProps) => {
-    const { habits } = props;
+    const { habits, editHabit } = props;
 
     return (
         <Paper>
@@ -21,7 +23,7 @@ const Habits = (props: HabitsProps) => {
                                 <Typography variant="h5">{habit.name}</Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                <SuccessCard habit={habit}/>
+                                <SuccessCard habit={habit} editHabit={editHabit}/>
                             </Grid>
                         </Grid>
                     ))

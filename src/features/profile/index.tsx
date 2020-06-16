@@ -41,6 +41,10 @@ const ProfilePage = () => {
     .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))
     .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
 
+  const editHabit = (data: IHabit<Date>) => habitsRef.doc(user.uid).set(data, { merge: true })
+    .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))
+    .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
+
   if (!name) {
     setIsOpenEdit(true);
   }
@@ -59,7 +63,7 @@ const ProfilePage = () => {
 
         </Grid>
         <Grid item xs={8}>
-          <Habits habits={habits} />
+          <Habits habits={habits} editHabit={editHabit} />
         </Grid>
         <Grid item xs={4}>
           <StatsValues summ={summ} average={average} inSuccession={inSuccession} />
