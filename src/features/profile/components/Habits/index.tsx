@@ -1,12 +1,12 @@
 import React from 'react';
 import { Grid, Typography, Paper } from '@material-ui/core';
-import { IHabit, ITime } from '../../typings';
+import { IHabit } from '../../typings';
 import SuccessCard from './blocks/SuccessCard';
 
 
 interface HabitsProps {
-    habits: IHabit<ITime>[];
-    editHabit: (data: IHabit<Date>) => void;
+    habits: IHabit[];
+    editHabit: (data: IHabit) => void;
 }
 
 const Habits = (props: HabitsProps) => {

@@ -5,15 +5,17 @@ export interface IProfile {
     experience: number;
 }
 
-export interface IHabit<P> {
-    name: string;
-    startAt: P;
-    expiredAt?: P;
-    success: Array<{ day: P, count?: number }>;
-    status: 'active' | 'archive';
+export type Timestamp = number;
+
+export interface ISuccess {
+    day: Timestamp;
+    count?: number;
 }
 
-export interface ITime {
-    nanoseconds: number;
-    seconds: number;
+export interface IHabit {
+    name: string;
+    startAt: Timestamp;
+    expiredAt?: Timestamp;
+    success: ISuccess[];
+    status: 'active' | 'archive';
 }

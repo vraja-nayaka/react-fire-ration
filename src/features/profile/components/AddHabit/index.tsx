@@ -4,23 +4,23 @@ import { useFormik } from 'formik';
 import { IHabit } from '../../typings';
 
 interface AddHabitProps {
-    addHabit: (data: IHabit<Date>) => Promise<React.ReactText>;
+    addHabit: (data: IHabit) => Promise<React.ReactText>;
 }
 
 const AddHabit = (props: AddHabitProps) => {
     const { addHabit } = props;
     const [isOpen, setIsOpen] = React.useState(false);
 
-    const initialValues: IHabit<Date> = {
+    const initialValues: IHabit = {
         name: '',
-        startAt: new Date(),
+        startAt: new Date().getTime(),
         success: [{
-            day: new Date(),
+            day: new Date().getTime(),
         }],
         status: 'active',
     };
 
-    const onSubmit = (values: IHabit<Date>) => {
+    const onSubmit = (values: IHabit) => {
         addHabit({ ...values });
         setIsOpen(false);
     };

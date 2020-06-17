@@ -1,36 +1,40 @@
 import React from 'react';
 import moment from 'moment';
 import { Typography, Paper, Box, TextField } from '@material-ui/core';
-import { IHabit, ITime } from '../../../../typings';
+import { IHabit, ISuccess } from '../../../../typings';
 import { useFormik } from 'formik';
 
 interface SuccessCardProps {
-    habit: IHabit<ITime>;
-    editHabit: (data: IHabit<Date>) => void;
+    habit: IHabit;
+    editHabit: (data: IHabit) => void;
 }
 
 const SuccessCard = (props: SuccessCardProps) => {
     const { habit, editHabit } = props;
-    const success = habit.success;
-    const lastDate = new Date(success[success.length - 1].day.seconds * 1000);
+    const success = [] as ISuccess[];
+    const lastDate = habit.success[habit.success.length - 1].day;
     const difference = moment().diff(moment(lastDate), 'days');
-    for (let i = 1; i <= difference; i++) {
+
+    for (let i = 0; i <= difference; i++) {
         success.push({
-            day: {
-                seconds: moment(lastDate).add(i, 'day').unix(),
-                nanoseconds: 0
-            },
+            day: moment(lastDate).add(i, 'day').unix() * 1000,
             count: 0,
         });
     }
 
-    const initialValues = habit;
-    
-    const onSubmit = (values: IHabit<Date>) => {
+    // const initialValues: IHabit<Date> = {...habit, 
+    //     startAt: habit.startAt.toDate(),
+    //     expiredAt: habit.expiredAt ? habit.expiredAt.toDate() : undefined,
+    //     success: [...success, {day: P;
+    // count?: number;
+    //     }]
+    // }
+
+    const onSubmit = (values: IHabit) => {
         editHabit({ ...values });
     };
-    
-    // const formik = useFormik({ initialValues, onSubmit })
+
+    // const formik = useFormik({ initialValues, onSubmit });
 
     return (
         <Paper>
@@ -48,7 +52,7 @@ const SuccessCard = (props: SuccessCardProps) => {
                     success.map((data, index) => (
                         <Box padding={1} width="60px">
                             <Box>
-                                <Typography variant="body2">{data ? moment(data.day.seconds * 1000).format('DD.MM') : 'Дата'}</Typography>
+                                <Typography variant="body2">{data ? moment(data.day).format('DD.MM') : 'Дата'}</Typography>
                             </Box>
                             <Box>
                                 <TextField
