@@ -7,7 +7,7 @@ export const Navbar = () => {
     const auth = useAuth();
 
     return (
-        <Box flex bgcolor='#999' marginRight={4}>
+        <Box display="flex" bgcolor='#999' marginRight={4}>
             <Box padding={1}>
                 <Button variant='contained' color='secondary' onClick={() => auth.signOut()}>
                     Logout

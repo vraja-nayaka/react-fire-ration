@@ -17,8 +17,8 @@ const Habits = (props: HabitsProps) => {
             <Typography>Отслеживаемые привычки:</Typography>
             {
                 habits.length > 0
-                    ? habits.map(habit => (
-                        <Grid container>
+                    ? habits.map((habit, index) => (
+                        <Grid container key={index}>
                             <Grid item xs={12}>
                                 <Typography variant="h5">{habit.name}</Typography>
                             </Grid>
