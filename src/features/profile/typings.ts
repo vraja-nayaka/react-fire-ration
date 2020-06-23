@@ -13,6 +13,7 @@ export interface ISuccess {
 }
 
 export interface IHabit {
+    id: string;
     name: string;
     startAt: Timestamp;
     expiredAt?: Timestamp;

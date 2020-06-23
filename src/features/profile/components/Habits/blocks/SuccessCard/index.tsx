@@ -16,7 +16,7 @@ const SuccessCard = (props: SuccessCardProps) => {
     const lastDate = habit.success[habit.success.length - 1].day;
     const difference = moment().diff(moment(lastDate), 'days');
 
-    for (let i = 0; i <= difference; i++) {
+    for (let i = 0; i < difference; i++) {
         newSuccess.push({
             day: moment(lastDate).add(i + 1, 'day').unix() * 1000,
         });
@@ -29,21 +29,28 @@ const SuccessCard = (props: SuccessCardProps) => {
 
     const onSubmit = (values: IHabit) => {
         editHabit({ ...values });
-        console.log(formik.values)
     };
 
     const formik = useFormik({ initialValues, onSubmit });
-    
+
     return (
         <Paper>
-            <Typography>Прогресс</Typography>
-            <form>
+            <form id="progress">
+                <Box display="flex" p={2} justifyContent="space-between">
+                    <Button onClick={() => formik.handleSubmit()} id="progress" variant="contained" color="primary">
+                        Сохранить
+                        </Button>
+                    {
+                        formik.values.status === 'active'
+                            ? <Button onClick={() => formik.setFieldValue('status', 'archive')} variant="contained" color="inherit">
+                                Архивировать
+                            </Button>
+                            : <Button onClick={() => formik.setFieldValue('status', 'active')} variant="contained" color="secondary">
+                                Восстановить
+                            </Button>
+                    }
+                </Box>
                 <Box display="flex" >
-                    <Box padding={1}>
-                        <Button type="submit">
-                            Сохранить
-                    </Button>
-                    </Box>
                     <Box padding={1}>
                         <Box>
                             <Typography variant="body1">Дата</Typography>
@@ -64,7 +71,7 @@ const SuccessCard = (props: SuccessCardProps) => {
                                         name={`success.${index}.count`}
                                         type="number"
                                         onChange={formik.handleChange}
-                                        // value={formik.values.success[index].count}
+                                        value={data.count}
                                         id={String(index)}
                                     />
                                 </Box>

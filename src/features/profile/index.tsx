@@ -3,10 +3,10 @@ import {
   useUser,
   useFirestore,
   SuspenseWithPerf,
-  useFirestoreCollectionData,
+  useFirestoreCollection,
 } from 'reactfire';
 import React from 'react';
-import { Grid, Button } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import StatsValues from './components/StatsValues';
 import AddHabit from './components/AddHabit';
 import ProfileCard from './components/ProfileCard';
@@ -15,6 +15,7 @@ import Habits from './components/Habits';
 import EditProfileDialog from './components/EditProfile';
 import { IProfile, IHabit } from './typings';
 import { useSnackbar } from 'notistack';
+import { firestore } from 'firebase';
 
 const DEFAULT_IMAGE_PATH = 'userPhotos/default.jpg';
 
@@ -28,13 +29,12 @@ const ProfilePage = () => {
     .doc(user.uid);
   const habitsRef = useFirestore()
     .collection('habits');
-  const testRef = useFirestore()
-    .collection('test')
-    .doc(user.uid);
 
+  const habits: IHabit[] = [];
   const { name = '', avatar = DEFAULT_IMAGE_PATH, experience = 0 } = useFirestoreDocData(userDetailsRef);
-  const habits = useFirestoreCollectionData<IHabit>(habitsRef.where("userId", "==", user.uid));
-  const test: any = useFirestoreDocData(testRef);
+   useFirestoreCollection(habitsRef.where('userId', '==', user.uid).where('status', '==', 'active')).forEach((doc: firestore.DocumentData) => {
+     habits.push({...doc.data(), id: doc.id})
+});
 
   const editProfile = (data: Partial<IProfile>) => userDetailsRef.set(data, { merge: true })
     .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))
@@ -44,11 +44,7 @@ const ProfilePage = () => {
     .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))
     .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
 
-  const editHabit = (data: IHabit) => habitsRef.doc(user.uid).set(data, { merge: true })
-    .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))
-    .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
-
-  const editTest = (data: { date2: number }) => testRef.set(data, { merge: true })
+  const editHabit = (data: IHabit) => habitsRef.doc(data.id).set(data, { merge: true })
     .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))
     .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
 
@@ -63,9 +59,6 @@ const ProfilePage = () => {
       <Grid container>
         <Grid item xs={3}>
           <ProfileCard name={name} avatar={avatar} experience={experience} setIsOpenEdit={setIsOpenEdit} />
-        </Grid>
-        <Grid item xs={3}>
-          <Button onClick={() => editTest({ date2: new Date().getTime() })} >Добавить тест!</Button>
         </Grid>
         <Grid item xs={8}>
           <Habits habits={habits} editHabit={editHabit} />

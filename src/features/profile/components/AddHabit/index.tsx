@@ -12,6 +12,7 @@ const AddHabit = (props: AddHabitProps) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
     const initialValues: IHabit = {
+        id: '',
         name: '',
         startAt: new Date().getTime(),
         success: [{
