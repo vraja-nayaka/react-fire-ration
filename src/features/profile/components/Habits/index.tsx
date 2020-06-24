@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, Paper } from '@material-ui/core';
+import { Box, Grid, Typography, Paper } from '@material-ui/core';
 import { IHabit } from '../../typings';
 import SuccessCard from './blocks/SuccessCard';
 
@@ -14,22 +14,21 @@ const Habits = (props: HabitsProps) => {
 
     return (
         <Paper>
-            <Typography>Отслеживаемые привычки:</Typography>
-            {
-                habits.length > 0
-                    ? habits.map((habit) => (
-                        <Grid container key={habit.id}>
-                            <Grid item xs={12}>
-                                <Typography variant="h5">{habit.name}</Typography>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <SuccessCard habit={habit} editHabit={editHabit}/>
-                            </Grid>
-                        </Grid>
-                    ))
-                    : <Typography>Привычек пока нет</Typography>
-            }
-        </Paper>
+            <Box p={2}>
+                <Typography>Отслеживаемые привычки:</Typography>
+                <Grid container spacing={2}>
+                    {
+                        habits.length > 0
+                            ? habits.map((habit) => (
+                                <Grid item xs={12} key={habit.id}>
+                                    <SuccessCard habit={habit} editHabit={editHabit} />
+                                </Grid>
+                            ))
+                            : <Typography variant="inherit">Привычек пока нет</Typography>
+                    }
+                </Grid>
+            </Box>
+        </Paper >
     )
 };
 
