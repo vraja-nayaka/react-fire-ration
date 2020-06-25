@@ -3,6 +3,7 @@ export interface IProfile {
     avatar: string;
     habits: string;
     experience: number;
+    friends: string[];
 }
 
 export type Timestamp = number;

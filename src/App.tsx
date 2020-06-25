@@ -13,6 +13,7 @@ import { Navbar } from './features/navbar';
 import { Grid, Container, CssBaseline, Box } from '@material-ui/core';
 import Header from './features/header';
 import { CreateUserPage } from './features/loginization/signup';
+import FriendsPage from './features/friends';
 
 function App() {
   const history = createBrowserHistory();
@@ -38,6 +39,7 @@ function App() {
                   <AuthCheck fallback={<LoginPage />}>
                     <Route exact path="/profile" component={ProfilePage} />
                     <Route exact path="/collections" component={Collections} />
+                    <Route exact path="/friends" component={FriendsPage} />
                   </AuthCheck>
                   <Route component={NotFoundPage} />
                 </Switch>

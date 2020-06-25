@@ -23,6 +23,11 @@ export const Navbar = () => {
                     <Link to="/profile">Profile</Link>
                 </Button>
             </Box>
+            <Box padding={1}>
+                <Button variant="contained" color="secondary">
+                    <Link to="/friends">Friends</Link>
+                </Button>
+            </Box>
         </Box>
     );
 };
