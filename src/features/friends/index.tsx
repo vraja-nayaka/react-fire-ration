@@ -3,16 +3,15 @@ import {
   useUser,
   useFirestore,
   SuspenseWithPerf,
-  useFirestoreCollection,
   useFirestoreCollectionData,
+  useFirestoreCollection,
 } from 'reactfire';
 import React from 'react';
 import { Grid, Paper, Typography, List } from '@material-ui/core';
 import { useSnackbar } from 'notistack';
 import FriendCard from './components/FriendCard';
 import { IProfile } from '../profile/typings';
-
-const DEFAULT_IMAGE_PATH = 'userPhotos/default.jpg';
+import { firestore } from 'firebase';
 
 const FriendsPage = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -22,25 +21,28 @@ const FriendsPage = () => {
     .collection('users');
   const userDetailsRef = usersRef.doc(user.uid);
 
-  const {friends} = useFirestoreDocData<IProfile>(userDetailsRef);
+  const {friends = []} = useFirestoreDocData<IProfile>(userDetailsRef);
 
   const allUsers = useFirestoreCollectionData<IProfile>(usersRef);
 
-  // useFirestoreCollection(usersRef.where('userId', 'in', friends)).forEach((doc: firestore.DocumentData) => {
-  //   habits.push({ ...doc.data(), id: doc.id })
-  // });
+  const friendUsers: IProfile[] = [];
+  const otherUsers: IProfile[] = [];
 
-  const editProfile = (data: Partial<IProfile>) => userDetailsRef.set(data, { merge: true })
-    .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))
-    .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении ' + error, { variant: 'error' }));
+  useFirestoreCollection(usersRef.where('userId', 'in', friends)).forEach((doc: firestore.DocumentData) => {
+    friendUsers.push({ ...doc.data(), id: doc.id })
+  });
+
+  // const editProfile = (data: Partial<IProfile>) => userDetailsRef.set(data, { merge: true })
+  //   .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))
+  //   .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении ' + error, { variant: 'error' }));
 
   const subscribeUser = (userId: string) => userDetailsRef.set({friends: [...friends, userId]}, { merge: true })
     .then(() => enqueueSnackbar('Друг добавлен!', { variant: 'success' }))
     .catch((error) => enqueueSnackbar('Произошла ошибка при добавлении друга ' + error, { variant: 'error' }));
 
-  const unsubscribeUser = (userId: string) => userDetailsRef.set({friends: friends.splice(friends.indexOf(userId), 1)}, { merge: true })
-    .then(() => enqueueSnackbar('Друг добавлен!', { variant: 'success' }))
-    .catch((error) => enqueueSnackbar('Произошла ошибка при добавлении друга ' + error, { variant: 'error' }));
+  // const unsubscribeUser = (userId: string) => userDetailsRef.set({friends: friends.splice(friends.indexOf(userId), 1)}, { merge: true })
+  //   .then(() => enqueueSnackbar('Друг добавлен!', { variant: 'success' }))
+  //   .catch((error) => enqueueSnackbar('Произошла ошибка при добавлении друга ' + error, { variant: 'error' }));
 
   return (
     <Paper>

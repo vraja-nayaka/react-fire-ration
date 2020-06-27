@@ -1,10 +1,12 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { Button, Typography, Paper, Box } from '@material-ui/core';
-import { useAuth } from 'reactfire';
+import { useAuth, useUser } from 'reactfire';
 import { useFormik } from 'formik';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import { redirect } from '../../helpers/redirect';
+import { User } from 'firebase';
 
 interface ILoginForm {
     email: string;
@@ -19,11 +21,16 @@ const initialValues = {
 export function LoginPage() {
     const auth = useAuth();
     const { enqueueSnackbar } = useSnackbar();
+    const history = useHistory();
+    const user: User = useUser();
 
     const onSubmit = (values: ILoginForm) => {
-        auth.signInWithEmailAndPassword(values.email, values.password)    
-        .then(() => enqueueSnackbar('Вход выполнен успешно!', { variant: 'success' }))
-        .catch((error) => enqueueSnackbar('Произошла ошибка при входе: ' + error, { variant: 'error' }));
+        auth.signInWithEmailAndPassword(values.email, values.password)
+            .then(() => {
+                enqueueSnackbar('Вход выполнен успешно!', { variant: 'success' });
+                history.push(redirect.profile());
+            })
+            .catch((error) => enqueueSnackbar('Произошла ошибка при входе: ' + error, { variant: 'error' }));
     };
 
     const formik = useFormik({ initialValues, onSubmit })

@@ -37,7 +37,7 @@ function App() {
                   <Route exact path="/signup" component={CreateUserPage} />
                   <Route exact path="/login" component={LoginPage} />
                   <AuthCheck fallback={<LoginPage />}>
-                    <Route exact path="/profile" component={ProfilePage} />
+                    <Route path="/profile" component={ProfilePage} />
                     <Route exact path="/collections" component={Collections} />
                     <Route exact path="/friends" component={FriendsPage} />
                   </AuthCheck>

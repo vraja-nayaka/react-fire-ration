@@ -1,7 +1,5 @@
 import React from 'react';
-import moment from 'moment';
-import { Typography, Paper, Box, TextField, Button, IconButton, ListItem, Avatar, ListItemAvatar, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
-import { useFormik } from 'formik';
+import { IconButton, ListItem, Avatar, ListItemAvatar, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
 import ControlPointDuplicateIcon from '@material-ui/icons/ControlPointDuplicate';
 
 interface FriendCardProps {
@@ -14,8 +12,6 @@ interface FriendCardProps {
 
 const FriendCard = (props: FriendCardProps) => {
     const { avatar, name, userId, level, subscribeUser } = props;
-
-            // {/* // <Paper elevation={3}> */}
 
     return (
         <ListItem>

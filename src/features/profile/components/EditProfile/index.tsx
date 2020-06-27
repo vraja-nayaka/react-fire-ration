@@ -23,7 +23,7 @@ const EditProfileDialog = (props: EditProfileDialogProps) => {
 
     const onSubmit = (values: Values) => {
         editProfile({ name: values.name });
-        handleBlur();
+        setIsOpen(false);
     };
 
     const handleBlur = (name === '') ? () => false : () => setIsOpen(false);
@@ -32,14 +32,13 @@ const EditProfileDialog = (props: EditProfileDialogProps) => {
     return (
         <Dialog open={isOpen} onClose={handleBlur}>
             <form onSubmit={formik.handleSubmit}>
-                <Box display="flex" padding={3} flexDirection="column" justifyContent="space-between" alignItems="center" minHeight="200px">
-                    <Typography>Изменение информации профиля</Typography>
+                <Box display="flex" padding={3} flexDirection="column" justifyContent="space-between" alignItems="center" minHeight="300px">
                     {
-                        name === '' &&
-                        <>
-                            <Typography variant="h6">Давайте знакомится!</Typography>
-                            <Typography variant="inherit">Для продолжения укажите имя, под которым вас будут знать друзья</Typography>
-                        </>
+                        name === '' ?
+                            <>
+                                <Typography variant="h6">Давайте знакомится!</Typography>
+                                <Typography variant="inherit">Для продолжения укажите имя, под которым вас будут знать друзья</Typography>
+                            </> : <Typography>Изменение информации профиля</Typography>
                     }
                     <TextField id="name" name="name" type="text" label="Ваше имя" onChange={formik.handleChange}
                         value={formik.values.name} variant="outlined" />
