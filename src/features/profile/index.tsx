@@ -36,7 +36,7 @@ const ProfilePage = () => {
     habits.push({ ...doc.data(), id: doc.id })
   });
 
-  const editProfile = (data: Partial<IProfile>) => userDetailsRef.set(data, { merge: true })
+  const editProfile = (data: Partial<IProfile>) => userDetailsRef.set({...data, userId: user.uid}, { merge: true })
     .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))
     .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
 

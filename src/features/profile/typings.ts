@@ -1,4 +1,5 @@
 export interface IProfile {
+    userId: string;
     name: string;
     avatar: string;
     habits: string;

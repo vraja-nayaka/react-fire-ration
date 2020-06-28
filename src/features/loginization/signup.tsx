@@ -25,8 +25,6 @@ export function CreateUserPage() {
     const onSubmit = (values: ISignupForm) => {
         auth.createUserWithEmailAndPassword(values.email, values.password)
             .then(() => {
-
-                
                 enqueueSnackbar('Регистрация прошла успешно, можете войти', { variant: 'success' });
                 history.push(redirect.login);
             })
