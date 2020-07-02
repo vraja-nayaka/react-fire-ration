@@ -13,6 +13,7 @@ const AddHabit = (props: AddHabitProps) => {
 
     const initialValues: IHabit = {
         id: '',
+        // ! прокинуть имя сюда
         name: '',
         startAt: new Date().getTime(),
         success: [{
@@ -27,19 +28,13 @@ const AddHabit = (props: AddHabitProps) => {
     };
 
     const formik = useFormik({ initialValues, onSubmit })
-    
+
     return (
         <>
-            <Grid container>
-                <Grid item xs={12}>
-                    <Button color="primary" variant="contained" onClick={() => setIsOpen(true)}>+</Button>
-                </Grid>
-            </Grid>
-            <Grid container>
-                <Grid item xs={12}>
-                    <Typography>Добавить привычку</Typography>
-                </Grid>
-            </Grid>
+            <Box display="flex" padding={3} flexDirection="column" justifyContent="space-between" alignItems="center">
+                <Button color="primary" variant="contained" onClick={() => setIsOpen(true)}>+</Button>
+                <Typography>Добавить привычку</Typography>
+            </Box>
             <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
                 <form onSubmit={formik.handleSubmit}>
                     <Box display="flex" padding={3} flexDirection="column" justifyContent="space-between" alignItems="center" minHeight="200px">

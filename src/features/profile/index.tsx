@@ -6,7 +6,7 @@ import {
   useFirestoreCollection,
 } from 'reactfire';
 import React, { useEffect } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
 import StatsValues from './components/StatsValues';
 import AddHabit from './components/AddHabit';
 import ProfileCard from './components/ProfileCard';
@@ -59,24 +59,26 @@ const ProfilePage = () => {
   return (
     <>
       <Grid container>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <ProfileCard name={name} avatar={avatar} experience={experience} setIsOpenEdit={setIsOpenEdit} />
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={12}>
           <Habits habits={habits} editHabit={editHabit} />
         </Grid>
-        <Grid item xs={4}>
+        {/* <Grid item xs={12}>
           <StatsValues summ={summ} average={average} inSuccession={inSuccession} />
-        </Grid>
-        <Grid item xs={4}>
+        </Grid> */}
+        {/* <Grid item xs={4}>
           Сферы
-      </Grid>
-        <Grid item xs={4}>
+      </Grid> */}
+        <Grid item xs={12}>
+          <Box alignContent="center" alignItems="center" justifyContent="center">
           <AddHabit addHabit={addHabit} />
+          </Box>
         </Grid>
-        <Grid item xs={4}>
+        {/* <Grid item xs={4}>
           <FixingProbability probability={20} />
-        </Grid>
+        </Grid> */}
       </Grid>
       <EditProfileDialog isOpen={isOpenEdit} setIsOpen={setIsOpenEdit} name={name} avatar={avatar} editProfile={editProfile} />
     </>

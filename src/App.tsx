@@ -27,10 +27,10 @@ function App() {
             <Grid item xs={12}>
               <Header />
             </Grid>
-            <Grid item xs={12} md={2}>
+            <Grid item xs={12} md={12}>
               <Navbar />
             </Grid>
-            <Grid item xs={12} md={10}>
+            <Grid item xs={12} md={12}>
               <Box minHeight="85vh" bgcolor="#CCC" display="flex" alignItems="center" justifyContent="center">
                 <Switch>
                   <Route exact path="/" component={HomePage} />

@@ -32,7 +32,7 @@ const FriendsPage = () => {
   function compareWithSet(rows_1: IProfile[], rows_2: string[]) {
     let set = new Set(rows_2);
     rows_1.forEach(row_1 => {
-     set.has(row_1.userId) ? friendUsers.push(row_1) : otherUsers.push(row_1);
+      set.has(row_1.userId) ? friendUsers.push(row_1) : otherUsers.push(row_1);
     });
   };
 
@@ -50,29 +50,31 @@ const FriendsPage = () => {
 
   return (
     <Paper>
-      <Grid container>
+      <Grid container >
         <Grid item xs={12}>
-          <Typography>Друзья</Typography>
+          <Typography align="center" variant="h6">Друзья</Typography>
         </Grid>
-        {
-          friendUsers.map((user) => (
-            <Grid item xs={12}>
-              <List>
-                <FriendCard {...user} userId={user.userId} level={'1'} unsubscribeUser={unsubscribeUser} />
-              </List>
-            </Grid>
-          ))
-        }
-        <Typography>Все пользователи</Typography>
-        {
-          otherUsers.map((user) => (
-            <Grid item xs={12}>
+        <Grid item xs={12}>
+          {
+            friendUsers.length !== 0
+              ? friendUsers.map((user) => (
+                <List>
+                  <FriendCard {...user} userId={user.userId} level={'1'} unsubscribeUser={unsubscribeUser} />
+                </List>
+              ))
+              : <Typography align="center">Нажмите "+", чтобы добавить друга</Typography>
+          }
+        </Grid>
+        <Grid item xs={12}>
+          <Typography align="center" variant="h6">Все пользователи</Typography>
+          {
+            otherUsers.map((user) => (
               <List>
                 <FriendCard {...user} userId={user.userId} level={'1'} subscribeUser={subscribeUser} />
               </List>
-            </Grid>
-          ))
-        }
+            ))
+          }
+        </Grid>
       </Grid>
     </Paper>
   );

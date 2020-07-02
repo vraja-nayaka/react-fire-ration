@@ -22,11 +22,11 @@ const FriendCard = (props: FriendCardProps) => {
             </ListItemAvatar>
             <ListItemText
                 primary={name}
-                secondary={`Id: ${userId}`}
+                secondary={`Id: ${userId.substr(-8, 8)}`}
             />
-            <ListItemText
+            {/* <ListItemText
                 primary={`level: ${level}`}
-            />
+            /> */}
             <ListItemSecondaryAction>
                 {
                     subscribeUser &&
