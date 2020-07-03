@@ -13,11 +13,11 @@ export const Navbar = () => {
                     Logout
                 </Button>
             </Box>
-            <Box padding={1}>
+            {/* <Box padding={1}>
                 <Button variant="contained" color="secondary">
                     <Link to="/">Start</Link>
                 </Button>
-            </Box>
+            </Box> */}
             <Box padding={1}>
                 <Button variant="contained" color="secondary">
                     <Link to="/profile">Profile</Link>

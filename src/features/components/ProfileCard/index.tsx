@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Box, Typography, LinearProgress, Paper, IconButton } from '@material-ui/core';
 import { withStyles, lighten } from '@material-ui/core/styles';
-import { theme } from '../../../../theme';
+import { theme } from '../../../theme';
 import EditIcon from '@material-ui/icons/Edit';
 import ExperienceAvatar from './ExperienceAvatar';
 import { getNextLevelExperience } from './helpers';

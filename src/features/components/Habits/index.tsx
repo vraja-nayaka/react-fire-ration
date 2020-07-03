@@ -1,12 +1,12 @@
 import React from 'react';
 import { Box, Grid, Typography, Paper } from '@material-ui/core';
-import { IHabit } from '../../typings';
+import { IHabit } from '../../profile/typings';
+import SuccessCardEdit from './blocks/SuccessCardEdit';
 import SuccessCard from './blocks/SuccessCard';
-
 
 interface HabitsProps {
     habits: IHabit[];
-    editHabit: (data: IHabit) => void;
+    editHabit?: (data: IHabit) => void;
 }
 
 const Habits = (props: HabitsProps) => {
@@ -21,7 +21,10 @@ const Habits = (props: HabitsProps) => {
                         habits.length > 0
                             ? habits.map((habit) => (
                                 <Grid item xs={12} key={habit.id}>
-                                    <SuccessCard habit={habit} editHabit={editHabit} />
+                                    {editHabit
+                                        ? <SuccessCardEdit habit={habit} editHabit={editHabit} />
+                                        : <SuccessCard habit={habit} />
+                                    }
                                 </Grid>
                             ))
                             : <Typography variant="inherit">Привычек пока нет</Typography>

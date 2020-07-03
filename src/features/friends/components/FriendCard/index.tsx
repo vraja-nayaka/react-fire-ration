@@ -10,10 +10,11 @@ interface FriendCardProps {
     level: string;
     subscribeUser?: (id: string) => void;
     unsubscribeUser?: (id: string) => void;
+    onClick?: () => void;
 }
 
 const FriendCard = (props: FriendCardProps) => {
-    const { avatar, name, userId, level, subscribeUser, unsubscribeUser } = props;
+    const { avatar, name, userId, level, subscribeUser, unsubscribeUser, onClick } = props;
 
     return (
         <ListItem>
@@ -23,6 +24,7 @@ const FriendCard = (props: FriendCardProps) => {
             <ListItemText
                 primary={name}
                 secondary={`Id: ${userId.substr(-8, 8)}`}
+                onClick={onClick}
             />
             {/* <ListItemText
                 primary={`level: ${level}`}

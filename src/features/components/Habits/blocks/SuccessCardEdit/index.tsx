@@ -1,17 +1,17 @@
 import React from 'react';
 import moment from 'moment';
 import { Typography, Paper, Box, TextField, Button, IconButton } from '@material-ui/core';
-import { IHabit, ISuccess } from '../../../../typings';
+import { IHabit, ISuccess } from '../../../../profile/typings';
 import { useFormik } from 'formik';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import UnarchiveIcon from '@material-ui/icons/Unarchive';
 
-interface SuccessCardProps {
+interface SuccessCardEditProps {
     habit: IHabit;
     editHabit: (data: IHabit) => void;
 }
 
-const SuccessCard = (props: SuccessCardProps) => {
+const SuccessCardEdit = (props: SuccessCardEditProps) => {
     const { habit, editHabit } = props;
 
     const newSuccess = [] as ISuccess[];
@@ -90,4 +90,4 @@ const SuccessCard = (props: SuccessCardProps) => {
     );
 };
 
-export default SuccessCard;
+export default SuccessCardEdit;

@@ -10,6 +10,7 @@
 
 # production
 /build
+hosting*.cache
 
 # misc
 /src/config.js

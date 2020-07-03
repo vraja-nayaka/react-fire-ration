@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Typography, Box, Button, Dialog, TextField } from '@material-ui/core';
 import { useFormik } from 'formik';
-import { IHabit } from '../../typings';
+import { IHabit } from '../../profile/typings';
 
 interface AddHabitProps {
     addHabit: (data: IHabit) => Promise<React.ReactText>;

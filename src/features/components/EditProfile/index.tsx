@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Box, Button, Dialog, TextField } from '@material-ui/core';
 import { useFormik } from 'formik';
-import { IProfile } from '../../typings';
+import { IProfile } from '../../profile/typings';
 
 interface EditProfileDialogProps {
     isOpen: boolean;

@@ -33,13 +33,14 @@ function App() {
             <Grid item xs={12} md={12}>
               <Box minHeight="85vh" bgcolor="#CCC" display="flex" alignItems="center" justifyContent="center">
                 <Switch>
-                  <Route exact path="/" component={HomePage} />
                   <Route exact path="/signup" component={CreateUserPage} />
                   <Route exact path="/login" component={LoginPage} />
                   <AuthCheck fallback={<LoginPage />}>
+                    <Route exact path="/" component={ProfilePage} />
                     <Route path="/profile" component={ProfilePage} />
                     <Route exact path="/collections" component={Collections} />
                     <Route exact path="/friends" component={FriendsPage} />
+                    <Route exact path="/friends/profile/:id" component={FriendsPage} />
                   </AuthCheck>
                   <Route component={NotFoundPage} />
                 </Switch>
