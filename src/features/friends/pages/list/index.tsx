@@ -12,12 +12,11 @@ import { useSnackbar } from 'notistack';
 import FriendCard from '../../components/FriendCard';
 import { IProfile } from '../../../profile/typings';
 import { firestore } from 'firebase';
-import { createBrowserHistory } from 'history';
-import { useRouteMatch } from 'react-router';
+import { useRouteMatch, useHistory } from 'react-router';
 
 const FriendsPage = () => {
   const { enqueueSnackbar } = useSnackbar();
-  const history = createBrowserHistory();
+  const history = useHistory();
 
 
   const user: any = useUser();
@@ -62,10 +61,10 @@ const FriendsPage = () => {
           {
             friendUsers.length !== 0
               ? friendUsers.map((user) => (
-                <List>
+                <List key={user.userId}>
                   <FriendCard {...user} userId={user.userId} level={'1'}
                     unsubscribeUser={unsubscribeUser}
-                    onClick={() => history.push(`/friends/profile/${user.userId}`)} />
+                    onClick={() => history.push(`/friends/${user.userId}`)} />
                 </List>
               ))
               : <Typography align="center">Нажмите "+", чтобы добавить друга</Typography>
@@ -75,9 +74,9 @@ const FriendsPage = () => {
           <Typography align="center" variant="h6">Все пользователи</Typography>
           {
             otherUsers.map((user) => (
-              <List>
+              <List key={user.userId}>
                 <FriendCard {...user} userId={user.userId} level={'1'} subscribeUser={subscribeUser}
-                  onClick={() => history.push(`/friends/profile/${user.userId}`)} />
+                  onClick={() => history.push(`/friends/${user.userId}`)} />
               </List>
             ))
           }

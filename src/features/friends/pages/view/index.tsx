@@ -12,7 +12,7 @@ import { firestore, User } from 'firebase';
 import FriendCard from '../../components/FriendCard';
 import Habits from '../../../components/Habits';
 import { IHabit, IProfile } from '../../../profile/typings';
-import { useRouteMatch, useParams  } from 'react-router';
+import { useParams } from 'react-router';
 
 const DEFAULT_IMAGE_PATH = 'userPhotos/default.jpg';
 

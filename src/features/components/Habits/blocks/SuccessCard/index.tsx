@@ -1,8 +1,11 @@
-import React from 'react';
-import { Typography, Paper, Box } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Typography, Paper, IconButton, Box } from '@material-ui/core';
 import { IHabit } from '../../../../profile/typings';
 import { getFullSuccess } from '../../../../../helpers/utils';
 import moment from 'moment';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import InsertCommentIcon from '@material-ui/icons/InsertComment';
 
 interface SuccessCardProps {
     habit: IHabit;
@@ -11,7 +14,9 @@ interface SuccessCardProps {
 const SuccessCard = (props: SuccessCardProps) => {
     const { habit } = props;
 
-    const success = getFullSuccess(habit.success)
+    const success = getFullSuccess(habit.success);
+    const [like, addLike] = useState(false);
+    const [comment, addComment] = useState(false);
 
     return (
         <Paper elevation={3}>
@@ -20,19 +25,20 @@ const SuccessCard = (props: SuccessCardProps) => {
                     <Box display="flex" justifyContent="space-between">
                         <Typography variant="h5">{habit.name}</Typography>
 
-                        {/* TODO: Add Like and comment icon
-                        
                         <Box>
-                            {
-                                formik.values.status === 'active'
-                                    ? <IconButton onClick={() => formik.setFieldValue('status', 'archive')}>
-                                        <ArchiveIcon color="inherit" />
-                                    </IconButton>
-                                    : <IconButton onClick={() => formik.setFieldValue('status', 'active')} >
-                                        <UnarchiveIcon color="primary" />
-                                    </IconButton>
-                            }
-                        </Box> */}
+                            <IconButton onClick={() => addLike(!like)}>
+                                {like
+                                    ? <FavoriteIcon color="primary" />
+                                    : <FavoriteBorderIcon color="inherit" />
+                                }
+                            </IconButton>
+                            <IconButton onClick={() => addComment(!comment)} >
+                                {comment
+                                    ? <InsertCommentIcon color="primary" />
+                                    : <InsertCommentIcon color="inherit" />
+                                }
+                            </IconButton>
+                        </Box>
                     </Box>
                     <Box display="flex" >
                         <Box padding={1}>

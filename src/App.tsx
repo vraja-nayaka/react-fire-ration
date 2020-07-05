@@ -40,7 +40,7 @@ function App() {
                     <Route exact path="/" component={ProfilePage} />
                     <Route path="/profile" component={ProfilePage} />
                     <Route exact path="/collections" component={Collections} />
-                    <Route exact path="/friends/profile/:id" component={FriendsViewPage} />
+                    <Route exact path="/friends/:id" component={FriendsViewPage} />
                     <Route exact path="/friends" component={FriendsPage} />
                   </AuthCheck>
                   <Route component={NotFoundPage} />
