@@ -18,7 +18,20 @@ export interface IHabit {
     id: string;
     name: string;
     startAt: Timestamp;
-    expiredAt?: Timestamp;
+    endsAt?: Timestamp;
     success: ISuccess[];
     status: 'active' | 'archive';
+    fixingDays: number;
+    inRow: boolean;
+}
+
+export interface IHabitDate {
+    id: string;
+    name: string;
+    startAt: string;
+    endsAt?: Timestamp;
+    success: ISuccess[];
+    status: 'active' | 'archive';
+    fixingDays: number;
+    inRow: boolean;
 }
