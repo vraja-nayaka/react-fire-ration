@@ -1,10 +1,12 @@
 import React from 'react';
 import moment from 'moment';
-import { Typography, Paper, Box, TextField, Button, IconButton } from '@material-ui/core';
+import { Typography, Paper, Box, TextField, Button, IconButton, Chip, Fade, Tooltip } from '@material-ui/core';
 import { IHabit, ISuccess } from '../../../../profile/typings';
 import { useFormik } from 'formik';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import UnarchiveIcon from '@material-ui/icons/Unarchive';
+import TimelapseIcon from '@material-ui/icons/Timelapse';
+import BeenhereIcon from '@material-ui/icons/Beenhere';
 
 interface SuccessCardEditProps {
     habit: IHabit;
@@ -41,16 +43,32 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
                 <Box p={2}>
                     <Box display="flex" justifyContent="space-between">
                         <Typography variant="h5">{habit.name}</Typography>
-                        <Box>
-                            <Button onClick={() => formik.handleSubmit()} id="progress" variant="contained" color="primary">
+                        <Box display="flex" >
+                            {
+                                habit.promise &&
+                                <Box display="flex" alignItems="center" paddingRight={1}>
+                                    <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title="Обещанное количество в день">
+                                        <Chip label={habit.promise} icon={<BeenhereIcon />} color="primary" />
+                                    </Tooltip>
+                                </Box>
+                            }
+                            {
+                                habit.endsAt &&
+                                <Box display="flex" alignItems="center" paddingRight={1}>
+                                    <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title="Осталось дней">
+                                        <Chip label={moment(habit.endsAt).diff(habit.startAt, 'days')} icon={<TimelapseIcon />} color="primary" />
+                                    </Tooltip>
+                                </Box>
+                            }
+                            <Button onClick={() => formik.handleSubmit()} id="progress" variant="contained" color="primary" >
                                 Сохранить
-                        </Button>
+                            </Button>
                             {
                                 formik.values.status === 'active'
                                     ? <IconButton onClick={() => formik.setFieldValue('status', 'archive')}>
                                         <ArchiveIcon color="inherit" />
                                     </IconButton>
-                                    : <IconButton onClick={() => formik.setFieldValue('status', 'active')} >
+                                    : <IconButton onClick={() => formik.setFieldValue('status', 'active')}>
                                         <UnarchiveIcon color="primary" />
                                     </IconButton>
                             }
@@ -65,11 +83,10 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
                                 <Typography variant="body1">Значение</Typography>
                             </Box>
                         </Box>
-
-                        {
-                            formik.values.success.map((data, index) => (
-                                <Box padding={1} width="60px" key={index}>
-                                    <Box>
+                        <Box display="flex" overflow="auto">
+                            {
+                                formik.values.success.map((data, index) => (
+                                    <Box padding={1} flex="0 0 45px" key={index}>
                                         <TextField
                                             name={`success.${index}.count`}
                                             label={moment(data.day).format('DD.MM')}
@@ -80,9 +97,9 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
                                             id={`input-${formik.values.id}-${index}`}
                                         />
                                     </Box>
-                                </Box>
-                            ))
-                        }
+                                ))
+                            }
+                        </Box>
                     </Box>
                 </Box>
             </form>

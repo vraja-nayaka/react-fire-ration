@@ -22,6 +22,7 @@ const AddHabit = (props: AddHabitProps) => {
         status: 'active',
         fixingDays: 30,
         inRow: false,
+        promise: 1,
     };
 
     // TODO Валидацию формы сделать
@@ -30,7 +31,8 @@ const AddHabit = (props: AddHabitProps) => {
         addHabit({
             ...values,
             startAt: new Date(values.startAt).getTime(),
-            success: [{day: new Date(values.startAt).getTime()}],
+            success: [{ day: new Date(values.startAt).getTime() }],
+            endsAt: moment(values.startAt).add(values.fixingDays, 'days').unix() * 1000,
         });
         setIsOpen(false);
     };
@@ -47,8 +49,14 @@ const AddHabit = (props: AddHabitProps) => {
                 <form onSubmit={formik.handleSubmit}>
                     <Box display="flex" padding={3} flexDirection="column" justifyContent="space-between" alignItems="center" minHeight="200px">
                         <Typography>Что вы хотите делать каждый день?</Typography>
-                        <TextField id="name" name="name" type="text" label="Название" onChange={formik.handleChange}
-                            value={formik.values.name} variant="outlined" />
+                        <Box display="flex" paddingTop={2} justifyContent="space-around" minWidth="300px">
+                            <TextField id="name" name="name" type="text" label="Название" onChange={formik.handleChange}
+                                value={formik.values.name} variant="outlined" />
+                            <Box width="90px" marginLeft={2}>
+                                <TextField id="promise" name="promise" type="number" label="Количество в день" onChange={formik.handleChange}
+                                    value={formik.values.promise} variant="outlined" />
+                            </Box>
+                        </Box>
                         <Box display="flex" paddingTop={2} justifyContent="space-around" minWidth="300px">
                             <TextField id="startAt" name="startAt" type="date" label="Дата начала" onChange={formik.handleChange}
                                 value={formik.values.startAt} variant="outlined" />
@@ -57,6 +65,7 @@ const AddHabit = (props: AddHabitProps) => {
                                 <Select
                                     labelId="fixingDays"
                                     id="fixingDays"
+                                    name="fixingDays"
                                     value={formik.values.fixingDays}
                                     onChange={formik.handleChange}
                                     label="Дней на закрепление"

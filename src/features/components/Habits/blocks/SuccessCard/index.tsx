@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Typography, Paper, IconButton, Box } from '@material-ui/core';
+import { Typography, Paper, IconButton, Box, Tooltip, Fade, Chip } from '@material-ui/core';
 import { IHabit } from '../../../../profile/typings';
 import { getFullSuccess } from '../../../../../helpers/utils';
 import moment from 'moment';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import InsertCommentIcon from '@material-ui/icons/InsertComment';
+import BeenhereIcon from '@material-ui/icons/Beenhere';
 
 interface SuccessCardProps {
     habit: IHabit;
@@ -26,6 +27,14 @@ const SuccessCard = (props: SuccessCardProps) => {
                         <Typography variant="h5">{habit.name}</Typography>
 
                         <Box>
+                        {
+                                habit.promise &&
+                                // <Box display="flex" alignItems="center" paddingRight={1}>
+                                    <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title="Обещанное количество в день">
+                                        <Chip label={habit.promise} icon={<BeenhereIcon />} color="primary" />
+                                    </Tooltip>
+                                // </Box>
+                            }
                             <IconButton onClick={() => addLike(!like)}>
                                 {like
                                     ? <FavoriteIcon color="primary" />

@@ -5,6 +5,7 @@ export interface IProfile {
     habits: string;
     experience: number;
     friends: string[];
+    promise: number;
 }
 
 export type Timestamp = number;
@@ -23,6 +24,7 @@ export interface IHabit {
     status: 'active' | 'archive';
     fixingDays: number;
     inRow: boolean;
+    promise: number;
 }
 
 export interface IHabitDate {
@@ -34,4 +36,5 @@ export interface IHabitDate {
     status: 'active' | 'archive';
     fixingDays: number;
     inRow: boolean;
+    promise: number;
 }
