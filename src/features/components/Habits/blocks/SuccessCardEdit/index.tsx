@@ -47,7 +47,10 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
                             {
                                 habit.promise &&
                                 <Box display="flex" alignItems="center" paddingRight={1}>
-                                    <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title="Обещанное количество в день">
+                                    <Tooltip
+                                        TransitionComponent={Fade}
+                                        TransitionProps={{ timeout: 600 }}
+                                        title={`Обещанное количество (${habit.unit ? habit.unit : 'раз'} в день)`}>
                                         <Chip label={habit.promise} icon={<BeenhereIcon />} color="primary" />
                                     </Tooltip>
                                 </Box>
@@ -80,7 +83,7 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
                                 <Typography variant="body1">Дата</Typography>
                             </Box>
                             <Box>
-                                <Typography variant="body1">Значение</Typography>
+                                <Typography variant="body1">{habit.unit ? habit.unit : 'Значение'}</Typography>
                             </Box>
                         </Box>
                         <Box display="flex" overflow="auto">

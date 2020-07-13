@@ -23,6 +23,7 @@ const AddHabit = (props: AddHabitProps) => {
         fixingDays: 30,
         inRow: false,
         promise: 1,
+        unit: 'Значение'
     };
 
     // TODO Валидацию формы сделать
@@ -55,6 +56,10 @@ const AddHabit = (props: AddHabitProps) => {
                             <Box width="90px" marginLeft={2}>
                                 <TextField id="promise" name="promise" type="number" label="Количество в день" onChange={formik.handleChange}
                                     value={formik.values.promise} variant="outlined" />
+                            </Box>
+                            <Box width="180px" marginLeft={2}>
+                                <TextField id="unit" name="unit" type="text" label="Единица измерения" onChange={formik.handleChange}
+                                    value={formik.values.unit} variant="outlined" />
                             </Box>
                         </Box>
                         <Box display="flex" paddingTop={2} justifyContent="space-around" minWidth="300px">

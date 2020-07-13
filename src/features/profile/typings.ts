@@ -25,6 +25,7 @@ export interface IHabit {
     fixingDays: number;
     inRow: boolean;
     promise: number;
+    unit: string;
 }
 
 export interface IHabitDate {
@@ -37,4 +38,5 @@ export interface IHabitDate {
     fixingDays: number;
     inRow: boolean;
     promise: number;
+    unit: string;
 }

@@ -27,12 +27,15 @@ const SuccessCard = (props: SuccessCardProps) => {
                         <Typography variant="h5">{habit.name}</Typography>
 
                         <Box>
-                        {
+                            {
                                 habit.promise &&
                                 // <Box display="flex" alignItems="center" paddingRight={1}>
-                                    <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title="Обещанное количество в день">
-                                        <Chip label={habit.promise} icon={<BeenhereIcon />} color="primary" />
-                                    </Tooltip>
+                                <Tooltip
+                                    TransitionComponent={Fade}
+                                    TransitionProps={{ timeout: 600 }}
+                                    title={`Обещанное количество (${habit.unit ? habit.unit : 'раз'} в день)`}>
+                                    <Chip label={habit.promise} icon={<BeenhereIcon />} color="primary" />
+                                </Tooltip>
                                 // </Box>
                             }
                             <IconButton onClick={() => addLike(!like)}>
