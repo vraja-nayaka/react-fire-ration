@@ -1,37 +1,13 @@
-import {
-  useFirestoreDocData,
-  useUser,
-  useFirestore,
-  SuspenseWithPerf,
-  useFirestoreCollection,
-} from 'reactfire';
-import React, { useEffect } from 'react';
-import { Grid, Box } from '@material-ui/core';
-import { useSnackbar } from 'notistack';
-import { firestore, User } from 'firebase';
+import {SuspenseWithPerf} from 'reactfire';
+import React from 'react';
+import { Grid } from '@material-ui/core';
 import FriendCard from '../../components/FriendCard';
 import Habits from '../../../components/Habits';
-import { IHabit, IProfile } from '../../../profile/typings';
-import { useParams } from 'react-router';
-
-const DEFAULT_IMAGE_PATH = 'userPhotos/default.jpg';
+import { api } from '../../../../api';
 
 const FriendsViewPage = () => {
-  const { enqueueSnackbar } = useSnackbar();
-  const {id} = useParams<{id: string}>()
-
-  const user: User = useUser();
-  const userDetailsRef = useFirestore()
-    .collection('users')
-    .doc(id);
-  const habitsRef = useFirestore()
-    .collection('habits');
-
-  const habits: IHabit[] = [];
-  const { name = '', avatar = DEFAULT_IMAGE_PATH, experience = 0 } = useFirestoreDocData(userDetailsRef);
-  useFirestoreCollection(habitsRef.where('userId', '==', id).where('status', '==', 'active')).forEach((doc: firestore.DocumentData) => {
-    habits.push({ ...doc.data(), id: doc.id })
-  });
+  const {name, avatar, id} = api.useUser();
+  const habits = api.useHabits();
 
   return (
       <Grid container>

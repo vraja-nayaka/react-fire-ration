@@ -7,10 +7,10 @@ import {
 } from 'reactfire';
 import React, { useEffect } from 'react';
 import { Grid, Box } from '@material-ui/core';
-import StatsValues from '../components/StatsValues';
+// import StatsValues from '../components/StatsValues';
 import AddHabit from '../components/AddHabit';
 import ProfileCard from '../components/ProfileCard';
-import FixingProbability from '../components/FixingProbability';
+// import FixingProbability from '../components/FixingProbability';
 import Habits from '../components/Habits';
 import EditProfileDialog from '../components/EditProfile';
 import { IProfile, IHabit } from './typings';
