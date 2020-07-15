@@ -1,12 +1,11 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import { Button, Typography, Paper, Box } from '@material-ui/core';
-import { useAuth, useUser } from 'reactfire';
+import { useAuth } from 'reactfire';
 import { useFormik } from 'formik';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { redirect } from '../../helpers/redirect';
-import { User } from 'firebase';
 
 interface ILoginForm {
     email: string;
@@ -22,7 +21,6 @@ export function LoginPage() {
     const auth = useAuth();
     const { enqueueSnackbar } = useSnackbar();
     const history = useHistory();
-    const user: User = useUser();
 
     const onSubmit = (values: ILoginForm) => {
         auth.signInWithEmailAndPassword(values.email, values.password)

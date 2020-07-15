@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import ProfilePage from './features/profile';
 import { Collections } from './features/collections';
-import { HomePage } from './features/home';
 import { LoginPage } from './features/loginization/login';
 import { AuthCheck } from 'reactfire';
 import { NotFoundPage } from './features/notFound';

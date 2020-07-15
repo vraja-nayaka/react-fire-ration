@@ -7,7 +7,7 @@ import { api } from '../../../../api';
 
 const FriendsViewPage = () => {
   const {name, avatar, id} = api.useUser();
-  const habits = api.useHabits();
+  const {habits} = api.useHabits();
 
   return (
       <Grid container>

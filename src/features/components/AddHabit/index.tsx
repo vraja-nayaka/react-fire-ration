@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, Box, Button, Dialog, TextField, InputLabel, FormControl, Select, FormControlLabel, Checkbox, MenuItem } from '@material-ui/core';
+import { Typography, Box, Button, Dialog, TextField, InputLabel, FormControl, Select, FormControlLabel, Checkbox, MenuItem } from '@material-ui/core';
 import { useFormik } from 'formik';
 import moment from 'moment';
 import { IHabit, IHabitDate } from '../../profile/typings';
