@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box, Button, Dialog, TextField, InputLabel, FormControl, Select, FormControlLabel, Checkbox, MenuItem } from '@material-ui/core';
+import { Typography, Box, Button, Dialog, TextField, InputLabel, FormControl, Select, FormControlLabel, Checkbox, MenuItem, Grid } from '@material-ui/core';
 import { useFormik } from 'formik';
 import moment from 'moment';
 import { IHabit, IHabitDate } from '../../profile/typings';
@@ -49,46 +49,56 @@ const AddHabit = (props: AddHabitProps) => {
             <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
                 <form onSubmit={formik.handleSubmit}>
                     <Box display="flex" padding={3} flexDirection="column" justifyContent="space-between" alignItems="center" minHeight="200px">
-                        <Typography>Что вы хотите делать каждый день?</Typography>
-                        <Box display="flex" paddingTop={2} justifyContent="space-around" minWidth="300px">
-                            <TextField id="name" name="name" type="text" label="Название" onChange={formik.handleChange}
-                                value={formik.values.name} variant="outlined" />
-                            <Box width="90px" marginLeft={2}>
-                                <TextField id="promise" name="promise" type="number" label="Количество в день" onChange={formik.handleChange}
+                        <Grid container spacing={2} >
+                            <Grid item xs={12}>
+                                <Typography align="center">Что вы хотите делать каждый день?</Typography>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField id="name" name="name" type="text" label="Название" fullWidth onChange={formik.handleChange}
+                                    value={formik.values.name} variant="outlined" />
+                            </Grid>
+                            <Grid item xs={4}>
+                                <TextField id="promise" name="promise" type="number" label="Количество в день" fullWidth onChange={formik.handleChange}
                                     value={formik.values.promise} variant="outlined" />
-                            </Box>
-                            <Box width="180px" marginLeft={2}>
-                                <TextField id="unit" name="unit" type="text" label="Единица измерения" onChange={formik.handleChange}
+                            </Grid>
+                            <Grid item xs={8}>
+                                <TextField id="unit" name="unit" type="text" label="Единица измерения" fullWidth onChange={formik.handleChange}
                                     value={formik.values.unit} variant="outlined" />
-                            </Box>
-                        </Box>
-                        <Box display="flex" paddingTop={2} justifyContent="space-around" minWidth="300px">
-                            <TextField id="startAt" name="startAt" type="date" label="Дата начала" onChange={formik.handleChange}
-                                value={formik.values.startAt} variant="outlined" />
-                            <FormControl variant="outlined">
-                                <InputLabel id="demo-simple-select-outlined-label">Дней на закрепление</InputLabel>
-                                <Select
-                                    labelId="fixingDays"
-                                    id="fixingDays"
-                                    name="fixingDays"
-                                    value={formik.values.fixingDays}
-                                    onChange={formik.handleChange}
-                                    label="Дней на закрепление"
-                                >
-                                    <MenuItem value={20}>20</MenuItem>
-                                    <MenuItem value={30}>30</MenuItem>
-                                    <MenuItem value={40}>40</MenuItem>
-                                    <MenuItem value={90}>90</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
-                        <FormControlLabel
-                            control={<Checkbox checked={formik.values.inRow} onChange={formik.handleChange} name="inRow" />}
-                            label="Дни подряд"
-                        />
-                        <Button type="submit" color="primary" variant="contained" disabled={!(formik.isValid && formik.dirty)}>
-                            Добавить
-                        </Button>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField id="startAt" name="startAt" type="date" label="Дата начала" fullWidth onChange={formik.handleChange}
+                                    value={formik.values.startAt} variant="outlined" />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <FormControl variant="outlined" fullWidth>
+                                    <InputLabel id="demo-simple-select-outlined-label">Дней на закрепление</InputLabel>
+                                    <Select
+                                        labelId="fixingDays"
+                                        id="fixingDays"
+                                        name="fixingDays"
+                                        value={formik.values.fixingDays}
+                                        onChange={formik.handleChange}
+                                        label="Дней на закрепление"
+                                    >
+                                        <MenuItem value={20}>20</MenuItem>
+                                        <MenuItem value={30}>30</MenuItem>
+                                        <MenuItem value={40}>40</MenuItem>
+                                        <MenuItem value={90}>90</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12} >
+                                <FormControlLabel
+                                    control={<Checkbox checked={formik.values.inRow} onChange={formik.handleChange} name="inRow" />}
+                                    label="Дни подряд"
+                                />
+                            </Grid>
+                            <Grid item xs={12} >
+                                <Button type="submit" color="primary" variant="contained" disabled={!(formik.isValid && formik.dirty)}>
+                                    Добавить
+                                </Button>
+                            </Grid>
+                        </Grid>
                     </Box>
                 </form>
             </Dialog>

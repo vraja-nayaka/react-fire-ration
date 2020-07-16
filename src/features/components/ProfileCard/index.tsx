@@ -10,7 +10,7 @@ interface ProfileCardProps {
     name: string;
     avatar: string;
     experience: number;
-    setIsOpenEdit: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsOpenEdit?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const BorderLinearProgress = withStyles({
@@ -30,12 +30,17 @@ const ProfileCard = (props: ProfileCardProps) => {
 
     return (
         <Paper>
-            <Box display="flex" alignItems="center" justifyContent="space-between" padding={1}>
+            <Box display="flex" alignItems="center" justifyContent="space-between" padding={1} minWidth={200}>
                 <ExperienceAvatar experience={experience} avatar={avatar} />
-                <Typography variant="h5">{name}</Typography>
-                <IconButton onClick={() => setIsOpenEdit(true)}>
-                    <EditIcon />
-                </IconButton>
+                <Box marginX={2}>
+                    <Typography variant="h5">{name}</Typography>
+                </Box>
+                {
+                    setIsOpenEdit &&
+                    <IconButton onClick={() => setIsOpenEdit(true)}>
+                        <EditIcon />
+                    </IconButton>
+                }
             </Box>
             <BorderLinearProgress
                 variant="determinate"

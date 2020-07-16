@@ -6,7 +6,10 @@ import { useFormik } from 'formik';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import UnarchiveIcon from '@material-ui/icons/Unarchive';
 import TimelapseIcon from '@material-ui/icons/Timelapse';
+import SaveIcon from '@material-ui/icons/Save';
 import BeenhereIcon from '@material-ui/icons/Beenhere';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 interface SuccessCardEditProps {
     habit: IHabit;
@@ -15,6 +18,8 @@ interface SuccessCardEditProps {
 
 const SuccessCardEdit = (props: SuccessCardEditProps) => {
     const { habit, editHabit } = props;
+    const theme = useTheme();
+    const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
     const newSuccess = [] as ISuccess[];
     const lastDate = habit.success[habit.success.length - 1].day;
@@ -41,7 +46,7 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
         <Paper elevation={3}>
             <form id="progress">
                 <Box p={2}>
-                    <Box display="flex" justifyContent="space-between">
+                    <Box display="flex" justifyContent="space-between" flexDirection={smDown ? 'column' : 'row'}>
                         <Typography variant="h5">{habit.name}</Typography>
                         <Box display="flex" >
                             {
@@ -63,9 +68,9 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
                                     </Tooltip>
                                 </Box>
                             }
-                            <Button onClick={() => formik.handleSubmit()} id="progress" variant="contained" color="primary" >
-                                Сохранить
-                            </Button>
+                            <IconButton onClick={() => formik.handleSubmit()} >
+                                <SaveIcon color="primary"/>
+                            </IconButton>
                             {
                                 formik.values.status === 'active'
                                     ? <IconButton onClick={() => formik.setFieldValue('status', 'archive')}>

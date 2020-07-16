@@ -3,6 +3,8 @@ import { Grid, Box, makeStyles, Theme, createStyles, IconButton, Avatar, Typogra
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
+import ProfileCard from '../components/ProfileCard';
+import { api } from '../../api';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -14,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Header = () => {
     const classes = useStyles();
+    const { name, avatar, experience } = api.useUser(true);
 
     return (
         <Grid container alignItems="center" justify="space-between" className={classes.container}>
@@ -29,7 +32,8 @@ const Header = () => {
                 </IconButton>
             </Grid>
             <Grid item>
-                <Paper>
+            <ProfileCard name={name} avatar={avatar} experience={experience}/>
+                {/* <Paper>
                     <Box padding={2}>
                         <Grid container alignItems="center" spacing={1}>
                             <Grid item>
@@ -42,7 +46,7 @@ const Header = () => {
                             </Grid>
                         </Grid>
                     </Box>
-                </Paper>
+                </Paper> */}
             </Grid>
         </Grid>
     );
