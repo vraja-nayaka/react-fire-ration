@@ -20,7 +20,7 @@ const useStyles = makeStyles({
 });
 
 const FriendCard = (props: FriendCardProps) => {
-    const { avatar, name, userId, level, subscribeUser, unsubscribeUser, onClick } = props;
+    const { avatar, name, userId, subscribeUser, unsubscribeUser, onClick } = props;
     const classes = useStyles(!!onClick);
     return (
         <Paper elevation={3} className={classes.pointer}>

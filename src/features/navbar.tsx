@@ -1,18 +1,11 @@
 import React from 'react';
 import { Button, Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { useAuth } from 'reactfire';
 
 export const Navbar = () => {
-    const auth = useAuth();
 
     return (
-        <Box display="flex" flexDirection="row" bgcolor="#999" flexWrap="wrap">
-            <Box padding={1}>
-                <Button variant="contained" color="secondary" onClick={() => auth.signOut()}>
-                    Logout
-                </Button>
-            </Box>
+        <Box display="flex" justifyContent="center" bgcolor="#999" flexWrap="wrap">
             {/* <Box padding={1}>
                 <Button variant="contained" color="secondary">
                     <Link to="/">Start</Link>

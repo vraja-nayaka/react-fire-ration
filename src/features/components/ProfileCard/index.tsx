@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
-import { Box, Typography, LinearProgress, Paper, IconButton } from '@material-ui/core';
+import { Box, Typography, LinearProgress, Paper } from '@material-ui/core';
 import { withStyles, lighten } from '@material-ui/core/styles';
 import { theme } from '../../../theme';
-import EditIcon from '@material-ui/icons/Edit';
+
 import ExperienceAvatar from './ExperienceAvatar';
 import { getNextLevelExperience } from './helpers';
 
@@ -10,7 +10,7 @@ interface ProfileCardProps {
     name: string;
     avatar: string;
     experience: number;
-    setIsOpenEdit?: React.Dispatch<React.SetStateAction<boolean>>;
+    children?: React.ReactNode;
 }
 
 const BorderLinearProgress = withStyles({
@@ -25,7 +25,7 @@ const BorderLinearProgress = withStyles({
 })(LinearProgress);
 
 const ProfileCard = (props: ProfileCardProps) => {
-    const { name, setIsOpenEdit, experience, avatar } = props;
+    const { name, experience, avatar, children } = props;
     const nextLevelExperience = useMemo(() => getNextLevelExperience(experience), [experience]);
 
     return (
@@ -35,12 +35,7 @@ const ProfileCard = (props: ProfileCardProps) => {
                 <Box marginX={2}>
                     <Typography variant="h5">{name}</Typography>
                 </Box>
-                {
-                    setIsOpenEdit &&
-                    <IconButton onClick={() => setIsOpenEdit(true)}>
-                        <EditIcon />
-                    </IconButton>
-                }
+                {children}
             </Box>
             <BorderLinearProgress
                 variant="determinate"

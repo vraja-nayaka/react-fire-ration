@@ -52,7 +52,7 @@ const SuccessCard = (props: SuccessCardProps) => {
                             </IconButton>
                         </Box>
                     </Box>
-                    <Box display="flex" >
+                    <Box display="flex" overflow="auto">
                         <Box padding={1}>
                             <Box>
                                 <Typography variant="body1">Дата</Typography>

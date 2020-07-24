@@ -2,33 +2,38 @@ import {
   SuspenseWithPerf,
 } from 'reactfire';
 import React, { useEffect } from 'react';
-import { Grid, Box } from '@material-ui/core';
+import { Grid, Box, IconButton } from '@material-ui/core';
 // import StatsValues from '../components/StatsValues';
 import AddHabit from '../components/AddHabit';
 import ProfileCard from '../components/ProfileCard';
 // import FixingProbability from '../components/FixingProbability';
 import Habits from '../components/Habits';
 import EditProfileDialog from '../components/EditProfile';
+import EditIcon from '@material-ui/icons/Edit';
 import { api } from '../../api';
 
 const ProfilePage = () => {
   const [isOpenEdit, setIsOpenEdit] = React.useState<boolean>(false);
   const { habits, addHabit, editHabit } = api.useHabits(true);
   const { name, avatar, experience, editProfile } = api.useUser(true);
-  
+
   useEffect(() => {
     if (name === '') {
       setIsOpenEdit(true);
     }
   }, [name]);
 
-  const [summ, average, inSuccession] = [22, 2, 1];
+  // const [summ, average, inSuccession] = [22, 2, 1];
 
   return (
     <>
       <Grid container>
         <Grid item xs={12}>
-          <ProfileCard name={name} avatar={avatar} experience={experience} setIsOpenEdit={setIsOpenEdit} />
+          <ProfileCard name={name} avatar={avatar} experience={experience}>
+            <IconButton onClick={() => setIsOpenEdit(true)}>
+              <EditIcon />
+            </IconButton>
+          </ProfileCard>
         </Grid>
         <Grid item xs={12}>
           <Habits habits={habits} editHabit={editHabit} />

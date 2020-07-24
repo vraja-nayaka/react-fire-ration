@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { Typography, Paper, Box, TextField, Button, IconButton, Chip, Fade, Tooltip } from '@material-ui/core';
+import { Typography, Paper, Box, TextField, IconButton, Chip, Fade, Tooltip } from '@material-ui/core';
 import { IHabit, ISuccess } from '../../../../profile/typings';
 import { useFormik } from 'formik';
 import ArchiveIcon from '@material-ui/icons/Archive';

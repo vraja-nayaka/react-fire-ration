@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { FirebaseAppProvider, SuspenseWithPerf } from 'reactfire';
+import { FirebaseAppProvider } from 'reactfire';
 import { firebaseConfig } from './config';
 import { SnackbarProvider } from 'notistack';
 import { ThemeProvider } from '@material-ui/core';
@@ -14,12 +14,12 @@ ReactDOM.render(
     <ThemeProvider theme={theme}>
       <SnackbarProvider maxSnack={3}>
         <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-          <SuspenseWithPerf
-            fallback={'trying to connect to firebase...'}
+          {/* <SuspenseWithPerf
+            fallback={<LoadingScreen />}
             traceId={'connecting-to-firebase'}
-          >
-            <App />
-          </SuspenseWithPerf>
+          > */}
+          <App />
+          {/* </SuspenseWithPerf> */}
         </FirebaseAppProvider>
       </SnackbarProvider>
     </ThemeProvider>

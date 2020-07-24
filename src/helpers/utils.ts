@@ -1,4 +1,4 @@
-import { ISuccess } from "../features/profile/typings";
+import { ISuccess, IProfile } from "../features/profile/typings";
 import moment from 'moment';
 
 export const getFullSuccess = (params: ISuccess[]) => {
@@ -13,4 +13,15 @@ export const getFullSuccess = (params: ISuccess[]) => {
     }
 
     return success;
+};
+
+export const compareWithSet = (rows_1: IProfile[], rows_2: string[]) => {
+    const friendUsers: IProfile[] = [];
+    const otherUsers: IProfile[] = [];
+    let set = new Set(rows_2);
+    rows_1.forEach(row_1 => {
+        set.has(row_1.userId) ? friendUsers.push(row_1) : otherUsers.push(row_1);
+    });
+
+    return {friendUsers, otherUsers};
 };
