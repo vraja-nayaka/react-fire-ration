@@ -1,7 +1,16 @@
 import React from 'react';
-import { Typography, Box, Button, Dialog, TextField } from '@material-ui/core';
+import { Typography, Box, Button, Dialog, TextField, IconButton, Avatar, createStyles, makeStyles } from '@material-ui/core';
 import { useFormik } from 'formik';
 import { IProfile } from '../../profile/typings';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    input: {
+      display: 'none',
+    },
+  }),
+);
 
 interface EditProfileDialogProps {
     isOpen: boolean;
@@ -13,6 +22,7 @@ interface EditProfileDialogProps {
 
 const EditProfileDialog = (props: EditProfileDialogProps) => {
     const { isOpen, setIsOpen, name, avatar, editProfile } = props;
+    const classes = useStyles();
 
     const initialValues = {
         name: name || '',
@@ -40,6 +50,14 @@ const EditProfileDialog = (props: EditProfileDialogProps) => {
                                 <Typography variant="inherit">Для продолжения укажите имя, под которым вас будут знать друзья</Typography>
                             </> : <Typography>Изменение информации профиля</Typography>
                     }
+                    <Avatar alt="avatar" src={formik.values.avatar} />
+                    <input accept="image/*" id="avatar" name="avatar" type="file" className={classes.input}/>
+                    <label htmlFor="avatar">
+                        <IconButton color="primary" aria-label="upload picture" component="span">
+                            <PhotoCamera />
+                        </IconButton>
+                    </label>
+
                     <TextField id="name" name="name" type="text" label="Ваше имя" onChange={formik.handleChange}
                         value={formik.values.name} variant="outlined" />
                     <Button type="submit" color="primary" variant="contained" disabled={!(formik.isValid && formik.dirty)}>

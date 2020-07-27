@@ -6,6 +6,7 @@ import moment from 'moment';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import InsertCommentIcon from '@material-ui/icons/InsertComment';
+import TimelapseIcon from '@material-ui/icons/Timelapse';
 import BeenhereIcon from '@material-ui/icons/Beenhere';
 
 interface SuccessCardProps {
@@ -29,50 +30,56 @@ const SuccessCard = (props: SuccessCardProps) => {
                         <Box>
                             {
                                 habit.promise &&
-                                // <Box display="flex" alignItems="center" paddingRight={1}>
                                 <Tooltip
                                     TransitionComponent={Fade}
                                     TransitionProps={{ timeout: 600 }}
                                     title={`Обещанное количество (${habit.unit ? habit.unit : 'раз'} в день)`}>
-                                    <Chip label={habit.promise} icon={<BeenhereIcon />} color="primary" />
+                                    <Chip label={habit.promise} icon={<BeenhereIcon />} color="inherit" />
                                 </Tooltip>
-                                // </Box>
+                            }
+                            {
+                                habit.endsAt &&
+                                <Box display="flex" alignItems="center" paddingRight={1}>
+                                    <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title="Осталось дней">
+                                        <Chip label={moment(habit.endsAt).diff(habit.startAt, 'days')} icon={<TimelapseIcon />} color="inherit" />
+                                    </Tooltip>
+                                </Box>
                             }
                             <IconButton onClick={() => addLike(!like)}>
-                                {like
-                                    ? <FavoriteIcon color="primary" />
-                                    : <FavoriteBorderIcon color="inherit" />
-                                }
-                            </IconButton>
-                            <IconButton onClick={() => addComment(!comment)} >
-                                {comment
-                                    ? <InsertCommentIcon color="primary" />
-                                    : <InsertCommentIcon color="inherit" />
-                                }
-                            </IconButton>
-                        </Box>
-                    </Box>
-                    <Box display="flex" overflow="auto">
-                        <Box padding={1}>
-                            <Box>
-                                <Typography variant="body1">Дата</Typography>
-                            </Box>
-                            <Box>
-                                <Typography variant="body1">Значение</Typography>
-                            </Box>
-                        </Box>
-                        {
-                            success.map((data, index) => (
-                                <Box padding={1} width="60px" key={index}>
-                                    <Box>
-                                        <Typography variant="body1">{moment(data.day).format('DD.MM')}</Typography>
-                                        <Typography variant="body1">{data.count}</Typography>
-                                    </Box>
+                                        {like
+                                            ? <FavoriteIcon color="primary" />
+                                            : <FavoriteBorderIcon color="inherit" />
+                                        }
+                                    </IconButton>
+                                    <IconButton onClick={() => addComment(!comment)} >
+                                        {comment
+                                            ? <InsertCommentIcon color="primary" />
+                                            : <InsertCommentIcon color="inherit" />
+                                        }
+                                    </IconButton>
                                 </Box>
-                            ))
-                        }
                     </Box>
-                </Box>
+                        <Box display="flex" overflow="auto">
+                            <Box padding={1}>
+                                <Box>
+                                    <Typography variant="body1">Дата</Typography>
+                                </Box>
+                                <Box>
+                                    <Typography variant="body1">{habit.unit ? habit.unit : 'Значение'}</Typography>
+                                </Box>
+                            </Box>
+                            {
+                                success.map((data, index) => (
+                                    <Box padding={1} width="60px" key={index}>
+                                        <Box>
+                                            <Typography variant="body1">{moment(data.day).format('DD.MM')}</Typography>
+                                            <Typography variant="body1">{data.count}</Typography>
+                                        </Box>
+                                    </Box>
+                                ))
+                            }
+                        </Box>
+                    </Box>
             </form>
         </Paper>
     );

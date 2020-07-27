@@ -56,7 +56,7 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
                                         TransitionComponent={Fade}
                                         TransitionProps={{ timeout: 600 }}
                                         title={`Обещанное количество (${habit.unit ? habit.unit : 'раз'} в день)`}>
-                                        <Chip label={habit.promise} icon={<BeenhereIcon />} color="primary" />
+                                        <Chip label={habit.promise} icon={<BeenhereIcon />} color="inherit" />
                                     </Tooltip>
                                 </Box>
                             }
@@ -64,7 +64,7 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
                                 habit.endsAt &&
                                 <Box display="flex" alignItems="center" paddingRight={1}>
                                     <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title="Осталось дней">
-                                        <Chip label={moment(habit.endsAt).diff(habit.startAt, 'days')} icon={<TimelapseIcon />} color="primary" />
+                                        <Chip label={moment(habit.endsAt).diff(habit.startAt, 'days')} icon={<TimelapseIcon />} color="inherit" />
                                     </Tooltip>
                                 </Box>
                             }

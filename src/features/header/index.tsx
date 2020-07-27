@@ -21,7 +21,7 @@ const Header = () => {
     const classes = useStyles();
     const auth = useAuth();
     const history = useHistory();
-    const { name, avatar, experience } = api.useUser(true);
+    const { isAuth, name, avatar, experience } = api.useUser(true);
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -47,34 +47,36 @@ const Header = () => {
                 </IconButton>
             </Grid>
             <Grid item>
-                <ProfileCard name={name} avatar={avatar} experience={experience}>
-                    <IconButton
-                        aria-label="more"
-                        aria-controls="long-menu"
-                        aria-haspopup="true"
-                        onClick={handleClick}
-                    >
-                        <MoreVertIcon />
-                    </IconButton>
-                    <Menu
-                        id="simple-menu"
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                        }}
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                    >
-                        <MenuItem onClick={() => history.push("/profile")}>Профиль</MenuItem>
-                        <MenuItem onClick={() => auth.signOut()}>Выйти</MenuItem>
-                    </Menu>
-                </ProfileCard>
+                {isAuth &&
+                    <ProfileCard name={name} avatar={avatar} experience={experience}>
+                        <IconButton
+                            aria-label="more"
+                            aria-controls="long-menu"
+                            aria-haspopup="true"
+                            onClick={handleClick}
+                        >
+                            <MoreVertIcon />
+                        </IconButton>
+                        <Menu
+                            id="simple-menu"
+                            anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                            }}
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                            }}
+                            anchorEl={anchorEl}
+                            keepMounted
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}
+                        >
+                            <MenuItem onClick={() => history.push("/profile")}>Профиль</MenuItem>
+                            <MenuItem onClick={() => auth.signOut()}>Выйти</MenuItem>
+                        </Menu>
+                    </ProfileCard>
+                }
             </Grid>
         </Grid>
     );

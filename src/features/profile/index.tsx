@@ -1,5 +1,5 @@
 import {
-  SuspenseWithPerf,
+  SuspenseWithPerf, useStorageTask,
 } from 'reactfire';
 import React, { useEffect } from 'react';
 import { Grid, Box, IconButton } from '@material-ui/core';
@@ -16,6 +16,7 @@ const ProfilePage = () => {
   const [isOpenEdit, setIsOpenEdit] = React.useState<boolean>(false);
   const { habits, addHabit, editHabit } = api.useHabits(true);
   const { name, avatar, experience, editProfile } = api.useUser(true);
+  // const task = useStorageTask();
 
   useEffect(() => {
     if (name === '') {
