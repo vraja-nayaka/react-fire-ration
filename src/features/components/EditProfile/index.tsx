@@ -5,11 +5,11 @@ import { IProfile } from '../../profile/typings';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 const useStyles = makeStyles(() =>
-  createStyles({
-    input: {
-      display: 'none',
-    },
-  }),
+    createStyles({
+        input: {
+            display: 'none',
+        },
+    }),
 );
 
 interface EditProfileDialogProps {
@@ -17,7 +17,7 @@ interface EditProfileDialogProps {
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
     name: string;
     avatar: string;
-    editProfile: (data: Partial<IProfile>) => Promise<React.ReactText>;
+    editProfile: (data: Partial<IProfile>) => void;
 }
 
 const EditProfileDialog = (props: EditProfileDialogProps) => {
@@ -27,12 +27,17 @@ const EditProfileDialog = (props: EditProfileDialogProps) => {
     const initialValues = {
         name: name || '',
         avatar: avatar || '',
+        file: undefined,
     };
 
-    type Values = typeof initialValues;
+    type Values = {
+        name: string;
+        avatar: string;
+        file: any;
+    }
 
     const onSubmit = (values: Values) => {
-        editProfile({ name: values.name });
+        editProfile({ name: values.name, avatar: values.avatar, file: values.file});
         setIsOpen(false);
     };
 
@@ -51,8 +56,12 @@ const EditProfileDialog = (props: EditProfileDialogProps) => {
                             </> : <Typography>Изменение информации профиля</Typography>
                     }
                     <Avatar alt="avatar" src={formik.values.avatar} />
-                    <input accept="image/*" id="avatar" name="avatar" type="file" className={classes.input}/>
-                    <label htmlFor="avatar">
+                    <input accept="image/*" id="file" name="file" type="file" className={classes.input}
+                        onChange={(event) => {
+                            formik.setFieldValue('file', event.currentTarget.files ? event.currentTarget.files[0] : undefined)
+                        }}
+                    />
+                    <label htmlFor="file">
                         <IconButton color="primary" aria-label="upload picture" component="span">
                             <PhotoCamera />
                         </IconButton>

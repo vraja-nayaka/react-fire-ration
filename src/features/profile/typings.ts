@@ -6,6 +6,7 @@ export interface IProfile {
     experience: number;
     friends: string[];
     promise: number;
+    file?: any;
 }
 
 export type Timestamp = number;

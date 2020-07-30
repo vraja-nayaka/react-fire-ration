@@ -27,7 +27,7 @@ const SuccessCard = (props: SuccessCardProps) => {
                     <Box display="flex" justifyContent="space-between">
                         <Typography variant="h5">{habit.name}</Typography>
 
-                        <Box>
+                        <Box display="flex" alignItems="center">
                             {
                                 habit.promise &&
                                 <Tooltip
@@ -46,40 +46,40 @@ const SuccessCard = (props: SuccessCardProps) => {
                                 </Box>
                             }
                             <IconButton onClick={() => addLike(!like)}>
-                                        {like
-                                            ? <FavoriteIcon color="primary" />
-                                            : <FavoriteBorderIcon color="inherit" />
-                                        }
-                                    </IconButton>
-                                    <IconButton onClick={() => addComment(!comment)} >
-                                        {comment
-                                            ? <InsertCommentIcon color="primary" />
-                                            : <InsertCommentIcon color="inherit" />
-                                        }
-                                    </IconButton>
-                                </Box>
-                    </Box>
-                        <Box display="flex" overflow="auto">
-                            <Box padding={1}>
-                                <Box>
-                                    <Typography variant="body1">Дата</Typography>
-                                </Box>
-                                <Box>
-                                    <Typography variant="body1">{habit.unit ? habit.unit : 'Значение'}</Typography>
-                                </Box>
-                            </Box>
-                            {
-                                success.map((data, index) => (
-                                    <Box padding={1} width="60px" key={index}>
-                                        <Box>
-                                            <Typography variant="body1">{moment(data.day).format('DD.MM')}</Typography>
-                                            <Typography variant="body1">{data.count}</Typography>
-                                        </Box>
-                                    </Box>
-                                ))
-                            }
+                                {like
+                                    ? <FavoriteIcon color="primary" />
+                                    : <FavoriteBorderIcon color="inherit" />
+                                }
+                            </IconButton>
+                            <IconButton onClick={() => addComment(!comment)} >
+                                {comment
+                                    ? <InsertCommentIcon color="primary" />
+                                    : <InsertCommentIcon color="inherit" />
+                                }
+                            </IconButton>
                         </Box>
                     </Box>
+                    <Box display="flex" overflow="auto">
+                        <Box padding={1}>
+                            <Box>
+                                <Typography variant="body1">Дата</Typography>
+                            </Box>
+                            <Box>
+                                <Typography variant="body1">{habit.unit ? habit.unit : 'Значение'}</Typography>
+                            </Box>
+                        </Box>
+                        {
+                            success.map((data, index) => (
+                                <Box padding={1} width="60px" key={index}>
+                                    <Box>
+                                        <Typography variant="body1">{moment(data.day).format('DD.MM')}</Typography>
+                                        <Typography variant="body1">{data.count}</Typography>
+                                    </Box>
+                                </Box>
+                            ))
+                        }
+                    </Box>
+                </Box>
             </form>
         </Paper>
     );
