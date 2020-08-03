@@ -32,13 +32,18 @@ const useUser = (isMy?: boolean) => {
     const { name = '', avatar = DEFAULT_IMAGE_PATH, experience = 0 } = useFirestoreDocData(userDetailsRef);
 
     const editProfile = (data: Partial<IProfile>) => {
-        avatarRef.put(data.file);
-        userDetailsRef.set({ ...data, userId, avatar: GET_BASE_IMAGE_PATH(userId), file: '' }, { merge: true })
+        userDetailsRef.set({ ...data, userId, avatar: GET_BASE_IMAGE_PATH(userId) }, { merge: true })
             .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))
+            .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
+    };
+
+    const saveAvatar = (file: Partial<IProfile>['file']) => {
+        avatarRef.put(file)
+            .then(() => enqueueSnackbar('Аватар сохранен', { variant: 'success' }))
             .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
     }
 
-    return { isAuth, id, name, avatar, experience, editProfile };
+    return { isAuth, id, name, avatar, experience, editProfile, saveAvatar };
 };
 
 export { useUser };

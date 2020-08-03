@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography, Paper, IconButton, Box, Tooltip, Fade, Chip } from '@material-ui/core';
+import { Typography, Paper, IconButton, Box, useTheme } from '@material-ui/core';
 import { IHabit } from '../../../../profile/typings';
 import { getFullSuccess } from '../../../../../helpers/utils';
 import moment from 'moment';
@@ -8,6 +8,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import InsertCommentIcon from '@material-ui/icons/InsertComment';
 import TimelapseIcon from '@material-ui/icons/Timelapse';
 import BeenhereIcon from '@material-ui/icons/Beenhere';
+import Chip from '../../../common/Chip';
 
 interface SuccessCardProps {
     habit: IHabit;
@@ -15,6 +16,7 @@ interface SuccessCardProps {
 
 const SuccessCard = (props: SuccessCardProps) => {
     const { habit } = props;
+    const theme = useTheme();
 
     const success = getFullSuccess(habit.success);
     const [like, addLike] = useState(false);
@@ -30,20 +32,21 @@ const SuccessCard = (props: SuccessCardProps) => {
                         <Box display="flex" alignItems="center">
                             {
                                 habit.promise &&
-                                <Tooltip
-                                    TransitionComponent={Fade}
-                                    TransitionProps={{ timeout: 600 }}
-                                    title={`Обещанное количество (${habit.unit ? habit.unit : 'раз'} в день)`}>
-                                    <Chip label={habit.promise} icon={<BeenhereIcon />} color="inherit" />
-                                </Tooltip>
+                                <Chip
+                                    tooltip={`Обещанное количество (${habit.unit ?? 'раз'} в день)`}
+                                    icon={<BeenhereIcon htmlColor="#616161" />}
+                                    label={habit.promise}
+                                    bgcolor={theme.background.gradientSuccess}
+                                />
                             }
                             {
                                 habit.endsAt &&
-                                <Box display="flex" alignItems="center" paddingRight={1}>
-                                    <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} title="Осталось дней">
-                                        <Chip label={moment(habit.endsAt).diff(habit.startAt, 'days')} icon={<TimelapseIcon />} color="inherit" />
-                                    </Tooltip>
-                                </Box>
+                                <Chip
+                                    tooltip="Осталось дней"
+                                    label={moment(habit.endsAt).diff(habit.startAt, 'days')}
+                                    icon={<TimelapseIcon htmlColor="#616161" />}
+                                    bgcolor={theme.background.gradient1}
+                                />
                             }
                             <IconButton onClick={() => addLike(!like)}>
                                 {like
@@ -70,7 +73,13 @@ const SuccessCard = (props: SuccessCardProps) => {
                         </Box>
                         {
                             success.map((data, index) => (
-                                <Box padding={1} width="60px" key={index}>
+                                <Box
+                                    padding={1}
+                                    flex="0 0 45px"
+                                    key={index}
+                                    bgcolor={data.count && data.count >= habit.promise ? theme.background.gradientSuccess : theme.palette.background.paper}
+                                    borderRadius={3}
+                                >
                                     <Box>
                                         <Typography variant="body1">{moment(data.day).format('DD.MM')}</Typography>
                                         <Typography variant="body1">{data.count}</Typography>

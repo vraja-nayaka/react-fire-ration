@@ -18,10 +18,17 @@ interface EditProfileDialogProps {
     name: string;
     avatar: string;
     editProfile: (data: Partial<IProfile>) => void;
+    saveAvatar: (data: Partial<IProfile>['file']) => void;
+}
+
+type Values = {
+    name: string;
+    avatar: string;
+    file: any;
 }
 
 const EditProfileDialog = (props: EditProfileDialogProps) => {
-    const { isOpen, setIsOpen, name, avatar, editProfile } = props;
+    const { isOpen, setIsOpen, name, avatar, editProfile, saveAvatar } = props;
     const classes = useStyles();
 
     const initialValues = {
@@ -30,14 +37,9 @@ const EditProfileDialog = (props: EditProfileDialogProps) => {
         file: undefined,
     };
 
-    type Values = {
-        name: string;
-        avatar: string;
-        file: any;
-    }
-
     const onSubmit = (values: Values) => {
-        editProfile({ name: values.name, avatar: values.avatar, file: values.file});
+        editProfile({ name: values.name, avatar: values.avatar});
+        saveAvatar(values.file);
         setIsOpen(false);
     };
 

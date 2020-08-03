@@ -15,7 +15,7 @@ import { api } from '../../api';
 const ProfilePage = () => {
   const [isOpenEdit, setIsOpenEdit] = React.useState<boolean>(false);
   const { habits, addHabit, editHabit } = api.useHabits(true);
-  const { name, avatar, experience, editProfile } = api.useUser(true);
+  const { name, avatar, experience, editProfile, saveAvatar } = api.useUser(true);
 
   useEffect(() => {
     if (name === '') {
@@ -53,7 +53,7 @@ const ProfilePage = () => {
           <FixingProbability probability={20} />
         </Grid> */}
       </Grid>
-      <EditProfileDialog isOpen={isOpenEdit} setIsOpen={setIsOpenEdit} name={name} avatar={avatar} editProfile={editProfile} />
+      <EditProfileDialog isOpen={isOpenEdit} setIsOpen={setIsOpenEdit} name={name} avatar={avatar} editProfile={editProfile} saveAvatar={saveAvatar} />
     </>
   );
 }

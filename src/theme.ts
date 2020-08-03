@@ -8,7 +8,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
         };
         background: {
             gradient1: string;
-            gradient2: string;
+            gradientSuccess: string;
         };
     }
     // allow configuration using `createMuiTheme`
@@ -18,7 +18,7 @@ declare module '@material-ui/core/styles/createMuiTheme' {
         };
         background: {
             gradient1?: string;
-            gradient2?: string;
+            gradientSuccess?: string;
         };
     }
 }
@@ -33,6 +33,6 @@ export const theme = createMuiTheme({
     },
     background: {
         gradient1: orange[200],
-        gradient2: green[200],
+        gradientSuccess: green[200],
     }
 });
