@@ -15,13 +15,15 @@ export const getFullSuccess = (params: ISuccess[]) => {
     return success;
 };
 
-export const compareWithSet = (rows_1: IProfile[], rows_2: string[]) => {
+export const compareWithSet = (rows_1: IProfile[], rows_2: string[], exclude: string) => {
     const friendUsers: IProfile[] = [];
     const otherUsers: IProfile[] = [];
     let set = new Set(rows_2);
     rows_1.forEach(row_1 => {
-        set.has(row_1.userId) ? friendUsers.push(row_1) : otherUsers.push(row_1);
+        if (row_1.userId !== exclude) {
+            set.has(row_1.userId) ? friendUsers.push(row_1) : otherUsers.push(row_1);
+        }
     });
 
-    return {friendUsers, otherUsers};
+    return { friendUsers, otherUsers };
 };

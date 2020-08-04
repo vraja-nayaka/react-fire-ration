@@ -10,7 +10,7 @@ import { compareWithSet } from '../helpers/utils';
 
 const useUsers = () => {
     const { enqueueSnackbar } = useSnackbar();
-    
+
     const user: any = useUserFire();
     const usersRef = useFirestore()
         .collection('users');
@@ -20,13 +20,13 @@ const useUsers = () => {
 
     const allUsers = useFirestoreCollectionData<IProfile>(usersRef);
 
-    const {friendUsers, otherUsers} = compareWithSet(allUsers, friends);
+    const { friendUsers, otherUsers } = compareWithSet(allUsers, friends, user.uid);
 
     const subscribeUser = (userId: string) => userDetailsRef.set({ friends: [...friends, userId] }, { merge: true })
         .then(() => enqueueSnackbar('Друг добавлен!', { variant: 'success' }))
         .catch((error) => enqueueSnackbar('Произошла ошибка при добавлении друга ' + error, { variant: 'error' }));
 
-    const unsubscribeUser = (userId: string) => userDetailsRef.set({ friends: friends.splice(friends.indexOf(userId) + 1, 1) }, { merge: true })
+    const unsubscribeUser = (userId: string) => userDetailsRef.set({ friends: friends.filter((friend) => friend !== userId) }, { merge: true })
         .then(() => enqueueSnackbar('Вы успешно отписались!', { variant: 'success' }))
         .catch((error) => enqueueSnackbar('Произошла ошибка при отписке ' + error, { variant: 'error' }));
 
