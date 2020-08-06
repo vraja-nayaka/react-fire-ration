@@ -27,6 +27,7 @@ export interface IHabit {
     inRow: boolean;
     promise: number;
     unit: string;
+    experience: number;
 }
 
 export interface IHabitDate {

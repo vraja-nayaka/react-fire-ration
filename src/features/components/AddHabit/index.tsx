@@ -34,6 +34,7 @@ const AddHabit = (props: AddHabitProps) => {
             startAt: new Date(values.startAt).getTime(),
             success: [{ day: new Date(values.startAt).getTime() }],
             endsAt: moment(values.startAt).add(values.fixingDays, 'days').unix() * 1000,
+            experience: 0,
         });
         setIsOpen(false);
     };

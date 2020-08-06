@@ -6,11 +6,14 @@ import { useFormik } from 'formik';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import UnarchiveIcon from '@material-ui/icons/Unarchive';
 import TimelapseIcon from '@material-ui/icons/Timelapse';
+import ExplicitIcon from '@material-ui/icons/Explicit';
 import SaveIcon from '@material-ui/icons/Save';
 import BeenhereIcon from '@material-ui/icons/Beenhere';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Chip from '../../../common/Chip';
+import { lighten } from '@material-ui/core/styles';
+import { api } from '../../../../../api';
 
 interface SuccessCardEditProps {
     habit: IHabit;
@@ -19,6 +22,8 @@ interface SuccessCardEditProps {
 
 const SuccessCardEdit = (props: SuccessCardEditProps) => {
     const { habit, editHabit } = props;
+    const { experience, editExperience } = api.useUser(true);
+
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -37,8 +42,20 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
         success: [...habit.success, ...newSuccess]
     };
 
+    const getExperience = (
+        // prevExp: number, prevSuccess: ISuccess[], 
+        newSuccess: ISuccess[], promise: number
+    ) => {
+        // const newExp =  + prevSuccess.filter((value) => value.count && value.count >= promise)
+        // prevExp
+        return newSuccess.filter((value) => value.count && value.count >= promise).length * 2;
+    };
+
     const onSubmit = (values: IHabit) => {
-        editHabit({ ...values });
+        editHabit({ ...values, experience: getExperience(values.success, values.promise) });
+        // full + next - prev
+        // ! change this!
+        editExperience(experience + values.experience, experience + getExperience(values.success, values.promise))
     };
 
     const formik = useFormik({ initialValues, onSubmit });
@@ -49,7 +66,16 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
                 <Box p={2}>
                     <Box display="flex" justifyContent="space-between" flexDirection={smDown ? 'column' : 'row'}>
                         <Typography variant="h5">{habit.name}</Typography>
-                        <Box display="flex" >
+                        <Box display="flex">
+                            {
+                                habit.experience !== undefined &&
+                                <Chip
+                                    tooltip='Опыт полученный по данной привычке'
+                                    icon={<ExplicitIcon htmlColor="#616161" />}
+                                    label={habit.experience}
+                                    bgcolor={lighten(theme.palette.primary.main, 0.5)}
+                                />
+                            }
                             {
                                 habit.promise &&
                                 <Chip
