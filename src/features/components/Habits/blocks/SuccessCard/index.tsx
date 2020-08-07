@@ -43,7 +43,7 @@ const SuccessCard = (props: SuccessCardProps) => {
                                 habit.endsAt &&
                                 <Chip
                                     tooltip="Осталось дней"
-                                    label={moment(habit.endsAt).diff(habit.startAt, 'days')}
+                                    label={moment(habit.endsAt).diff(new Date(), 'days')}
                                     icon={<TimelapseIcon htmlColor="#616161" />}
                                     bgcolor={theme.background.gradient1}
                                 />

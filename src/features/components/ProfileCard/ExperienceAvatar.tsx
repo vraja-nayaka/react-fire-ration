@@ -50,11 +50,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const ExperienceAvatar = (props: ProfileCardProps) => {
     const { avatar, experience, size = 50 } = props;
-    const nextLevelExperience = getNextLevelExperience(experience);
+    const {level, experienceProgress, nextLevelExperience} = getNextLevelExperience(experience);
     const classes = useStyles({ size });
 
     return (
-        <Tooltip title={`Опыт: ${experience} / ${nextLevelExperience}`} aria-label="experience">
+        <Tooltip title={`Уровень ${level}, Опыт: ${experience} / ${nextLevelExperience}`} aria-label="experience">
             <StyledBadge
                 overlap="circle"
                 anchorOrigin={{
@@ -77,7 +77,7 @@ const ExperienceAvatar = (props: ProfileCardProps) => {
                         variant="static"
                         size={size}
                         color="secondary"
-                        value={experience / nextLevelExperience * 100}
+                        value={experienceProgress}
                     />
                 </Box>
             </StyledBadge>

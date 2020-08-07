@@ -26,7 +26,7 @@ const BorderLinearProgress = withStyles({
 
 const ProfileCard = (props: ProfileCardProps) => {
     const { name, experience, avatar, children } = props;
-    const nextLevelExperience = useMemo(() => getNextLevelExperience(experience), [experience]);
+    const { experienceProgress } = useMemo(() => getNextLevelExperience(experience), [experience]);
 
     return (
         <Paper>
@@ -40,7 +40,7 @@ const ProfileCard = (props: ProfileCardProps) => {
             <BorderLinearProgress
                 variant="determinate"
                 color="secondary"
-                value={experience / nextLevelExperience * 100}
+                value={experienceProgress}
             />
         </Paper >
     );

@@ -19,8 +19,13 @@ const useHabits = (isMy?: boolean) => {
         .collection('habits');
 
     const habits: IHabit[] = [];
-    useFirestoreCollection(habitsRef.where('userId', '==', selectedId).where('status', '==', 'active')).forEach((doc: firestore.DocumentData) => {
-        habits.push({ ...doc.data(), id: doc.id })
+    const habitsArchive: IHabit[] = [];
+    useFirestoreCollection(habitsRef.where('userId', '==', selectedId)).forEach((doc: firestore.DocumentData) => {
+        if (doc.data().status === 'active') {
+            habits.push({ ...doc.data(), id: doc.id })
+        } else {
+            habitsArchive.push({ ...doc.data(), id: doc.id })
+        }
     });
 
     const addHabit = (data: IHabit) => habitsRef.add({ ...data, userId: user.uid })
@@ -31,7 +36,7 @@ const useHabits = (isMy?: boolean) => {
     .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))
     .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
 
-    return {habits, addHabit, editHabit};
+    return {habits, habitsArchive, addHabit, editHabit};
 };
 
 export {useHabits};

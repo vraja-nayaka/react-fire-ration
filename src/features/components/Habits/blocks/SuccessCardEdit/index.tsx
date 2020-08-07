@@ -22,7 +22,7 @@ interface SuccessCardEditProps {
 
 const SuccessCardEdit = (props: SuccessCardEditProps) => {
     const { habit, editHabit } = props;
-    const { experience, editExperience } = api.useUser(true);
+    const { addExperience } = api.useUser(true);
 
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
@@ -42,23 +42,13 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
         success: [...habit.success, ...newSuccess]
     };
 
-    const getExperience = (
-        // prevExp: number, prevSuccess: ISuccess[], 
-        newSuccess: ISuccess[], promise: number
-    ) => {
-        // const newExp =  + prevSuccess.filter((value) => value.count && value.count >= promise)
-        // prevExp
-        return newSuccess.filter((value) => value.count && value.count >= promise).length * 2;
-    };
-
     const onSubmit = (values: IHabit) => {
-        editHabit({ ...values, experience: getExperience(values.success, values.promise) });
-        // full + next - prev
-        // ! change this!
-        editExperience(experience + values.experience, experience + getExperience(values.success, values.promise))
+        const nextHabitExp = values.success.filter((value) => value.count && value.count >= values.promise).length * 2;
+        addExperience(nextHabitExp - values.experience);
+        editHabit({ ...values, experience: nextHabitExp });
     };
 
-    const formik = useFormik({ initialValues, onSubmit });
+    const formik = useFormik({ initialValues, onSubmit, enableReinitialize: true });
 
     return (
         <Paper elevation={3}>
@@ -70,7 +60,7 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
                             {
                                 habit.experience !== undefined &&
                                 <Chip
-                                    tooltip='Опыт полученный по данной привычке'
+                                    tooltip='Получено опыта по данной привычке'
                                     icon={<ExplicitIcon htmlColor="#616161" />}
                                     label={habit.experience}
                                     bgcolor={lighten(theme.palette.primary.main, 0.5)}
@@ -89,12 +79,12 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
                                 habit.endsAt &&
                                 <Chip
                                     tooltip="Осталось дней"
-                                    label={moment(habit.endsAt).diff(habit.startAt, 'days')}
+                                    label={moment(habit.endsAt).diff(new Date(), 'days')}
                                     icon={<TimelapseIcon htmlColor="#616161" />}
                                     bgcolor={theme.background.gradient1}
                                 />
                             }
-                            <IconButton onClick={() => formik.handleSubmit()} >
+                            <IconButton onClick={() => formik.handleSubmit()} style={{boxShadow: '19px'}}>
                                 <SaveIcon color="primary" />
                             </IconButton>
                             {

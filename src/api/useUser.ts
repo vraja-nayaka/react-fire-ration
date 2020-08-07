@@ -37,10 +37,8 @@ const useUser = (isMy?: boolean) => {
             .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
     };
 
-    const editExperience = (prevExp: number, nextExp: number) => {
-        const diffExp = nextExp - prevExp;
-
-        userDetailsRef.set({ experience: nextExp }, { merge: true })
+    const addExperience = (diffExp: number) => {
+        userDetailsRef.set({ experience: experience + diffExp }, { merge: true })
             .then(() => enqueueSnackbar(`${diffExp > 0 ? '+' : ''} ${diffExp} опыта`, { variant: 'success' }))
             .catch((error) => enqueueSnackbar('Произошла ошибка при получении опыта: ' + error, { variant: 'error' }));
     };
@@ -49,9 +47,9 @@ const useUser = (isMy?: boolean) => {
         avatarRef.put(file)
             .then(() => enqueueSnackbar('Аватар сохранен', { variant: 'success' }))
             .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
-    }
+    };
 
-    return { isAuth, id, name, avatar, experience, editProfile, saveAvatar, editExperience };
+    return { isAuth, id, name, avatar, experience, editProfile, saveAvatar, addExperience };
 };
 
 export { useUser };

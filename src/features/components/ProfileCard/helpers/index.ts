@@ -1,24 +1,21 @@
-// const levels = {
-//     1: {
-//         exp: 20,
-//     },
-//     2: {
-//         exp: 60,
-//     },
-//     3: {
-//         exp: 120,
-//     },
-// }
-
-const levels = [20, 60, 110, 200]
+const levels = [20, 60, 110, 200, 380, 500, 800]
 
 export const getNextLevelExperience = (exp: number) => {
     let level = 1;
+    
     levels.forEach((v, i) => {
         if (exp >= v) {
-            level = i + 1;
+            level++;
         }
     });
 
-    return levels[level - 1];
+    const nextLevelExperience = levels[level - 1];
+    const prevLevelExperience = levels[level - 2] || 0;
+    const experienceProgress = (exp - prevLevelExperience) / (nextLevelExperience - prevLevelExperience) * 100 
+
+    return {
+        level,
+        experienceProgress,
+        nextLevelExperience,
+    };
 }
