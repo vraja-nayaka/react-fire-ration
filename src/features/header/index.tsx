@@ -1,8 +1,8 @@
 import React from 'react';
 import { Grid, makeStyles, Theme, createStyles, IconButton, Menu, MenuItem } from '@material-ui/core';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import BookmarksIcon from '@material-ui/icons/Bookmarks';
+// import AddCircleIcon from '@material-ui/icons/AddCircle';
+// import NotificationsIcon from '@material-ui/icons/Notifications';
+// import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import ProfileCard from '../components/ProfileCard';
 import { api } from '../../api';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -36,7 +36,7 @@ const Header = () => {
     return (
         <Grid container alignItems="center" justify="space-between" className={classes.container}>
             <Grid item>
-                <IconButton>
+                {/* <IconButton>
                     <AddCircleIcon />
                 </IconButton>
                 <IconButton>
@@ -44,7 +44,7 @@ const Header = () => {
                 </IconButton>
                 <IconButton>
                     <BookmarksIcon />
-                </IconButton>
+                </IconButton> */}
             </Grid>
             <Grid item>
                 {isAuth &&

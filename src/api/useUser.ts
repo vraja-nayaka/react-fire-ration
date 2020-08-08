@@ -39,7 +39,7 @@ const useUser = (isMy?: boolean) => {
 
     const addExperience = (diffExp: number) => {
         userDetailsRef.set({ experience: experience + diffExp }, { merge: true })
-            .then(() => enqueueSnackbar(`${diffExp > 0 ? '+' : ''} ${diffExp} опыта`, { variant: 'success' }))
+            .then(() => enqueueSnackbar(`${diffExp > 0 ? '+' : ''} ${diffExp} опыта`, { variant: 'info' }))
             .catch((error) => enqueueSnackbar('Произошла ошибка при получении опыта: ' + error, { variant: 'error' }));
     };
 
