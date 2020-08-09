@@ -12,14 +12,14 @@ import Chip from '../../../common/Chip';
 
 interface SuccessCardProps {
     habit: IHabit;
+    editHabit: (data: Partial<IHabit>) => void;
 }
 
 const SuccessCard = (props: SuccessCardProps) => {
-    const { habit } = props;
+    const { habit, editHabit } = props;
     const theme = useTheme();
 
     const success = getFullSuccess(habit.success);
-    const [like, addLike] = useState(false);
     const [comment, addComment] = useState(false);
 
     return (
@@ -48,12 +48,19 @@ const SuccessCard = (props: SuccessCardProps) => {
                                     bgcolor={theme.background.gradient1}
                                 />
                             }
-                            <IconButton onClick={() => addLike(!like)}>
-                                {like
-                                    ? <FavoriteIcon color="primary" />
-                                    : <FavoriteBorderIcon color="inherit" />
-                                }
-                            </IconButton>
+                            <Chip
+                                tooltip="Осталось дней"
+                                label={habit.likes.length}
+                                icon={(
+                                    <IconButton onClick={() => editHabit({id: habit.id, likes: habit.likes})}>
+                                        {habit.likes
+                                            ? <FavoriteIcon color="primary" />
+                                            : <FavoriteBorderIcon color="inherit" />
+                                        }
+                                    </IconButton>
+                                )}
+                                bgcolor={theme.background.gradient1}
+                            />
                             <IconButton onClick={() => addComment(!comment)} >
                                 {comment
                                     ? <InsertCommentIcon color="primary" />

@@ -43,7 +43,7 @@ export function CreateUserPage() {
                             value={formik.values.email} variant="outlined" />
                         <TextField id="password" name="password" type="password" label="password" onChange={formik.handleChange}
                             value={formik.values.password} variant="outlined" />
-                        <Button type="submit" variant="contained">Отправить</Button>
+                        <Button type="submit" variant="contained" color="primary">Отправить</Button>
                         <NavLink to="/login">Войти в свой аккаунт</NavLink>
                     </Box>
                 </form>

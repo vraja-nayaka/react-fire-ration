@@ -6,7 +6,7 @@ import SuccessCard from './blocks/SuccessCard';
 
 interface HabitsProps {
     habits: IHabit[];
-    editHabit?: (data: IHabit) => void;
+    editHabit: (data: Partial<IHabit>) => void;
 }
 
 const Habits = (props: HabitsProps) => {
@@ -23,7 +23,7 @@ const Habits = (props: HabitsProps) => {
                                 <Grid item xs={12} key={habit.id}>
                                     {editHabit
                                         ? <SuccessCardEdit habit={habit} editHabit={editHabit} />
-                                        : <SuccessCard habit={habit} />
+                                        : <SuccessCard habit={habit} editHabit={editHabit} />
                                     }
                                 </Grid>
                             ))

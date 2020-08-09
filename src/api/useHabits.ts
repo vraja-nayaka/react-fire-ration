@@ -32,7 +32,7 @@ const useHabits = (isMy?: boolean) => {
     .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))
     .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
   
-  const editHabit = (data: IHabit) => habitsRef.doc(data.id).set(data, { merge: true })
+  const editHabit = (data: Partial<IHabit>) => habitsRef.doc(data.id).set(data, { merge: true })
     .then(() => enqueueSnackbar('Информация сохранена', { variant: 'success' }))
     .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
 

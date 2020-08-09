@@ -28,6 +28,7 @@ export interface IHabit {
     promise: number;
     unit: string;
     experience: number;
+    likes: string[];
 }
 
 export interface IHabitDate {
