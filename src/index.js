@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { FirebaseAppProvider } from 'reactfire';
-import { firebaseConfig } from './config';
+import { firebaseConfig } from './firebaseConfig';
 import { SnackbarProvider } from 'notistack';
 import { ThemeProvider } from '@material-ui/core';
 import { theme } from './theme';
