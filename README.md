@@ -7,7 +7,7 @@ This app based on React and Firebase.
 
 [Try it here!](https://ration-base.web.app/)<br>
 Use the following to log in:
-    Email: free@test.com
+    Email: free@test.app
     Password: letsgo 
 
 ## Getting Started
@@ -16,7 +16,9 @@ Use the following to log in:
 
     git clone https://github.com/vraja-nayaka/react-fire-ration.git
     cd react-fire-ration
-    npm install                 # install dependencies.
+    npm install
+    create firebase project on https://console.firebase.google.com/
+    set your project config to src/firebaseConfig.ts
     npm start
 
 ## Features
@@ -24,6 +26,8 @@ Use the following to log in:
 - react concurrent Mode (Experimental)
 - firebase database, storage, analitics and deploy
 - reactfire
+- material-ui
+
 
 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Box, Button, Dialog, TextField, IconButton, Avatar, createStyles, makeStyles } from '@material-ui/core';
+import { Typography, Box, Button, Dialog, TextField, IconButton, createStyles, makeStyles } from '@material-ui/core';
 import { useFormik } from 'formik';
 import { IProfile } from '../../profile/typings';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
@@ -57,7 +57,6 @@ const EditProfileDialog = (props: EditProfileDialogProps) => {
                                 <Typography variant="inherit">Для продолжения укажите имя, под которым вас будут знать друзья</Typography>
                             </> : <Typography>Изменение информации профиля</Typography>
                     }
-                    <Avatar alt="avatar" src={formik.values.avatar} />
                     <input accept="image/*" id="file" name="file" type="file" className={classes.input}
                         onChange={(event) => {
                             formik.setFieldValue('file', event.currentTarget.files ? event.currentTarget.files[0] : undefined)
