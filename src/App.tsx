@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import ProfilePage from './features/profile';
 import { Collections } from './features/collections';
 import { LoginPage } from './features/loginization/login';

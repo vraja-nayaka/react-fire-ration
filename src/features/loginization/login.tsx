@@ -19,8 +19,6 @@ const initialValues = {
     password: '',
 };
 
-
-
 export function LoginPage() {
     const auth = useAuth();
     const { enqueueSnackbar } = useSnackbar();
