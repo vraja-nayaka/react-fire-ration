@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { Typography, Paper, Box, TextField, IconButton } from '@material-ui/core';
-import { IHabit, ISuccess } from '../../../../profile/typings';
+import { IHabit } from '../../../../profile/typings';
 import { useFormik } from 'formik';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import UnarchiveIcon from '@material-ui/icons/Unarchive';
@@ -14,6 +14,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Chip from '../../../common/Chip';
 import { lighten } from '@material-ui/core/styles';
 import { api } from '../../../../../api';
+import { getNewSucces } from '../../helpers';
 
 interface SuccessCardEditProps {
     habit: IHabit;
@@ -27,19 +28,9 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
-    const newSuccess = [] as ISuccess[];
-    const lastDate = habit.success[habit.success.length - 1].day;
-    const difference = moment().startOf('day').diff(moment(lastDate).startOf('day'), 'day');
-
-    for (let i = 0; i < difference; i++) {
-        newSuccess.push({
-            day: moment(lastDate).add(i + 1, 'day').unix() * 1000,
-        });
-    }
-
     const initialValues = {
         ...habit,
-        success: [...habit.success, ...newSuccess]
+        success: getNewSucces(habit.success),
     };
 
     const onSubmit = (values: IHabit) => {

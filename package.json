@@ -3,13 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.9.14",
-    "@material-ui/icons": "^4.9.1",
-    "@types/material-ui": "^0.21.7",
-    "@types/react": "^16.9.35",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-router": "^5.1.7",
-    "@types/react-router-dom": "^5.1.5",
     "effector": "^20.15.9",
     "effector-react": "^20.7.3",
     "firebase": "^7.14.4",
@@ -23,8 +16,7 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "reactfire": "^2.0.3",
-    "typescript": "^3.9.3"
+    "reactfire": "^2.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -57,21 +49,34 @@
     "@babel/preset-flow": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.10.4",
+    "@material-ui/core": "^4.9.14",
+    "@material-ui/icons": "^4.9.1",
+    "@types/enzyme": "^3.10.5",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jest": "^26.0.10",
+    "@types/material-ui": "^0.21.7",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-router": "^5.1.7",
+    "@types/react-router-dom": "^5.1.5",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.5.0",
-    "jest": "^26.4.0"
+    "jest": "^26.4.0",
+    "typescript": "^3.9.3"
   },
   "jest": {
     "verbose": true,
     "clearMocks": true,
     "collectCoverage": true,
+    "setupFilesAfterEnv": [
+      "src/setupTests.ts"
+    ],
     "snapshotSerializers": [
       "./node_modules/enzyme-to-json/serializer"
     ],
     "transform": {
-      "^.+\\.(js|ts)$": "babel-jest"
+      "^.+\\.(js|ts|tsx)$": "babel-jest"
     },
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "./__mocks__/fileMock.js",

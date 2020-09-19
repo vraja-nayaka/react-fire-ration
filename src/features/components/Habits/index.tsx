@@ -4,7 +4,7 @@ import { IHabit } from '../../profile/typings';
 import SuccessCardEdit from './blocks/SuccessCardEdit';
 import SuccessCard from './blocks/SuccessCard';
 
-interface HabitsProps {
+export interface HabitsProps {
     habits: IHabit[];
     editHabit: (data: Partial<IHabit>) => void;
 }
