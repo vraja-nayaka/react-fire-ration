@@ -5,8 +5,7 @@ import { LoginPage } from './features/loginization/login';
 import { AuthCheck, SuspenseWithPerf } from 'reactfire';
 import { NotFoundPage } from './features/notFound';
 import { MyPageViewLogger } from './features/viewLogger';
-import { Router, Route, Switch } from 'react-router';
-import { createBrowserHistory } from 'history'
+import { Route, Switch, useLocation } from 'react-router-dom';
 import { Navbar } from './features/navbar';
 import { Grid, Container, CssBaseline, Box } from '@material-ui/core';
 import Header from './features/header';
@@ -16,7 +15,7 @@ import FriendsViewPage from './features/friends/pages/view';
 import LoadingScreen from './features/components/LoadingScreen';
 
 function App() {
-  const history = createBrowserHistory();
+  const location = useLocation();
 
   return (
     <>
@@ -26,33 +25,31 @@ function App() {
           fallback={<LoadingScreen />}
           traceId={'connecting-to-firebase'}
         >
-          <Router history={history}>
-            <Grid container>
-              <Grid item xs={12}>
-                <Header />
-              </Grid>
-              <Grid item xs={12} md={12}>
-                <Navbar />
-              </Grid>
-              <Grid item xs={12} md={12}>
-                <Box minHeight="85vh" bgcolor="#CCC" display="flex" alignItems="center" justifyContent="center">
-                  <Switch>
-                    <Route exact path="/signup" component={CreateUserPage} />
-                    <Route exact path="/login" component={LoginPage} />
-                    <AuthCheck fallback={<LoginPage />}>
-                      <Route exact path="/" component={ProfilePage} />
-                      <Route path="/profile" component={ProfilePage} />
-                      <Route exact path="/collections" component={Collections} />
-                      <Route exact path="/friends/:id" component={FriendsViewPage} />
-                      <Route exact path="/friends" component={FriendsPage} />
-                    </AuthCheck>
-                    <Route component={NotFoundPage} />
-                  </Switch>
-                </Box>
-              </Grid>
-              <MyPageViewLogger location={history.location} />
+          <Grid container>
+            <Grid item xs={12}>
+              <Header />
             </Grid>
-          </Router>
+            <Grid item xs={12} md={12}>
+              <Navbar />
+            </Grid>
+            <Grid item xs={12} md={12}>
+              <Box minHeight="85vh" bgcolor="#CCC" display="flex" alignItems="center" justifyContent="center">
+                <Switch>
+                  <Route exact path="/signup" children={<CreateUserPage />} />
+                  <Route exact path="/login" children={<LoginPage />} />
+                  <AuthCheck fallback={<LoginPage />}>
+                    <Route exact path="/" children={<ProfilePage />} />
+                    <Route path="/profile" children={<ProfilePage />} />
+                    <Route exact path="/collections" children={<Collections />} />
+                    <Route exact path="/friends/:id" children={<FriendsViewPage />} />
+                    <Route exact path="/friends" children={<FriendsPage />} />
+                  </AuthCheck>
+                  <Route path="*" children={NotFoundPage} />
+                </Switch>
+              </Box>
+            </Grid>
+            <MyPageViewLogger location={location} />
+          </Grid>
         </SuspenseWithPerf>
       </Container>
     </>

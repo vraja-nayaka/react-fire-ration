@@ -2,7 +2,7 @@ import {SuspenseWithPerf} from 'reactfire';
 import React from 'react';
 import { Grid, Paper, Typography, List } from '@material-ui/core';
 import FriendCard from '../../components/FriendCard';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import { api } from '../../../../api';
 
 const FriendsPage = () => {

@@ -7,7 +7,7 @@ import ProfileCard from '../components/ProfileCard';
 import { api } from '../../api';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { useAuth } from 'reactfire';
-import { useHistory } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

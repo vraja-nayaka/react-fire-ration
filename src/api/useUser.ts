@@ -6,7 +6,7 @@ import {
 } from 'reactfire';
 import { User } from 'firebase';
 import { IProfile } from '../features/profile/typings';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
 const DEFAULT_IMAGE_PATH = '#';
@@ -29,7 +29,9 @@ const useUser = (isMy?: boolean) => {
     const { name = '', avatar = DEFAULT_IMAGE_PATH, experience = 0 } = useFirestoreDocData<IProfile>(userDetailsRef);
 
     // cut 'path' from GET_BASE_IMAGE_PATH
-    const avatarPath = avatar === '#' ? '1' : avatar.split('%2F')[2].slice(0, -10);
+    // ! rework this
+    // const avatarPath = avatar === '#' ? '1' : avatar.split('%2F')[2].slice(0, -10);
+    const avatarPath = '#';
     const nextAvatarSrc =  String(Number(avatarPath) + 1);
     const storage = useStorage();
     const nextAvatarRef = storage.ref(`avatars/${userId}`).child(nextAvatarSrc);

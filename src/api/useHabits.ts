@@ -5,7 +5,7 @@ import {
 } from 'reactfire';
 import { firestore, User } from 'firebase';
 import { IHabit } from '../features/profile/typings';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
 const useHabits = (isMy?: boolean) => {
