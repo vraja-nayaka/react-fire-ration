@@ -20,6 +20,6 @@
       "jsx": "preserve"
     },
     "include": [
-      "src", "src/setupTests.ts"
+      "src", "src/setupTests.ts", "public/serviceWorker.js"
     ]
   }
