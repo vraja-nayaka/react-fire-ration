@@ -1,6 +1,6 @@
 {
-  "short_name": "React habit",
-  "name": "React Habit Firebase App",
+  "short_name": "Team habit",
+  "name": "Team habit PWA",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,8 +10,9 @@
     {
       "src": "/logo.png",
       "type": "image/png",
-      "sizes": "1024x1024"
-  }
+      "sizes": "1024x1024",
+      "purpose": "any maskable"
+    }
   ],
   "start_url": ".",
   "display": "standalone",
