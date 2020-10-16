@@ -3,6 +3,7 @@ import { Typography, Box, Button, Dialog, TextField, InputLabel, FormControl, Se
 import { useFormik } from 'formik';
 import moment from 'moment';
 import { IHabit, IHabitDate } from '../../profile/typings';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 interface AddHabitProps {
     addHabit: (data: IHabit) => Promise<React.ReactText>;
@@ -45,15 +46,17 @@ const AddHabit = (props: AddHabitProps) => {
     return (
         <>
             <Box display="flex" padding={3} flexDirection="column" justifyContent="space-between" alignItems="center">
-                <Button color="primary" variant="contained" onClick={() => setIsOpen(true)}>+</Button>
-                <Typography>Добавить привычку</Typography>
+                <Button color="primary" aria-label="add habit" onClick={() => setIsOpen(true)}>
+                    <AddCircleIcon /> <Typography>Добавить привычку</Typography>
+                </Button>
+
             </Box>
             <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
                 <form onSubmit={formik.handleSubmit}>
                     <Box display="flex" padding={3} flexDirection="column" justifyContent="space-between" alignItems="center" minHeight="200px">
                         <Grid container spacing={2} >
                             <Grid item xs={12}>
-                                <Typography align="center">Что вы хотите делать каждый день?</Typography>
+                                <Typography variant="h5" align="center">Что вы хотите делать каждый день?</Typography>
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField id="name" name="name" type="text" label="Название" fullWidth onChange={formik.handleChange}

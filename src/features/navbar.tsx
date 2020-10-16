@@ -1,26 +1,32 @@
 import React from 'react';
-import { Button, Box } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { BottomNavigation, BottomNavigationAction } from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
+import AccountIcon from '@material-ui/icons/AccountCircleSharp'
+import PeopleIcon from '@material-ui/icons/People'
 
 export const Navbar = () => {
+    const [value, setValue] = React.useState(0);
 
     return (
-        <Box display="flex" justifyContent="center" bgcolor="#999" flexWrap="wrap">
-            {/* <Box padding={1}>
-                <Button variant="contained" color="secondary">
-                    <Link to="/">Start</Link>
-                </Button>
-            </Box> */}
-            <Box padding={1}>
-                <Button variant="contained" color="secondary">
-                    <Link to="/profile">Profile</Link>
-                </Button>
-            </Box>
-            <Box padding={1}>
-                <Button variant="contained" color="secondary">
-                    <Link to="/friends">Friends</Link>
-                </Button>
-            </Box>
-        </Box>
+        <BottomNavigation
+            value={value}
+            onChange={(event, newValue) => {
+                setValue(newValue);
+            }}
+            showLabels
+        >
+            <BottomNavigationAction
+                label="Profile"
+                icon={<AccountIcon />}
+                component={NavLink}
+                to={'/profile'}
+            />
+            <BottomNavigationAction
+                label="Friends"
+                icon={<PeopleIcon />}
+                component={NavLink}
+                to={'/friends'}
+            />
+        </BottomNavigation>
     );
 };
