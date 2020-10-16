@@ -7,6 +7,8 @@ import ArchiveIcon from '@material-ui/icons/Archive';
 import UnarchiveIcon from '@material-ui/icons/Unarchive';
 import TimelapseIcon from '@material-ui/icons/Timelapse';
 import ExplicitIcon from '@material-ui/icons/Explicit';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import SaveIcon from '@material-ui/icons/Save';
 import BeenhereIcon from '@material-ui/icons/Beenhere';
 import { useTheme } from '@material-ui/core/styles';
@@ -48,6 +50,15 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
                     <Box display="flex" justifyContent="space-between" flexDirection={smDown ? 'column' : 'row'}>
                         <Typography variant="h5">{habit.name}</Typography>
                         <Box display="flex">
+                            <Chip
+                                tooltip="Нравится"
+                                label={habit.likes ? habit.likes.length : 0}
+                                icon={habit.likes
+                                    ? <FavoriteIcon color="primary" />
+                                    : <FavoriteBorderIcon htmlColor="#616161" />
+                                }
+                                bgcolor={theme.background.gradient1}
+                            />
                             {
                                 habit.experience !== undefined &&
                                 <Chip
@@ -75,7 +86,7 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
                                     bgcolor={theme.background.gradient1}
                                 />
                             }
-                            <IconButton onClick={() => formik.handleSubmit()} style={{boxShadow: '19px'}}>
+                            <IconButton onClick={() => formik.handleSubmit()} style={{ boxShadow: '19px' }}>
                                 <SaveIcon color="primary" />
                             </IconButton>
                             {

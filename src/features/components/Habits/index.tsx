@@ -7,10 +7,11 @@ import SuccessCard from './blocks/SuccessCard';
 export interface HabitsProps {
     habits: IHabit[];
     editHabit: (data: Partial<IHabit>) => void;
+    isOwn?: boolean;
 }
 
 const Habits = (props: HabitsProps) => {
-    const { habits, editHabit } = props;
+    const { habits, editHabit, isOwn } = props;
 
     return (
         <Paper>
@@ -21,7 +22,7 @@ const Habits = (props: HabitsProps) => {
                         habits.length > 0
                             ? habits.map((habit) => (
                                 <Grid item xs={12} key={habit.id}>
-                                    {editHabit
+                                    {isOwn
                                         ? <SuccessCardEdit habit={habit} editHabit={editHabit} />
                                         : <SuccessCard habit={habit} editHabit={editHabit} />
                                     }

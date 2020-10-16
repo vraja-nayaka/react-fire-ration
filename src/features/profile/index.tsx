@@ -36,7 +36,7 @@ const ProfilePage = () => {
           </ProfileCard>
         </Grid>
         <Grid item xs={12}>
-          <Habits habits={habits} editHabit={editHabit}/>
+          <Habits habits={habits} editHabit={editHabit} isOwn/>
         </Grid>
         {/* <Grid item xs={12}>
           <StatsValues summ={summ} average={average} inSuccession={inSuccession} />

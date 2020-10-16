@@ -49,13 +49,14 @@ const SuccessCard = (props: SuccessCardProps) => {
                                 />
                             }
                             <Chip
-                                tooltip="Осталось дней"
-                                label={habit.likes.length}
+                                tooltip="Нравится"
+                                label={habit.likes ? habit.likes.length : 0}
                                 icon={(
-                                    <IconButton onClick={() => editHabit({id: habit.id, likes: habit.likes})}>
+                                    // ! TODO: change likes logic
+                                    <IconButton onClick={() => editHabit({ id: habit.id, likes: habit.likes ? [...habit.likes, 'Add like'] : ['My like!'] })}>
                                         {habit.likes
                                             ? <FavoriteIcon color="primary" />
-                                            : <FavoriteBorderIcon color="inherit" />
+                                            : <FavoriteBorderIcon htmlColor="#616161" />
                                         }
                                     </IconButton>
                                 )}
@@ -64,7 +65,7 @@ const SuccessCard = (props: SuccessCardProps) => {
                             <IconButton onClick={() => addComment(!comment)} >
                                 {comment
                                     ? <InsertCommentIcon color="primary" />
-                                    : <InsertCommentIcon color="inherit" />
+                                    : <InsertCommentIcon htmlColor="#616161" />
                                 }
                             </IconButton>
                         </Box>
