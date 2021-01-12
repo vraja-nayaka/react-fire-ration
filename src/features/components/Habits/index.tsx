@@ -5,35 +5,35 @@ import SuccessCardEdit from './blocks/SuccessCardEdit';
 import SuccessCard from './blocks/SuccessCard';
 
 export interface HabitsProps {
-    habits: IHabit[];
-    editHabit: (data: Partial<IHabit>) => void;
-    isOwn?: boolean;
+  habits: IHabit[];
+  editHabit: (data: Partial<IHabit>) => void;
+  isOwn?: boolean;
 }
 
 const Habits = (props: HabitsProps) => {
-    const { habits, editHabit, isOwn } = props;
+  const { habits, editHabit, isOwn } = props;
 
-    return (
-        <Paper>
-            <Box p={2}>
-                <Typography>Отслеживаемые привычки:</Typography>
-                <Grid container spacing={2}>
-                    {
-                        habits.length > 0
-                            ? habits.map((habit) => (
-                                <Grid item xs={12} key={habit.id}>
-                                    {isOwn
-                                        ? <SuccessCardEdit habit={habit} editHabit={editHabit} />
-                                        : <SuccessCard habit={habit} editHabit={editHabit} />
-                                    }
-                                </Grid>
-                            ))
-                            : <Typography variant="inherit">Привычек пока нет</Typography>
-                    }
+  return (
+    <Paper>
+      <Box p={2}>
+        <Typography>Отслеживаемые привычки:</Typography>
+        <Grid container spacing={2}>
+          {
+            habits.length > 0
+              ? habits.map((habit) => (
+                <Grid item xs={12} key={habit.id}>
+                  {isOwn
+                    ? <SuccessCardEdit habit={habit} editHabit={editHabit} />
+                    : <SuccessCard habit={habit} editHabit={editHabit} />
+                  }
                 </Grid>
-            </Box>
-        </Paper >
-    )
+              ))
+              : <Typography variant="inherit">У вас до сих пор нет отслеживаемых привычек, пора это исправить!</Typography>
+          }
+        </Grid>
+      </Box>
+    </Paper >
+  )
 };
 
 export default Habits;
