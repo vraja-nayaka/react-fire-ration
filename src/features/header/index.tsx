@@ -1,85 +1,107 @@
-import React from 'react';
-import { Grid, makeStyles, Theme, createStyles, IconButton, Menu, MenuItem } from '@material-ui/core';
-// import AddCircleIcon from '@material-ui/icons/AddCircle';
-// import NotificationsIcon from '@material-ui/icons/Notifications';
-// import BookmarksIcon from '@material-ui/icons/Bookmarks';
-import ProfileCard from '../components/ProfileCard';
-import { api } from '../../api';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import React, { useEffect } from 'react';
 import { useAuth } from 'reactfire';
 import { useHistory } from 'react-router-dom';
 
+import { Grid, makeStyles, Theme, createStyles, IconButton, Menu, MenuItem, Box } from '@material-ui/core';
+import ProfileCard from 'features/components/ProfileCard';
+import EditProfileDialog from '../components/EditProfile';
+import { api } from '../../api';
+
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import EditIcon from '@material-ui/icons/Edit';
+
 const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        container: {
-            background: theme.background.gradient1,
-        },
-    }),
+  createStyles({
+    container: {
+      background: theme.background.gradient1,
+    },
+  }),
 );
 
 const Header = () => {
-    const classes = useStyles();
-    const auth = useAuth();
-    const history = useHistory();
-    const { isAuth, name, avatar, experience } = api.useUser(true);
+  const classes = useStyles();
+  const auth = useAuth();
+  const history = useHistory();
+  const [isOpenEdit, setIsOpenEdit] = React.useState<boolean>(false);
+  const { isAuth, name, avatar, experience, editProfile, saveAvatar } = api.useUser(true);
 
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-    return (
-        <Grid container alignItems="center" justify="space-between" className={classes.container}>
-            <Grid item>
-                {/* <IconButton>
-                    <AddCircleIcon />
-                </IconButton>
-                <IconButton>
-                    <NotificationsIcon />
-                </IconButton>
-                <IconButton>
-                    <BookmarksIcon />
-                </IconButton> */}
-            </Grid>
-            <Grid item>
-                {isAuth &&
-                    <ProfileCard name={name} avatar={avatar} experience={experience}>
-                        <IconButton
-                            aria-label="more"
-                            aria-controls="long-menu"
-                            aria-haspopup="true"
-                            onClick={handleClick}
-                        >
-                            <MoreVertIcon />
-                        </IconButton>
-                        <Menu
-                            id="simple-menu"
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'center',
-                            }}
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'center',
-                            }}
-                            anchorEl={anchorEl}
-                            keepMounted
-                            open={Boolean(anchorEl)}
-                            onClose={handleClose}
-                        >
-                            <MenuItem onClick={() => history.push("/profile")}>Профиль</MenuItem>
-                            <MenuItem onClick={() => auth.signOut()}>Выйти</MenuItem>
-                        </Menu>
-                    </ProfileCard>
-                }
-            </Grid>
-        </Grid>
-    );
+  useEffect(() => {
+    if (name === '') {
+      setIsOpenEdit(true);
+    }
+  }, [name]);
+
+  const menuItems = [
+    {
+      label: 'Профиль',
+      onClick: () => {
+        history.push("/profile");
+        handleClose();
+      },
+    },
+    {
+      label: 'Выйти',
+      onClick: () => {
+        auth.signOut();
+        handleClose();
+      },
+    },
+  ];
+
+  const menuElements = menuItems.map(({ label, onClick }) => <MenuItem onClick={onClick}>{label}</MenuItem>);
+
+  return (
+    <Grid container alignItems="center" justify="space-between" className={classes.container}>
+      <Grid item xs={12}>
+        {isAuth &&
+          <ProfileCard name={name} avatar={avatar} experience={experience}>
+            <Box>
+              <IconButton onClick={() => setIsOpenEdit(true)}>
+                <EditIcon />
+              </IconButton>
+              <IconButton
+                aria-label="more"
+                aria-controls="long-menu"
+                aria-haspopup="true"
+                onClick={handleClick}
+              >
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                id="simple-menu"
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center',
+                }}
+                anchorEl={anchorEl}
+                keepMounted
+                closeAfterTransition
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                {menuElements}
+              </Menu>
+            </Box>
+          </ProfileCard>
+        }
+      </Grid>
+      <EditProfileDialog isOpen={isOpenEdit} setIsOpen={setIsOpenEdit} name={name} avatar={avatar} editProfile={editProfile} saveAvatar={saveAvatar} />
+    </Grid>
+  );
 }
 
 export default Header;
