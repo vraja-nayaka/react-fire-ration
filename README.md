@@ -21,6 +21,11 @@ Use the following to log in:
     set your project config to src/firebaseConfig.ts
     npm start
 
+## Deploy on Firebase
+
+    yarn build
+    firebase deploy --only hosting
+
 ## Features
 - google OAuth
 - react concurrent Mode (Experimental)
