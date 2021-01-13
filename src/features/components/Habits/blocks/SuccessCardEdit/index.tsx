@@ -1,27 +1,22 @@
 import React from 'react';
 import moment from 'moment';
+import { useFormik } from 'formik';
+import { api } from 'api';
 import { Typography, Paper, Box, TextField, IconButton } from '@material-ui/core';
 import { IHabit } from 'features/profile/typings';
-import { useFormik } from 'formik';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import SaveIcon from '@material-ui/icons/Save';
-import BeenhereIcon from '@material-ui/icons/Beenhere';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Chip from 'features/components/common/Chip';
-import { lighten } from '@material-ui/core/styles';
-import { api } from 'api';
 import { getNewSucces } from 'features/components/Habits/helpers';
 
+import SaveIcon from '@material-ui/icons/Save';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import UnarchiveIcon from '@material-ui/icons/Unarchive';
-import ExplicitIcon from '@material-ui/icons/Explicit';
-// import TimelapseIcon from '@material-ui/icons/Timelapse';
+
+import { ChipsBlock } from '../ChipsBlock';
 
 interface SuccessCardEditProps {
   habit: IHabit;
-  editHabit: (data: IHabit) => void;
+  editHabit: (data: Partial<IHabit>) => void;
 }
 
 const SuccessCardEdit = (props: SuccessCardEditProps) => {
@@ -65,42 +60,9 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
           <Box display="flex" justifyContent="space-between" flexDirection={smDown ? 'column' : 'row'}>
             <Typography variant="h5">{habit.name}</Typography>
             <Box display="flex">
-              <Chip
-                tooltip="Нравится"
-                label={habit.likes ? habit.likes.length : 0}
-                icon={habit.likes
-                  ? <FavoriteIcon color="primary" />
-                  : <FavoriteBorderIcon htmlColor="#616161" />
-                }
-                bgcolor={theme.background.gradient1}
-              />
-              {
-                habit.experience !== undefined &&
-                <Chip
-                  tooltip='Получено опыта по данной привычке'
-                  icon={<ExplicitIcon htmlColor="#616161" />}
-                  label={habit.experience}
-                  bgcolor={lighten(theme.palette.primary.main, 0.5)}
-                />
-              }
-              {
-                habit.promise &&
-                <Chip
-                  tooltip={`Обещанное количество (${habit.unit ?? 'раз'} в день)`}
-                  icon={<BeenhereIcon htmlColor="#616161" />}
-                  label={habit.promise}
-                  bgcolor={theme.background.gradientSuccess}
-                />
-              }
-              {/* {
-                habit.endsAt &&
-                <Chip
-                  tooltip="Осталось дней"
-                  label={moment(habit.endsAt).diff(new Date(), 'days')}
-                  icon={<TimelapseIcon htmlColor="#616161" />}
-                  bgcolor={theme.background.gradient1}
-                />
-              } */}
+
+              <ChipsBlock habit={habit} editHabit={editHabit} />
+
               <IconButton onClick={() => formik.handleSubmit()} style={{ boxShadow: '19px' }}>
                 <SaveIcon color="primary" />
               </IconButton>
@@ -148,4 +110,4 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
   );
 };
 
-export default SuccessCardEdit;
+export { SuccessCardEdit };

@@ -55,7 +55,7 @@ const useUser = (isMy?: boolean) => {
             .catch((error) => enqueueSnackbar('Произошла ошибка при сохранении: ' + error, { variant: 'error' }));
     };
 
-    return { isAuth, id, name, avatar, experience, editProfile, saveAvatar, addExperience };
+    return { isAuth, id: selectedId, name, avatar, experience, editProfile, saveAvatar, addExperience };
 };
 
 export { useUser };

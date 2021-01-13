@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
+import moment from 'moment';
 import { Typography, Paper, IconButton, Box, useTheme } from '@material-ui/core';
 import { IHabit } from 'features/profile/typings';
 import { getFullSuccess } from 'helpers/utils';
-import moment from 'moment';
-import Chip from 'features/components/common/Chip';
 
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import InsertCommentIcon from '@material-ui/icons/InsertComment';
-import TimelapseIcon from '@material-ui/icons/Timelapse';
-import BeenhereIcon from '@material-ui/icons/Beenhere';
+
+import { ChipsBlock } from '../ChipsBlock';
 
 interface SuccessCardProps {
   habit: IHabit;
@@ -22,11 +19,6 @@ const SuccessCard = (props: SuccessCardProps) => {
 
   const successArray = getFullSuccess(habit.success);
   const [comment, addComment] = useState(false);
-
-  // ! TODO: refactor common on SuccessCard and SuccessCardEdit
-
-  // ! TODO: change likes logic
-  const switchLike = () => editHabit({ id: habit.id, likes: habit.likes ? [...habit.likes, 'Add like'] : ['My like!'] });
 
   const getBackgroundColor = (count?: number) => {
     if (!count) {
@@ -46,37 +38,9 @@ const SuccessCard = (props: SuccessCardProps) => {
             <Typography variant="h5">{habit.name}</Typography>
 
             <Box display="flex" alignItems="center">
-              {
-                habit.promise &&
-                <Chip
-                  tooltip={`Обещанное количество (${habit.unit ?? 'раз'} в день)`}
-                  icon={<BeenhereIcon htmlColor="#616161" />}
-                  label={habit.promise}
-                  bgcolor={theme.background.gradientSuccess}
-                />
-              }
-              {
-                habit.endsAt &&
-                <Chip
-                  tooltip="Осталось дней"
-                  label={moment(habit.endsAt).diff(new Date(), 'days')}
-                  icon={<TimelapseIcon htmlColor="#616161" />}
-                  bgcolor={theme.background.gradient1}
-                />
-              }
-              <Chip
-                tooltip="Нравится"
-                label={habit.likes ? habit.likes.length : 0}
-                icon={(
-                  <IconButton onClick={switchLike}>
-                    {habit.likes
-                      ? <FavoriteIcon color="primary" />
-                      : <FavoriteBorderIcon htmlColor="#616161" />
-                    }
-                  </IconButton>
-                )}
-                bgcolor={theme.background.gradient1}
-              />
+
+              <ChipsBlock habit={habit} editHabit={editHabit} />
+
               <IconButton onClick={() => addComment(!comment)} >
                 {comment
                   ? <InsertCommentIcon color="primary" />
@@ -117,4 +81,4 @@ const SuccessCard = (props: SuccessCardProps) => {
   );
 };
 
-export default SuccessCard;
+export { SuccessCard };
