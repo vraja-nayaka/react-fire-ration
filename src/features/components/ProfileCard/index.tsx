@@ -4,7 +4,7 @@ import { withStyles, lighten } from '@material-ui/core/styles';
 import { theme } from '../../../theme';
 
 import ExperienceAvatar from './ExperienceAvatar';
-import { getNextLevelExperience } from './helpers';
+import { getNextLevelExperience } from '../../../helpers/getNextLevelExperience';
 
 interface ProfileCardProps {
   name: string;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Badge, Box, Avatar, Tooltip, CircularProgress } from '@material-ui/core';
 import { withStyles, createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { getNextLevelExperience } from './helpers';
+import { getNextLevelExperience } from 'helpers/getNextLevelExperience';
 
 interface ProfileCardProps {
     avatar: string;

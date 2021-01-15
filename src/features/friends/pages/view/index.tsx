@@ -6,13 +6,13 @@ import Habits from '../../../components/Habits';
 import { api } from '../../../../api';
 
 const FriendsViewPage = () => {
-  const { name, avatar, id } = api.useUser();
+  const { name, avatar, id, experience,  } = api.useUser();
   const { habits, editHabit } = api.useHabits();
 
   return (
     <Grid container>
       <Grid item xs={12}>
-        <FriendCard name={name} avatar={avatar} level={'1'} userId={id} />
+        <FriendCard name={name} avatar={avatar} experience={experience} userId={id} />
       </Grid>
       <Grid item xs={12}>
         <Habits habits={habits} editHabit={editHabit} />

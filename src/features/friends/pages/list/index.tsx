@@ -1,13 +1,12 @@
-import {SuspenseWithPerf} from 'reactfire';
 import React from 'react';
+import { SuspenseWithPerf } from 'reactfire';
 import { Grid, Paper, Typography, List } from '@material-ui/core';
 import FriendCard from '../../components/FriendCard';
 import { useHistory } from 'react-router-dom';
-import { api } from '../../../../api';
+import { api } from 'api';
 
 const FriendsPage = () => {
   const history = useHistory();
-
   const { friendUsers, otherUsers, subscribeUser, unsubscribeUser } = api.useUsers();
 
   return (
@@ -21,9 +20,7 @@ const FriendsPage = () => {
             friendUsers.length !== 0
               ? friendUsers.map((user) => (
                 <List key={user.userId}>
-                  <FriendCard {...user} userId={user.userId} level={'1'}
-                    unsubscribeUser={unsubscribeUser}
-                    onClick={() => history.push(`/friends/${user.userId}`)} />
+                  <FriendCard {...user} unsubscribeUser={unsubscribeUser} onClick={() => history.push(`/friends/${user.userId}`)} />
                 </List>
               ))
               : <Typography align="center">Нажмите "+", чтобы добавить друга</Typography>
@@ -34,8 +31,7 @@ const FriendsPage = () => {
           {
             otherUsers.map((user) => (
               <List key={user.userId}>
-                <FriendCard {...user} userId={user.userId} level={'1'} subscribeUser={subscribeUser}
-                  onClick={() => history.push(`/friends/${user.userId}`)} />
+                <FriendCard {...user} subscribeUser={subscribeUser} onClick={() => history.push(`/friends/${user.userId}`)} />
               </List>
             ))
           }
