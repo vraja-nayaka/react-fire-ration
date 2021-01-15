@@ -1,7 +1,7 @@
 import React from 'react';
 import { SuspenseWithPerf } from 'reactfire';
 import { Grid, Container, CssBaseline, Box, makeStyles } from '@material-ui/core';
-import LoadingScreen from '../LoadingScreen';
+import LoadingScreen from 'features/components/LoadingScreen';
 
 interface LayoutPrors {
   header: React.ReactNode;
@@ -11,7 +11,7 @@ interface LayoutPrors {
 
 const useStyles = makeStyles({
   root: {
-    maxHeight: 'calc(100vh - 56px)',
+    maxHeight: 'calc(100vh - 50px)',
     overflowY: 'auto',
   },
   nav: {

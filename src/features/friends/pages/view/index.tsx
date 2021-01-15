@@ -1,9 +1,10 @@
 import { SuspenseWithPerf } from 'reactfire';
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import FriendCard from '../../components/FriendCard';
-import Habits from '../../../components/Habits';
-import { api } from '../../../../api';
+import FriendCard from 'features/components/FriendCard';
+import Habits from 'features/components/Habits';
+import LoadingScreen from 'features/components/LoadingScreen';
+import { api } from 'api';
 
 const FriendsViewPage = () => {
   const { name, avatar, id, experience,  } = api.useUser();
@@ -21,6 +22,6 @@ const FriendsViewPage = () => {
   );
 };
 
-const FriendsViewPageContainer = () => <SuspenseWithPerf fallback={'loading Friends View Page...'} traceId={'load-FriendsViewPage'}><FriendsViewPage /></SuspenseWithPerf>;
+const FriendsViewPageContainer = () => <SuspenseWithPerf fallback={<LoadingScreen />} traceId={'load-FriendsViewPage'}><FriendsViewPage /></SuspenseWithPerf>;
 
 export default FriendsViewPageContainer;

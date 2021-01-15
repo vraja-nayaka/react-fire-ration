@@ -4,10 +4,12 @@ import {
 import React from 'react';
 import { Grid, Box } from '@material-ui/core';
 // import StatsValues from '../components/StatsValues';
-import AddHabit from '../components/AddHabit';
+import AddHabit from 'features/components/AddHabit';
 // import FixingProbability from '../components/FixingProbability';
-import Habits from '../components/Habits';
-import { api } from '../../api';
+import Habits from 'features/components/Habits';
+import LoadingScreen from 'features/components/LoadingScreen';
+
+import { api } from 'api';
 
 const ProfilePage = () => {
   const { habits, addHabit, editHabit } = api.useHabits(true);
@@ -33,6 +35,6 @@ const ProfilePage = () => {
   );
 }
 
-const ProfilePageContainer = () => <SuspenseWithPerf fallback={'loading profile...'} traceId={'load-profile'}><ProfilePage /></SuspenseWithPerf>
+const ProfilePageContainer = () => <SuspenseWithPerf fallback={<LoadingScreen />} traceId={'load-profile'}><ProfilePage /></SuspenseWithPerf>
 
 export default ProfilePageContainer;
