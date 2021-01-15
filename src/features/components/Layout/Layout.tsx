@@ -11,7 +11,7 @@ interface LayoutPrors {
 
 const useStyles = makeStyles({
   root: {
-    maxHeight: 'calc(100vh - 50px)',
+    maxHeight: '100vh',
     overflowY: 'auto',
   },
   nav: {
@@ -38,7 +38,7 @@ const Layout = ({ header, navbar, content }: LayoutPrors) => {
               {header}
             </Grid>
             <Grid item xs={12}>
-              <Box bgcolor="#CCC" display="flex" alignItems="center" justifyContent="center" minHeight="calc(100vh - 133px)">
+              <Box bgcolor="#CCC" display="flex" alignItems="center" justifyContent="center" minHeight="100vh">
                 {content}
               </Box>
             </Grid>

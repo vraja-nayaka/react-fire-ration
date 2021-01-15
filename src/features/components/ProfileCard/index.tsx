@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { Box, LinearProgress, Paper, ListItemText } from '@material-ui/core';
 import { withStyles, lighten } from '@material-ui/core/styles';
-import { theme } from '../../../theme';
+import { theme } from 'theme';
 
 import ExperienceAvatar from './ExperienceAvatar';
-import { getNextLevelExperience } from '../../../helpers/getNextLevelExperience';
+import { getNextLevelExperience } from 'helpers/getNextLevelExperience';
 
 interface ProfileCardProps {
   name: string;
