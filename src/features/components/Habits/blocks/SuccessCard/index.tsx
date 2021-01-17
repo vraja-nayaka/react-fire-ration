@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import moment from 'moment';
-import { Typography, Paper, IconButton, Box, useTheme } from '@material-ui/core';
+import { Typography, Paper, Box, useTheme } from '@material-ui/core';
 import { IHabit } from 'features/profile/typings';
 import { getFullSuccess } from 'helpers/utils';
-
-import InsertCommentIcon from '@material-ui/icons/InsertComment';
 
 import { ChipsBlock } from '../ChipsBlock';
 
@@ -18,7 +16,6 @@ const SuccessCard = (props: SuccessCardProps) => {
   const theme = useTheme();
 
   const successArray = getFullSuccess(habit.success);
-  const [comment, addComment] = useState(false);
 
   const getBackgroundColor = (count?: number) => {
     if (!count) {
@@ -38,15 +35,7 @@ const SuccessCard = (props: SuccessCardProps) => {
             <Typography variant="h5">{habit.name}</Typography>
 
             <Box display="flex" alignItems="center">
-
               <ChipsBlock habit={habit} editHabit={editHabit} />
-
-              <IconButton onClick={() => addComment(!comment)} >
-                {comment
-                  ? <InsertCommentIcon color="primary" />
-                  : <InsertCommentIcon htmlColor="#616161" />
-                }
-              </IconButton>
             </Box>
           </Box>
           <Box display="flex" overflow="auto">
@@ -69,7 +58,7 @@ const SuccessCard = (props: SuccessCardProps) => {
                 >
                   <Box>
                     <Typography variant="body1">{moment(data.day).format('DD.MM')}</Typography>
-                    <Typography variant="body1">{data.count}</Typography>
+                    <Typography variant="body1" align="center">{data.count}</Typography>
                   </Box>
                 </Box>
               ))

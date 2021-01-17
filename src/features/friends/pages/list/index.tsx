@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import { SuspenseWithPerf } from 'reactfire';
+import { useHistory } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 import { Box, Grid, Paper, Typography, List, Tabs, Tab } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 import FriendCard from 'features/components/FriendCard';
 import LoadingScreen from 'features/components/LoadingScreen';
-import { useTheme } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
-
 import { api } from 'api';
 
 interface TabPanelProps {
   children?: React.ReactNode;
   dir?: string;
-  index: any;
-  value: any;
+  index: number;
+  value: number;
 }
 
 function TabPanel(props: TabPanelProps) {

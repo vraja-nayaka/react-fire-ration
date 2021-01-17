@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { api } from 'api';
 
-import { IconButton } from '@material-ui/core';
+import { Box, IconButton, Typography } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 
 import Chip from 'features/components/common/Chip';
@@ -26,13 +26,12 @@ export const ChipsBlock = ({ habit, editHabit }: ChipsBlockProps) => {
 
   const hasMyLike = habit.likes?.includes(currentUserId);
 
+  const likesCount = habit.likes ? habit.likes.length : 0;
+
   const switchLike = () => {
-    console.log("habit.likes", habit.likes)
     if (hasMyLike) {
-      console.log("my", habit.likes?.filter((likeBy) => likeBy !== currentUserId))
       editHabit({ id: habit.id, likes: habit.likes?.filter((likeBy) => likeBy !== currentUserId) });
     } else {
-      console.log("no my", habit.likes ? [...habit.likes, currentUserId] : [currentUserId])
       editHabit({ id: habit.id, likes: habit.likes ? [...habit.likes, currentUserId] : [currentUserId] });
     }
   }
@@ -57,19 +56,15 @@ export const ChipsBlock = ({ habit, editHabit }: ChipsBlockProps) => {
           bgcolor={theme.background.gradient1}
         />
       }
-      <Chip
-        tooltip="Нравится"
-        label={habit.likes ? habit.likes.length : 0}
-        icon={(
-          <IconButton onClick={switchLike}>
-            {hasMyLike
-              ? <FavoriteIcon color="primary" />
-              : <FavoriteBorderIcon htmlColor="#616161" />
-            }
-          </IconButton>
-        )}
-        bgcolor={theme.background.gradient1}
-      />
+      <IconButton onClick={switchLike}>
+        {hasMyLike
+          ? <FavoriteIcon color="primary" />
+          : <FavoriteBorderIcon htmlColor="#616161" />
+        }
+        <Box marginLeft={1}>
+          <Typography variant="body1">{likesCount}</Typography>
+        </Box>
+      </IconButton>
     </>
   );
 };
