@@ -1,3 +1,5 @@
+export type Timestamp = number;
+
 export interface IProfile {
     userId: string;
     name: string;
@@ -7,9 +9,8 @@ export interface IProfile {
     friends: string[];
     promise: number;
     file?: any;
+    lastOnlineTime: Timestamp;
 }
-
-export type Timestamp = number;
 
 export interface ISuccess {
     day: Timestamp;

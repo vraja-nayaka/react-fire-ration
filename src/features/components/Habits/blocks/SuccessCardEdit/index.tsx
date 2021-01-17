@@ -32,7 +32,20 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
   };
 
   const onSubmit = (values: IHabit) => {
-    const nextHabitExp = values.success.filter((value) => value.count && value.count >= values.promise).length * 2;
+
+    const nextHabitExp = values.success.reduce((acc, value) => {
+      let addExp = 0;
+      if (value.count) {
+        if (value.count >= values.promise) {
+          addExp = 2;
+        } else {
+          addExp = 1;
+        }
+      };
+      return acc + addExp;
+    }, 0);
+
+
     addExperience(nextHabitExp - values.experience);
     editHabit({ ...values, experience: nextHabitExp });
   };

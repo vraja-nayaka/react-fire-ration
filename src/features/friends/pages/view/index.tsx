@@ -7,13 +7,13 @@ import LoadingScreen from 'features/components/LoadingScreen';
 import { api } from 'api';
 
 const FriendsViewPage = () => {
-  const { name, avatar, id, experience,  } = api.useUser();
+  const { name, avatar, id, experience, lastOnlineTime } = api.useUser();
   const { habits, editHabit } = api.useHabits();
 
   return (
     <Grid container>
       <Grid item xs={12}>
-        <FriendCard name={name} avatar={avatar} experience={experience} userId={id} />
+        <FriendCard name={name} avatar={avatar} experience={experience} lastOnlineTime={lastOnlineTime} userId={id} />
       </Grid>
       <Grid item xs={12}>
         <Habits habits={habits} editHabit={editHabit} />

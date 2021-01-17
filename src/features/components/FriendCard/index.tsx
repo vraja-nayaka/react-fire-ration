@@ -1,4 +1,6 @@
 import React, { useMemo } from 'react';
+import moment from 'moment';
+
 import { IconButton, ListItem, Avatar, ListItemAvatar, ListItemText, ListItemSecondaryAction, Paper, makeStyles } from '@material-ui/core';
 import ControlPointDuplicateIcon from '@material-ui/icons/ControlPointDuplicate';
 import IndeterminateCheckBoxIcon from '@material-ui/icons/IndeterminateCheckBox';
@@ -8,6 +10,7 @@ interface FriendCardProps {
   avatar: string;
   name: string;
   userId: string;
+  lastOnlineTime: number;
   experience: number;
   subscribeUser?: (id: string) => void;
   unsubscribeUser?: (id: string) => void;
@@ -21,9 +24,24 @@ const useStyles = makeStyles({
 });
 
 const FriendCard = (props: FriendCardProps) => {
-  const { avatar, name, userId, experience, subscribeUser, unsubscribeUser, onClick } = props;
+  const { avatar, name, userId, experience, lastOnlineTime, subscribeUser, unsubscribeUser, onClick } = props;
   const classes = useStyles(!!onClick);
   const { level } = useMemo(() => getNextLevelExperience(experience), [experience]);
+
+
+  const getUserLastOnlineMessage = (timestamp: number) => {
+    const isUserOnline = timestamp ? moment(moment.now()).diff(timestamp, 'minutes') < 3 : false;
+
+    if (isUserOnline) {
+      const userOnlineMessage = 'Онлайн';
+
+      return userOnlineMessage;
+    }
+
+    const lastOnlineMessage = `Был в сети ${timestamp ? moment(timestamp).fromNow() : 'очень давно'}`;
+
+    return lastOnlineMessage;
+  }
 
   return (
     <Paper elevation={3} className={classes.pointer}>
@@ -33,7 +51,7 @@ const FriendCard = (props: FriendCardProps) => {
         </ListItemAvatar>
         <ListItemText
           primary={name}
-          secondary={`Уровень: ${level}, Id: ${userId.substr(-4, 4)}`}
+          secondary={`Уровень: ${level}, ${getUserLastOnlineMessage(lastOnlineTime)}`}
         />
         <ListItemSecondaryAction>
           {

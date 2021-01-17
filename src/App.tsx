@@ -2,6 +2,7 @@ import React from 'react';
 import { AuthCheck } from 'reactfire';
 import { Route, Switch, useLocation, useHistory } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
+import 'moment/locale/ru';
 
 import ProfilePage from './features/profile';
 import { Collections } from './features/collections';
