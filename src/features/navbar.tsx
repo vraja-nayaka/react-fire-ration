@@ -38,9 +38,6 @@ export const Navbar = () => {
       />
       <BottomNavigation
         value={currentIndex}
-        // onChange={(event, newValue) => {
-        //   setValue(newValue);
-        // }}
         showLabels
       >
         <BottomNavigationAction
