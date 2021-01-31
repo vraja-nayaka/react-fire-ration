@@ -1,10 +1,8 @@
 import React, { useMemo } from 'react';
-import { Box, LinearProgress, Paper, ListItemText } from '@material-ui/core';
-import { withStyles, lighten } from '@material-ui/core/styles';
-import { theme } from 'theme';
+import { Box, Paper, ListItemText } from '@material-ui/core';
 
-import ExperienceAvatar from './ExperienceAvatar';
 import { getNextLevelExperience } from 'helpers/getNextLevelExperience';
+import ExperienceAvatar from './ExperienceAvatar';
 
 interface ProfileCardProps {
   name: string;
@@ -13,20 +11,9 @@ interface ProfileCardProps {
   children?: React.ReactNode;
 }
 
-const BorderLinearProgress = withStyles({
-  root: {
-    height: 10,
-    backgroundColor: lighten(theme.palette.primary.main, 0.5),
-  },
-  bar: {
-    borderRadius: 20,
-    backgroundColor: theme.palette.primary.main,
-  },
-})(LinearProgress);
-
 const ProfileCard = (props: ProfileCardProps) => {
   const { name, experience, avatar, children } = props;
-  const { experienceProgress, level } = useMemo(() => getNextLevelExperience(experience), [experience]);
+  const { level } = useMemo(() => getNextLevelExperience(experience), [experience]);
 
   return (
     <Paper>
@@ -42,11 +29,6 @@ const ProfileCard = (props: ProfileCardProps) => {
         </Box>
         {children}
       </Box>
-      <BorderLinearProgress
-        variant="determinate"
-        color="secondary"
-        value={experienceProgress}
-      />
     </Paper >
   );
 };
