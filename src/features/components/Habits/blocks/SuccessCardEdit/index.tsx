@@ -97,9 +97,10 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
           <Box
             display="flex"
             justifyContent="space-between"
+            alignItems="center"
             flexDirection={smDown ? "column" : "row"}
           >
-            <Typography variant="h5">{habit.name}</Typography>
+            <Typography variant="h6">{habit.name}</Typography>
             <Box display="flex">
               <ChipsBlock habit={habit} editHabit={editHabit} />
 

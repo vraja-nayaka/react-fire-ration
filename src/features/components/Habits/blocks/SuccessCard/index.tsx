@@ -43,7 +43,7 @@ const SuccessCard = (props: SuccessCardProps) => {
       <form id="progress">
         <Box p={2}>
           <Box display="flex" justifyContent="space-between">
-            <Typography variant="h5">{habit.name}</Typography>
+            <Typography variant="h6">{habit.name}</Typography>
 
             <Box display="flex" alignItems="center">
               <ChipsBlock habit={habit} editHabit={editHabit} />

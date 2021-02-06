@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid, Typography, Paper } from "@material-ui/core";
+import { Box, Typography, Paper } from "@material-ui/core";
 import { IHabit } from "../../profile/typings";
 import { SuccessCardEdit } from "./blocks/SuccessCardEdit";
 import { SuccessCard } from "./blocks/SuccessCard";
