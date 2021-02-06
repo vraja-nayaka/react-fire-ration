@@ -15,9 +15,12 @@ interface LayoutPrors {
   content: React.ReactNode;
 }
 
+const headerHeight = 64;
+
 const useStyles = makeStyles({
   root: {
-    maxHeight: "100vh",
+    marginTop: headerHeight,
+    maxHeight: "calc(100vh - 64px)",
     overflowY: "auto",
   },
   nav: {
@@ -43,15 +46,17 @@ const Layout = ({ header, navbar, content }: LayoutPrors) => {
             <Grid item xs={12}>
               {header}
             </Grid>
-            <Box
-              bgcolor="#CCC"
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              maxHeight="calc(100vh-134px)"
-            >
-              {content}
-            </Box>
+            <Grid item xs={12}>
+              <Box
+                bgcolor="#CCC"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                maxHeight="calc(100vh-134px)"
+              >
+                {content}
+              </Box>
+            </Grid>
           </Grid>
           <Grid className={classes.nav}>{navbar}</Grid>
         </SuspenseWithPerf>

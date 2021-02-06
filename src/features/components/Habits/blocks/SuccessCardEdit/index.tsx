@@ -13,6 +13,7 @@ import { IHabit } from "features/profile/typings";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { getNewSucces } from "features/components/Habits/helpers";
+import { getSuccessBackgroundColor, getNextHabitExperience } from "helpers/getNextHabitExperience";
 
 import SaveIcon from "@material-ui/icons/Save";
 import ArchiveIcon from "@material-ui/icons/Archive";
@@ -38,33 +39,12 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
     success: getNewSucces(habit.success),
   };
 
+
   const onSubmit = (values: IHabit) => {
-    const nextHabitExp = values.success.reduce((acc, value) => {
-      let addExp = 0;
-      if (value.count) {
-        if (value.count >= values.promise) {
-          addExp = 2;
-        } else {
-          addExp = 1;
-        }
-      }
-      return acc + addExp;
-    }, 0);
+    const nextHabitExp = getNextHabitExperience(values.success, habit.promise);
 
     addExperience(nextHabitExp - values.experience);
     editHabit({ ...values, experience: nextHabitExp });
-  };
-
-  const getBackgroundColor = (count?: number) => {
-    if (!count) {
-      return theme.palette.background.paper;
-    }
-
-    const isSuccess = count >= habit.promise;
-
-    return isSuccess
-      ? theme.background.gradientSuccess
-      : theme.background.gradient1;
   };
 
   const formik = useFormik({
@@ -132,7 +112,7 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
                   padding={1}
                   flex="0 0 45px"
                   key={index}
-                  bgcolor={getBackgroundColor(data.count)}
+                  bgcolor={getSuccessBackgroundColor(habit.promise, data.count)}
                   borderRadius={3}
                 >
                   <TextField

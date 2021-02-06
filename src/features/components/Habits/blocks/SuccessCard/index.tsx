@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import moment from "moment";
-import { Typography, Paper, Box, useTheme } from "@material-ui/core";
+import { Typography, Paper, Box } from "@material-ui/core";
 import { IHabit } from "features/profile/typings";
 import { getFullSuccess } from "helpers/utils";
+import { getSuccessBackgroundColor } from "helpers/getNextHabitExperience";
 
 import { ChipsBlock } from "../ChipsBlock";
 
@@ -13,22 +14,9 @@ interface SuccessCardProps {
 
 const SuccessCard = (props: SuccessCardProps) => {
   const { habit, editHabit } = props;
-  const theme = useTheme();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const successArray = getFullSuccess(habit.success);
-
-  const getBackgroundColor = (count?: number) => {
-    if (!count) {
-      return theme.palette.background.paper;
-    }
-
-    const isSuccess = count >= habit.promise;
-
-    return isSuccess
-      ? theme.background.gradientSuccess
-      : theme.background.gradient1;
-  };
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -40,16 +28,21 @@ const SuccessCard = (props: SuccessCardProps) => {
 
   return (
     <Paper elevation={3}>
-      <form id="progress">
+      <form id="friend-progress">
         <Box p={2}>
-          <Box display="flex" justifyContent="space-between">
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <Typography variant="h6">{habit.name}</Typography>
 
             <Box display="flex" alignItems="center">
               <ChipsBlock habit={habit} editHabit={editHabit} />
             </Box>
           </Box>
-          <Box display="flex" overflow="auto">
+          {/* TODO: fix it */}
+          <Box display="flex" maxWidth="600px">
             <Box padding={1}>
               <Box>
                 <Typography variant="body1">Дата</Typography>
@@ -60,25 +53,27 @@ const SuccessCard = (props: SuccessCardProps) => {
                 </Typography>
               </Box>
             </Box>
-            {successArray.map((data, index) => (
-              <Box
-                padding={1}
-                flex="0 0 45px"
-                key={index}
-                bgcolor={getBackgroundColor(data.count)}
-                borderRadius={3}
-              >
-                <Box>
-                  <Typography variant="body1">
-                    {moment(data.day).format("DD.MM")}
-                  </Typography>
-                  <Typography variant="body1" align="center">
-                    {data.count}
-                  </Typography>
+            <Box display="flex" overflow="auto">
+              {successArray.map((data, index) => (
+                <Box
+                  padding={1}
+                  flex="0 0 45px"
+                  key={index}
+                  bgcolor={getSuccessBackgroundColor(habit.promise, data.count)}
+                  borderRadius={3}
+                >
+                  <Box>
+                    <Typography variant="body2">
+                      {moment(data.day).format("DD.MM")}
+                    </Typography>
+                    <Typography variant="body1" align="center">
+                      {data.count}
+                    </Typography>
+                  </Box>
                 </Box>
-              </Box>
-            ))}
-            <div ref={scrollRef} />
+              ))}
+              <div ref={scrollRef} />
+            </Box>
           </Box>
         </Box>
       </form>

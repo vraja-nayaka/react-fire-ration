@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SuspenseWithPerf } from 'reactfire';
 import { useHistory } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
-import { Box, Grid, Paper, Typography, List, Tabs, Tab } from '@material-ui/core';
+import { Box, Paper, Typography, List, Tabs, Tab } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 import FriendCard from 'features/components/FriendCard';
 import LoadingScreen from 'features/components/LoadingScreen';
@@ -55,8 +55,8 @@ const FriendsPage = () => {
 
   return (
     <Paper>
-      <Grid container >
-        <Grid item xs={12}>
+      <Box flexDirection="column">
+        <Box>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -67,8 +67,8 @@ const FriendsPage = () => {
             <Tab label="Подписки" {...a11yProps(0)} />
             <Tab label="Все пользователи" {...a11yProps(1)} />
           </Tabs>
-        </Grid>
-        <Grid item xs={12}>
+        </Box>
+        <Box>
 
           <SwipeableViews
             axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -93,8 +93,8 @@ const FriendsPage = () => {
               ))}
             </TabPanel>
           </SwipeableViews>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Paper>
   );
 };
