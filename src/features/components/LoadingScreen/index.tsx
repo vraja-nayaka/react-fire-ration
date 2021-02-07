@@ -1,39 +1,36 @@
-import React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import CircularProgress, { CircularProgressProps } from '@material-ui/core/CircularProgress';
+import React from "react";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
+import CircularProgress, {
+  CircularProgressProps,
+} from "@material-ui/core/CircularProgress";
+import { Box, Typography } from "@material-ui/core";
+import { footerHeight, headerHeight } from "helpers/constatnts";
+import { getRandom, inspirationalPhrases } from "helpers/phrases";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      position: 'relative',
-      height: "100vh",
-      backgroundColor: '#ffe',
+      height: `calc(100vh - ${headerHeight + footerHeight}px)`,
+      backgroundColor: "#ffe",
     },
     bottom: {
-      color: theme.palette.grey[theme.palette.type === 'light' ? 200 : 700],
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      bottom: '50%',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      width: '100px',
+      color: theme.palette.grey[theme.palette.type === "light" ? 400 : 700],
+      position: "absolute",
+      animationDuration: "800ms",
+      top: 0,
+      left: -40,
     },
     top: {
-      color: 'primary',
-      animationDuration: '600ms',
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      bottom: '50%',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      width: '100px',
+      color: "primary",
+      animationDuration: "600ms",
+      position: "absolute",
+      top: 0,
+      left: -40,
     },
     circle: {
-      strokeLinecap: 'round',
+      strokeLinecap: "round",
     },
-  }),
+  })
 );
 
 const LoadingScreen = (props: CircularProgressProps) => {
@@ -41,25 +38,40 @@ const LoadingScreen = (props: CircularProgressProps) => {
 
   return (
     <div className={classes.root}>
-      <CircularProgress
-        variant="determinate"
-        className={classes.bottom}
-        size={80}
-        thickness={4}
-        {...props}
-        value={100}
-      />
-      <CircularProgress
-        variant="indeterminate"
-        disableShrink
-        className={classes.top}
-        classes={{
-          circle: classes.circle,
-        }}
-        size={80}
-        thickness={4}
-        {...props}
-      />
+      <Box
+        height={`calc(100vh - ${headerHeight + footerHeight}px)`}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        flexDirection="column"
+      >
+        <Box marginBottom={5}>
+          <Typography variant="h6" align="center" color="textSecondary">
+            {getRandom(inspirationalPhrases)}
+          </Typography>
+        </Box>
+        <Box position="relative">
+          <CircularProgress
+            variant="indeterminate"
+            disableShrink
+            className={classes.bottom}
+            size={80}
+            thickness={6}
+            {...props}
+            value={30}
+          />
+          <CircularProgress
+            variant="indeterminate"
+            className={classes.top}
+            classes={{
+              circle: classes.circle,
+            }}
+            size={80}
+            thickness={2}
+            {...props}
+          />
+        </Box>
+      </Box>
     </div>
   );
 };
