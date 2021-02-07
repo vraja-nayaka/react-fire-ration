@@ -8,6 +8,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import LoadingScreen from "features/components/LoadingScreen";
+import { footerHeight, headerHeight } from "helpers/constatnts";
 
 interface LayoutPrors {
   header: React.ReactNode;
@@ -15,12 +16,10 @@ interface LayoutPrors {
   content: React.ReactNode;
 }
 
-const headerHeight = 64;
-
 const useStyles = makeStyles({
   root: {
     marginTop: headerHeight,
-    maxHeight: "calc(100vh - 64px)",
+    maxHeight: `calc(100vh - ${headerHeight + footerHeight}px)`,
     overflowY: "auto",
   },
   nav: {
@@ -48,10 +47,6 @@ const Layout = ({ header, navbar, content }: LayoutPrors) => {
             </Grid>
             <Grid item xs={12}>
               <Box
-                bgcolor="#CCC"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
                 maxHeight="calc(100vh-134px)"
               >
                 {content}

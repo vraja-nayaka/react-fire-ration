@@ -36,13 +36,11 @@ const SuccessCard = (props: SuccessCardProps) => {
             alignItems="center"
           >
             <Typography variant="h6">{habit.name}</Typography>
-
             <Box display="flex" alignItems="center">
               <ChipsBlock habit={habit} editHabit={editHabit} />
             </Box>
           </Box>
-          {/* TODO: fix it */}
-          <Box display="flex" maxWidth="600px">
+          <Box display="flex">
             <Box padding={1}>
               <Box>
                 <Typography variant="body1">Дата</Typography>

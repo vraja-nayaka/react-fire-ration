@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { SuspenseWithPerf } from 'reactfire';
-import { useHistory } from 'react-router-dom';
-import SwipeableViews from 'react-swipeable-views';
-import { Box, Paper, Typography, List, Tabs, Tab } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
-import FriendCard from 'features/components/FriendCard';
-import LoadingScreen from 'features/components/LoadingScreen';
-import { api } from 'api';
+import React, { useState } from "react";
+import { SuspenseWithPerf } from "reactfire";
+import { useHistory } from "react-router-dom";
+import SwipeableViews from "react-swipeable-views";
+import { Box, Paper, Typography, List, Tabs, Tab } from "@material-ui/core";
+import { useTheme } from "@material-ui/core/styles";
+import FriendCard from "features/components/FriendCard";
+import LoadingScreen from "features/components/LoadingScreen";
+import { api } from "api";
+import { footerHeight, headerHeight, tabsHeight } from "helpers/constatnts";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -19,7 +20,8 @@ function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
   return (
-    <Box height="calc(100vh - 180px)"
+    <Box
+      height={`calc(100vh - ${headerHeight + footerHeight + tabsHeight}px)`}
       role="tabpanel"
       hidden={value !== index}
       id={`full-width-tabpanel-${index}`}
@@ -34,14 +36,19 @@ function TabPanel(props: TabPanelProps) {
 function a11yProps(index: number) {
   return {
     id: `full-width-tab-${index}`,
-    'aria-controls': `full-width-tabpanel-${index}`,
+    "aria-controls": `full-width-tabpanel-${index}`,
   };
 }
 
 const FriendsPage = () => {
   const history = useHistory();
   const theme = useTheme();
-  const { friendUsers, otherUsers, subscribeUser, unsubscribeUser } = api.useUsers();
+  const {
+    friendUsers,
+    otherUsers,
+    subscribeUser,
+    unsubscribeUser,
+  } = api.useUsers();
 
   const [value, setValue] = useState(0);
 
@@ -69,26 +76,36 @@ const FriendsPage = () => {
           </Tabs>
         </Box>
         <Box>
-
           <SwipeableViews
-            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+            axis={theme.direction === "rtl" ? "x-reverse" : "x"}
             index={value}
             onChangeIndex={handleChangeIndex}
           >
             <TabPanel value={value} index={0} dir={theme.direction}>
-              {friendUsers.length !== 0
-                ? friendUsers.map((user) => (
+              {friendUsers.length !== 0 ? (
+                friendUsers.map((user) => (
                   <List key={user.userId}>
-                    <FriendCard {...user} unsubscribeUser={unsubscribeUser} onClick={() => history.push(`/friends/${user.userId}`)} />
+                    <FriendCard
+                      {...user}
+                      unsubscribeUser={unsubscribeUser}
+                      onClick={() => history.push(`/friends/${user.userId}`)}
+                    />
                   </List>
                 ))
-                : <Typography align="center">Нажмите "+", чтобы подписаться</Typography>
-              }
+              ) : (
+                <Typography align="center">
+                  Нажмите "+", чтобы подписаться
+                </Typography>
+              )}
             </TabPanel>
             <TabPanel value={value} index={1} dir={theme.direction}>
               {otherUsers.map((user) => (
                 <List key={user.userId}>
-                  <FriendCard {...user} subscribeUser={subscribeUser} onClick={() => history.push(`/friends/${user.userId}`)} />
+                  <FriendCard
+                    {...user}
+                    subscribeUser={subscribeUser}
+                    onClick={() => history.push(`/friends/${user.userId}`)}
+                  />
                 </List>
               ))}
             </TabPanel>
@@ -99,6 +116,10 @@ const FriendsPage = () => {
   );
 };
 
-const FriendsPageContainer = () => <SuspenseWithPerf fallback={<LoadingScreen />} traceId={'load-profile'}><FriendsPage /></SuspenseWithPerf>;
+const FriendsPageContainer = () => (
+  <SuspenseWithPerf fallback={<LoadingScreen />} traceId={"load-profile"}>
+    <FriendsPage />
+  </SuspenseWithPerf>
+);
 
 export default FriendsPageContainer;

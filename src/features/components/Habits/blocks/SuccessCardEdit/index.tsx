@@ -39,7 +39,6 @@ const SuccessCardEdit = (props: SuccessCardEditProps) => {
     success: getNewSucces(habit.success),
   };
 
-
   const onSubmit = (values: IHabit) => {
     const nextHabitExp = getNextHabitExperience(values.success, habit.promise);
 
